@@ -1,0 +1,2051 @@
+//////////////
+
+SQL> SELECT t_03.ritems_tagu, t_03.puid, t_02.pcreation_date FROM PWORKSPACEOBJECT t_01 , PPOM_APPLICATION_OBJECT t_02 , PITEMREVISION t_03 WHERE ( ( ( t_03.ritems_tagu IN  ('QmtZSMoOp2irgA', 'QunZSMoOp2irgA' ) AND ( ( t_01.pactive_seq != 0 ) AND (t_01.VLA_572_14 = 0 ) ) ) AND t_02.pcreation_date IN  ( SELECT  MAX ( t_05.pcreation_date ) AS max_5 FROM PWORKSPACEOBJECT t_04 , PPOM_APPLICATION_OBJECT t_05 , PITEMREVISION t_06 WHERE ( ( ( t_03.ritems_tagu = t_06.ritems_tagu ) AND ( ( t_04.pactive_seq != 0 ) AND (t_04.VLA_572_14 = 0 ) ) ) AND ( t_04.puid = t_05.puid AND t_05.puid = t_06.puid ) ) ) ) AND ( t_01.puid = t_02.puid AND t_02.puid = t_03.puid ) );
+
+RITEMS_TAGU     PUID            PCREATION
+--------------- --------------- ---------
+QmtZSMoOp2irgA  QqjZSMoOp2irgA  18-APR-24
+QunZSMoOp2irgA  QutZSMoOp2irgA  18-APR-24
+
+///////////////
+
+SELECT column_name FROM user_tab_columns WHERE table_name = 'POMQUERY_UI' ORDER BY column_name ASC;
+
+//////////////
+
+SQL> SELECT   t_01.puid  AS somestring FROM PPSOCCURRENCE t_01 WHERE ( t_01.rparent_bvru = 'gCnZSMoOp2irgA');
+
+SOMESTRING
+---------------
+gGiZSMoOp2irgA
+gGmZSMoOp2irgA
+
+/////////////
+table PIMANRELATION
+
+
+PUID            RPRIMARY_OBJECT RPRIMARY_OBJECTC RSECONDARY_OBJE
+--------------- --------------- ---------------- ---------------
+RSECONDARY_OBJECTC RRELATION_TYPEU RRELATION_TYPEC RUSER_DATAU     RUSER_DATAC
+------------------ --------------- --------------- --------------- -----------
+gOvZRrE6p2irgA  gOpZRrE6p2irgA              1045 gOtZRrE6p2irgA
+               617 hsmZgfXsp2irgA              211 AAAAAAAAAAAAAA           -1
+
+gWlZRrE6p2irgA  gWhZRrE6p2irgA              1042 gWjZRrE6p2irgA
+               617 hsmZgfXsp2irgA              211 AAAAAAAAAAAAAA           -1
+
+gWtZRrE6p2irgA  gWnZRrE6p2irgA              1045 gWrZRrE6p2irgA
+               617 hsmZgfXsp2irgA              211 AAAAAAAAAAAAAA           -1
+
+
+PUID            RPRIMARY_OBJECT RPRIMARY_OBJECTC RSECONDARY_OBJE
+--------------- --------------- ---------------- ---------------
+RSECONDARY_OBJECTC RRELATION_TYPEU RRELATION_TYPEC RUSER_DATAU     RUSER_DATAC
+------------------ --------------- --------------- --------------- -----------
+gavZRrE6p2irgA  garZRrE6p2irgA              1042 gatZRrE6p2irgA
+               617 hsmZgfXsp2irgA              211 AAAAAAAAAAAAAA           -1
+
+
+////////////
+
+SQL> select * from PGROUPMEMBER p;
+
+PUID            RROLEU              RROLEC    PSTATUS PDEFAULT_ROLE
+--------------- --------------- ---------- ---------- -------------
+AwiZgf2kp2irgA  AcuZgf2kp2irgA         336          0             0
+AwvZgf2kp2irgA  AAAAAAAAAAAAAA          -1          0             0
+gInZgf2kp2irgA  gEiZgf2kp2irgA         336          0             0
+gsjZgf9Lp2irgA  gshZgf2kp2irgA         336          0             0
+
+////////////
+
+SQL> select * from PPOM_MEMBER p;
+
+PUID            RUSERU              RUSERC RGROUPU            RGROUPC
+--------------- --------------- ---------- --------------- ----------
+PMEMBERSHIP_DATA_SOURCE PMEMBERSH        PGA
+----------------------- --------- ----------
+AwiZgf2kp2irgA  AsmZgf2kp2irgA         702 AkiZgf2kp2irgA         488
+                      0                    0
+
+AwvZgf2kp2irgA  AsmZgf2kp2irgA         702 AsjZgf2kp2irgA         488
+                      0                    1
+
+gInZgf2kp2irgA  AsmZgf2kp2irgA         702 gEuZgf2kp2irgA         488
+                      0                    1
+
+
+PUID            RUSERU              RUSERC RGROUPU            RGROUPC
+--------------- --------------- ---------- --------------- ----------
+PMEMBERSHIP_DATA_SOURCE PMEMBERSH        PGA
+----------------------- --------- ----------
+gsjZgf9Lp2irgA  gonZgf9Lp2irgA         702 gwnZgf2kp2irgA         488
+
+////////////
+
+table PAM_ACL
+
+
+PUID
+---------------
+PACL_NAME
+--------------------------------------------------------------------------------
+PACL_FLAG    VLA_20_6
+---------- ----------
+
+wgrZgfMip2irgA
+Digital Sign Dataset
+RULETREE
+
+///////////////
+
+table PAM_ACE 
+
+PUID            PPROTECTION_ID
+--------------- ----------------------------------------------------------------
+RACCESSOR_IDU   RACCESSOR_IDC RACL_IDU          RACL_IDC
+--------------- ------------- --------------- ----------
+wcmZgfMip2irgA  c-
+gFqZgf0Wp2irgA             15 wcjZgfMip2irgA          20
+
+wcpZgfMip2irgA  c-
+gFtZgf0Wp2irgA             15 wcjZgfMip2irgA          20
+
+wcsZgfMip2irgA  -c
+gFnZgf0Wp2irgA             15 wcjZgfMip2irgA          20
+
+
+
+//////////////
+ table PIMANCOMPOUNDPROPDEF *
+
+PUID            PCOMPOUND_PROP_NAME
+--------------- --------------------------------
+PDISPLAY_TYPE_NAME               PSOURCE_TYPE_NAME
+-------------------------------- --------------------------------
+PSOURCE_PROP_NAME                 VLA_624_5 PIS_READ_ONLY
+-------------------------------- ---------- -------------
+UserSession                      Role
+role_name                                 2             1
+
+CkvZgfsQp2irgA  user_id
+UserSession                      User
+user_id                                   2             1
+
+
+35 rows selected.
+
+//////////////
+
+SQL> select * from PSEQUENCE;
+
+PUID                  PSEQ PVAL_0
+--------------- ---------- ----------
+SouZgfpOp2irgA           0 1-2
+SouZgfpOp2irgA           1 3-6
+SshZgfpOp2irgA           0 1
+SwqZgfpOp2irgA           0 1-2
+SwqZgfpOp2irgA           1 3-6
+SwtZgfpOp2irgA           0 1
+S4mZgfpOp2irgA           0 1-2
+S4mZgfpOp2irgA           1 3-6
+S4pZgfpOp2irgA           0 1
+
+9 rows selected.
+
+
+//////////////
+
+SQL> select * from ppsoccurrence occ where occ.rchild_itemu='QmtZSMoOp2irgA';
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+gGiZSMoOp2irgA           5
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+                        10                       0          0          0
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+         0          0
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+                               QmtZSMoOp2irgA          1042 AAAAAAAAAAAAAA
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+                 -1 AAAAAAAAAAAAAA                   -1                0
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+        10          0 AAAAAAAAAAAAAA          -1 gCnZSMoOp2irgA           664
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+AAAAAAAAAAAAAA          -1 AAAAAAAAAAAAAA          -1 gGkZSMoOp2irgA
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+         291 AAAAAAAAAAAAAA          -1 AAAAAAAAAAAAAA           -1
+
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+
+
+/////////////
+
+SQL> select * from v$version;
+
+BANNER
+--------------------------------------------------------------------------------
+Oracle Database 11g Release 11.2.0.4.0 - 64bit Production
+PL/SQL Release 11.2.0.4.0 - Production
+CORE    11.2.0.4.0      Production
+TNS for 64-bit Windows: Version 11.2.0.4.0 - Production
+NLSRTL Version 11.2.0.4.0 - Production
+
+
+////////////
+SQL> select * from  PSTRUCTURE_REVISIONS;
+
+PUID                  PSEQ PVALU_0            PVALC_0
+--------------- ---------- --------------- ----------
+QhlZC48lp2irgA           0 gtiZC48lp2irgA         664
+wlkZC48lp2irgA           0 wxkZC48lp2irgA         664
+ASiZC48lp2irgA           0 AeiZC48lp2irgA         664
+QhmZSMoOp2irgA           0 gtmZSMoOp2irgA         664
+wVoZSMoOp2irgA           0 whoZSMoOp2irgA         664
+ASqZSMoOp2irgA           0 AeqZSMoOp2irgA         664
+AuoZSMoOp2irgA           0 QOmZSMoOp2irgA         664
+QipZSMoOp2irgA           0 gCnZSMoOp2irgA         664
+QutZSMoOp2irgA           0 gGuZSMoOp2irgA         664
+gulZSMoOp2irgA           0 wOjZSMoOp2irgA         664
+
+//////////////
+
+SQL> select * from PBOM_VIEW_TAGS;
+
+PUID                  PSEQ PVALU_0            PVALC_0
+--------------- ---------- --------------- ----------
+QdhZC48lp2irgA           0 gpuZC48lp2irgA         663
+whuZC48lp2irgA           0 wxgZC48lp2irgA         663
+AOsZC48lp2irgA           0 AauZC48lp2irgA         663
+QdiZSMoOp2irgA           0 gtiZSMoOp2irgA         663
+wViZSMoOp2irgA           0 whkZSMoOp2irgA         663
+ASkZSMoOp2irgA           0 AemZSMoOp2irgA         663
+AuiZSMoOp2irgA           0 QOiZSMoOp2irgA         663
+QijZSMoOp2irgA           0 gCjZSMoOp2irgA         663
+QunZSMoOp2irgA           0 gGqZSMoOp2irgA         663
+gqvZSMoOp2irgA           0 wKvZSMoOp2irgA         663
+g6jZSMoOp2irgA           0 wSmZSMoOp2irgA         663
+
+//////////////
+
+SQL> select * from PATTR_CLASSES;
+
+PUID                  PSEQ PVAL_0
+--------------- ---------- ----------------------------
+gAmZgf2kp2irgA           0 gTsZgfErp2irgAAAAAAAAAAAAAA
+///////////////
+
+SQL> select * from PUSER_INBOX;
+
+PUID             VLA_703_5  VLA_703_6  VLA_703_7 PNEW_TASKS RINBOX_DELEGATE
+--------------- ---------- ---------- ---------- ---------- ---------------
+RINBOX_DELEGATEC PSTART_DA PEND_DATE
+---------------- --------- ---------
+ABlZgrovp2irgA           0          0          0
+///////////////
+
+SQL> select * from  PTASKINBOX;
+
+PUID            PNEW_TASKS_COUNT ROWNERU            ROWNERC
+--------------- ---------------- --------------- ----------
+AFgZgrovp2irgA                   AsmZgf2kp2irgA         702
+AZiZgrovp2irgA                   AsmZgf2kp2irgA         702
+AZnZgrovp2irgA                   AsmZgf2kp2irgA         702
+
+//////////////
+
+SQL> select * from PROLEINSCHEDULE;
+
+PUID            PPRIVILEGE_DESC                  PPRIVILEGE_VALUE
+--------------- -------------------------------- ----------------
+gUnZgf2kp2irgA  Coordinator                                     2
+gUqZgf2kp2irgA  Participant                                     1
+gUtZgf2kp2irgA  Observer                                        0
+
+//////////////
+
+SQL> select * from PROLE ;
+
+PUID            PROLE_NAME
+--------------- --------------------------------
+PDESCRIPTION
+--------------------------------------------------------------------------------
+PDATA_SOURCE PLAST_SYN  VLA_336_5
+------------ --------- ----------
+AcuZgf2kp2irgA  DBA
+Database Administrator.
+           0                    2
+
+gEiZgf2kp2irgA  Project Administrator
+Project Administrator
+           0                    2
+
+PUID            PROLE_NAME
+--------------- --------------------------------
+PDESCRIPTION
+--------------------------------------------------------------------------------
+PDATA_SOURCE PLAST_SYN  VLA_336_5
+------------ --------- ----------
+
+gItZgf2kp2irgA  Project Author
+Project Author
+           0                    2
+
+gMmZgf2kp2irgA  Project Team Administrator
+Project Team Administrator
+
+PUID            PROLE_NAME
+--------------- --------------------------------
+PDESCRIPTION
+--------------------------------------------------------------------------------
+PDATA_SOURCE PLAST_SYN  VLA_336_5
+------------ --------- ----------
+           0                    2
+
+gMvZgf2kp2irgA  Project Member
+Project Member
+           0                    2
+
+gYgZgf2kp2irgA  Resource Graph Viewers
+
+PUID            PROLE_NAME
+--------------- --------------------------------
+PDESCRIPTION
+--------------------------------------------------------------------------------
+PDATA_SOURCE PLAST_SYN  VLA_336_5
+------------ --------- ----------
+Resource Graph Viewers
+           0                    2
+
+gYpZgf2kp2irgA  CostDBA
+CostDBA
+           0                    2
+
+
+PUID            PROLE_NAME
+--------------- --------------------------------
+PDESCRIPTION
+--------------------------------------------------------------------------------
+PDATA_SOURCE PLAST_SYN  VLA_336_5
+------------ --------- ----------
+gciZgf2kp2irgA  IP Admin
+IP Admin
+           0                    2
+
+gcrZgf2kp2irgA  ITAR Admin
+ITAR Admin
+           0                    2
+
+PUID            PROLE_NAME
+--------------- --------------------------------
+PDESCRIPTION
+--------------------------------------------------------------------------------
+PDATA_SOURCE PLAST_SYN  VLA_336_5
+------------ --------- ----------
+
+ggkZgf2kp2irgA  ADA Site Admin
+ADA Site Admin
+           0                    2
+
+ggtZgf2kp2irgA  ITAR Classifier
+ITAR Classifier
+
+PUID            PROLE_NAME
+--------------- --------------------------------
+PDESCRIPTION
+--------------------------------------------------------------------------------
+PDATA_SOURCE PLAST_SYN  VLA_336_5
+------------ --------- ----------
+           0                    2
+
+gkmZgf2kp2irgA  IP Classifier
+IP Classifier
+           0                    2
+
+gkvZgf2kp2irgA  Validation Administrator
+
+PUID            PROLE_NAME
+--------------- --------------------------------
+PDESCRIPTION
+--------------------------------------------------------------------------------
+PDATA_SOURCE PLAST_SYN  VLA_336_5
+------------ --------- ----------
+Validation Administrator
+           0                    2
+
+gooZgf2kp2irgA  Override Approver
+Override Approver
+           0                    2
+
+
+PUID            PROLE_NAME
+--------------- --------------------------------
+PDESCRIPTION
+--------------------------------------------------------------------------------
+PDATA_SOURCE PLAST_SYN  VLA_336_5
+------------ --------- ----------
+gshZgf2kp2irgA  Designer
+Designer
+           0                    2
+
+g0jZgf2kp2irgA  Simulation Administrator
+Simulation Administrator
+           0                    2
+
+PUID            PROLE_NAME
+--------------- --------------------------------
+PDESCRIPTION
+--------------------------------------------------------------------------------
+PDATA_SOURCE PLAST_SYN  VLA_336_5
+------------ --------- ----------
+//////////////
+
+SQL> select * from PPSVIEWTYPE  ;
+
+PUID            PNAME                             VLA_298_2  VLA_298_3
+--------------- -------------------------------- ---------- ----------
+ VLA_298_4
+----------
+SjrZgfXsp2irgA  CAEAnalysis                               0          0
+         2
+
+SjuZgfXsp2irgA  MEProcess                                 0          0
+         2
+
+SnhZgfXsp2irgA  MESetup                                   0          0
+         2
+
+
+PUID            PNAME                             VLA_298_2  VLA_298_3
+--------------- -------------------------------- ---------- ----------
+ VLA_298_4
+----------
+SnkZgfXsp2irgA  view                                      0          0
+         2
+
+//////////////
+
+SQL> SELECT PPSVIEWTYPE.puid, ptimestamp, ppid, rowning_siteu, rowning_sitec, plsd,
+  2  pobject_properties,VLA_298_4,VLA_298_3,VLA_298_2, pname
+  3  FROM PPOM_OBJECT, PPSVIEWTYPE
+  4  WHERE PPOM_OBJECT.puid=PPSVIEWTYPE.puid ;
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES  VLA_298_4  VLA_298_3  VLA_298_2
+------------- --------- ------------------ ---------- ---------- ----------
+PNAME
+--------------------------------
+SjrZgfXsp2irgA  o9jZgftZp2irgA                           298
+              04-APR-24                  0          2          0          0
+CAEAnalysis
+
+SjuZgfXsp2irgA  o9kZgftZp2irgA                           298
+              04-APR-24                  0          2          0          0
+MEProcess
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES  VLA_298_4  VLA_298_3  VLA_298_2
+------------- --------- ------------------ ---------- ---------- ----------
+PNAME
+--------------------------------
+
+SnhZgfXsp2irgA  o9lZgftZp2irgA                           298
+              04-APR-24                  0          2          0          0
+MESetup
+
+SnkZgfXsp2irgA  o9mZgftZp2irgA                           298
+              04-APR-24                  0          2          0          0
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES  VLA_298_4  VLA_298_3  VLA_298_2
+------------- --------- ------------------ ---------- ---------- ----------
+PNAME
+----------
+//////////////
+
+SQL> select * from PPSBOMVIEWREVISION;
+
+PUID            PLEGACY_TRANSFORM_FACTOR  VLA_664_4  VLA_664_2 RBOM_VIEWU
+--------------- ------------------------ ---------- ---------- ---------------
+RBOM_VIEWC PIS_PRECISE PSTRUCT_L
+---------- ----------- ---------
+gtiZC48lp2irgA                                    0          0 gpuZC48lp2irgA
+       663           0 18-APR-24
+
+wxkZC48lp2irgA                                    0          0 wxgZC48lp2irgA
+       663           0 18-APR-24
+
+AeiZC48lp2irgA                                    0          0 AauZC48lp2irgA
+       663           0 18-APR-24
+
+////////////////
+
+SQL> select * from PPSBOMVIEW ;
+
+PUID             VLA_663_2  VLA_663_3 RPARENT_ITEMU   RPARENT_ITEMC
+--------------- ---------- ---------- --------------- -------------
+RVIEW_TYPEU     RVIEW_TYPEC
+--------------- -----------
+gpuZC48lp2irgA           0          0 QdhZC48lp2irgA           1042
+SnkZgfXsp2irgA          298
+
+wxgZC48lp2irgA           0          0 whuZC48lp2irgA           1042
+SnkZgfXsp2irgA          298
+
+AauZC48lp2irgA           0          0 AOsZC48lp2irgA           1042
+SnkZgfXsp2irgA          298
+
+
+//////////////////////
+
+SQL> SELECT * FROM  PPOM_OBJECT p WHERE  p.puid = 'QilZSMoOp2irgA';
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+QilZSMoOp2irgA  QmiZSMoOp2irgA                           617
+              18-APR-24                  0
+
+////////////////////////
+
+SQL> select * from  PPOM_IMC  ;
+
+PUID
+---------------
+PNAME
+--------------------------------------------------------------------------------
+PUSER_ID
+--------------------------------------------------------------------------------
+PPASSWORD
+--------------------------------------------------------------------------------
+PCONNECT_STRING
+--------------------------------------------------------------------------------
+PIMC_NODE_NAME
+--------------------------------------------------------------------------------
+PG
+--
+PHTTP_SITE_NODE
+--------------------------------------------------------------------------------
+PGMS_URL
+--------------------------------------------------------------------------------
+  PSITE_ID      PDBMS PIMC_ODS_SITE
+---------- ---------- -------------
+w9lZgf0Wp2irgA
+////////////////////////
+
+SQL> select * from  PPOM_ACCESSOR  ;
+
+PUID            RROLEU              RROLEC RGROUPU            RGROUPC
+--------------- --------------- ---------- --------------- ----------
+AkuZgf2kp2irgA  AcuZgf2kp2irgA         336 AkiZgf2kp2irgA         488
+gIkZgf2kp2irgA  gEiZgf2kp2irgA         336 gEuZgf2kp2irgA         488
+gwhZgf2kp2irgA  gkvZgf2kp2irgA         336 gsqZgf2kp2irgA         488
+gwkZgf2kp2irgA  gooZgf2kp2irgA         336 gsqZgf2kp2irgA         488
+gwtZgf2kp2irgA  gshZgf2kp2irgA         336 gwnZgf2kp2irgA         488
+g4gZgf2kp2irgA  g0jZgf2kp2irgA         336 g0sZgf2kp2irgA         488
+
+//////////////////
+
+SQL> select * from  PPERSON ;
+
+PUID
+---------------
+PUSER_NAME
+--------------------------------------------------------------------------------
+PFORM_NAME                       PPA1
+-------------------------------- --------------------------------
+PPA2                             PPA3
+-------------------------------- --------------------------------
+PPA4                             PPA5
+-------------------------------- --------------------------------
+PPA6                             PPA7
+-------------------------------- --------------------------------
+PPA8
+--------------------------------
+PPA9
+--------------------------------------------------------------------------------
+PPA10                            PTIMEZONE                        PLOCA
+-------------------------------- -------------------------------- -----
+PDATA_SOURCE PLAST_SYN
+------------ ---------
+AgqZgf2kp2irgA
+
+PUID
+---------------
+PUSER_NAME
+--------------------------------------------------------------------------------
+PFORM_NAME                       PPA1
+-------------------------------- --------------------------------
+PPA2                             PPA3
+-------------------------------- --------------------------------
+PPA4                             PPA5
+-------------------------------- --------------------------------
+PPA6                             PPA7
+-------------------------------- --------------------------------
+PPA8
+--------------------------------
+PPA9
+--------------------------------------------------------------------------------
+PPA10                            PTIMEZONE                        PLOCA
+-------------------------------- -------------------------------- -----
+PDATA_SOURCE PLAST_SYN
+------------ ---------
+infodba
+
+
+//////////////////
+
+SQL> select * from  PNOTETYPE  ;
+
+PUID            PNAME                PDESC
+--------------- -------------------- --------------------------------
+PDEFAULT_VALUE
+--------------------------------------------------------------------------------
+ VLA_278_4
+----------
+CoqZgfpOp2irgA  AIE_Exported         AIE_Exported
+
+         2
+
+CotZgfpOp2irgA  AIE_OCC_ID           AIE_OCC_ID
+
+         2
+
+PUID            PNAME                PDESC
+--------------- -------------------- --------------------------------
+PDEFAULT_VALUE
+--------------------------------------------------------------------------------
+ VLA_278_4
+----------
+
+CsgZgfpOp2irgA  AIE_OCC_NAME         AIE_OCC_NAME
+
+//////////////////
+
+SQL> select * from  PNAMERULE  ;
+
+PUID            PRULE_NAME                        VLA_659_2
+--------------- -------------------------------- ----------
+SNhZgfsQp2irgA  Default Baseline Suffix Rule              1
+SNsZgfsQp2irgA  Default Custom Note ID Rule               1
+SRnZgfsQp2irgA  Default Requirement ID Rule               1
+
+///////////////////////
+
+
+SQL> select * from PNAMEFIELD ;
+
+PUID            PTYPE_NAME
+--------------- --------------------------------
+PPROPERTY_NAME                        PCASE RRULE_TAGU      RRULE_TAGC
+-------------------------------- ---------- --------------- ----------
+PCONDITION_OVERRIDE
+-------------------
+SRrZgfsQp2irgA  Fnd0CustomNote
+item_id                                   0 SNsZgfsQp2irgA         659
+                  0
+
+SViZgfsQp2irgA  ItemPDR
+item_revision_id                          0 SNhZgfsQp2irgA         659
+                  0
+
+PUID            PTYPE_NAME
+--------------- --------------------------------
+PPROPERTY_NAME                        PCASE RRULE_TAGU      RRULE_TAGC
+-------------------------------- ---------- --------------- ----------
+PCONDITION_OVERRIDE
+-------------------
+
+SVpZgfsQp2irgA  Requirement
+item_id                                   0 SRnZgfsQp2irgA         659
+
+//////////////////////
+
+SQL> SELECT PLISTOFVALUESTAG.puid, ptimestamp, ppid, rowning_siteu, rowning_sitec, plsd,
+  2  pobject_properties,VLA_494_20,VLA_494_19,VLA_494_18,VLA_494_17,VLA_494_16,VLA_494_15,VLA_494_14,
+  3  VLA_494_13,VLA_494_12,VLA_494_11,VLA_494_10,VLA_494_9, plov_attached_attr, plov_attached_class,
+  4  plov_type, plov_desc, plov_name, plov_attached_type, plov_usage, plov_value_type, pfnd0isManagedExternally,
+  5  VLA_501_4,VLA_501_3, plov_reference_attr, plov_reference_class
+  6  FROM PPOM_OBJECT,PLISTOFVALUES, PLISTOFVALUESTAG
+  7  WHERE PLISTOFVALUES.puid=PLISTOFVALUESTAG.puid AND PPOM_OBJECT.puid=PLISTOFVALUESTAG.puid;
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES VLA_494_20 VLA_494_19 VLA_494_18
+------------- --------- ------------------ ---------- ---------- ----------
+VLA_494_17 VLA_494_16 VLA_494_15 VLA_494_14 VLA_494_13 VLA_494_12 VLA_494_11
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+VLA_494_10  VLA_494_9 PLOV_ATTACHED_ATTR
+---------- ---------- --------------------------------
+PLOV_ATTACHED_CLASS              PLOV_TYPE
+-------------------------------- --------------------------------
+PLOV_DESC
+--------------------------------------------------------------------------------
+PLOV_NAME                        PLOV_ATTACHED_TYPE PLOV_USAGE PLOV_VALUE_TYPE
+-------------------------------- ------------------ ---------- ---------------
+PFND0ISMANAGEDEXTERNALLY  VLA_501_4  VLA_501_3 PLOV_REFERENCE_ATTR
+------------------------ ---------- ---------- --------------------------------
+PLOV_REFERENCE_CLASS
+--------------------------------
+CQqZgfZSp2irgA  SgsZgf8Qp2irgA                           501
+
+/////////////////////
+
+SQL> select * from PHIDETYPERULE;
+
+PUID            RHIDDEN_TYPEU   RHIDDEN_TYPEC RTARGET_ACCESSO RTARGET_ACCESSORC
+--------------- --------------- ------------- --------------- -----------------
+CoiZgfsQp2irgA  BDjZgfXsp2irgA            211 AAAAAAAAAAAAAA                 -1
+ColZgfsQp2irgA  SopZgfXsp2irgA            211 AAAAAAAAAAAAAA                 -1
+CooZgfsQp2irgA  TuvZgfXsp2irgA            211 AAAAAAAAAAAAAA                 -1
+CorZgfsQp2irgA  BLqZgfXsp2irgA            211 AAAAAAAAAAAAAA                 -1
+CouZgfsQp2irgA  BLuZgfXsp2irgA            211 AAAAAAAAAAAAAA                 -1
+CshZgfsQp2irgA  BLmZgfXsp2irgA            211 AAAAAAAAAAAAAA                 -1
+CskZgfsQp2irgA  BPiZgfXsp2irgA            211 AAAAAAAAAAAAAA                 -1
+CsnZgfsQp2irgA  BPmZgfXsp2irgA            211 AAAAAAAAAAAAAA                 -1
+CsqZgfsQp2irgA  BPqZgfXsp2irgA            211 AAAAAAAAAAAAAA                 -1
+CstZgfsQp2irgA  BPuZgfXsp2irgA            211 AAAAAAAAAAAAAA                 -1
+CwgZgfsQp2irgA  BTmZgfXsp2irgA            211 AAAAAAAAAAAAAA                 -1
+
+///////////////////
+ select * from PBUSINESSRULE;
+
+PUID
+---------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+PSECURE_BITS RRULE_DESCRIPTO RRULE_DESCRIPTORC RCONDITION_REFE
+------------ --------------- ----------------- ---------------
+RCONDITION_REFERENCEC
+---------------------
+
+YDtZgfYcp2irgA
+BMOperation: PROP_set_value_string
+           6 AAAAAAAAAAAAAA                 -1 AAAAAAAAAAAAAA
+                   -1
+
+//////////////////
+
+SQL> select * from PPOM_GROUP p where p.puid='QilZSMoOp2irgA';
+
+no rows selected
+
+SQL> select * from PPOM_GROUP;
+
+PUID
+---------------
+PNAME
+--------------------------------------------------------------------------------
+PPRIVILEGE RPARENTU          RPARENTC PGROUP_DATA_SOURCE PGROUP_LA   VLA_11_6
+---------- --------------- ---------- ------------------ --------- ----------
+AkiZgf2kp2irgA
+dba
+         1 AAAAAAAAAAAAAA          -1                  0                    2
+
+AsjZgf2kp2irgA
+system
+         0 AAAAAAAAAAAAAA          -1                  0                    2
+
+/////////////////
+
+SQL> select * from PFORM p where p.puid='QilZSMoOp2irgA';
+
+PUID            PFORM_FILE                       RDATA_FILEU     RDATA_FILEC
+--------------- -------------------------------- --------------- -----------
+QilZSMoOp2irgA  n/a
+
+/////////////////
+
+SQL> select * from pcontents ;
+
+PUID                  PSEQ PVALU_0            PVALC_0
+--------------- ---------- --------------- ----------
+gQsZgfd7p2irgA           6 wogZwPNUp2irgA         832
+gQsZgfd7p2irgA           5 w0iZwPNUp2irgA         832
+
+////////////////
+
+SQL> select * from PPOM_APPLICATION_OBJECT p where p.puid='QijZSMoOp2irgA';
+
+PUID
+---------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+ROWNING_GROUPU  ROWNING_GROUPC  PACL_BITS RLAST_MOD_USERU RLAST_MOD_USERC
+--------------- -------------- ---------- --------------- ---------------
+ROWNING_USERU   ROWNING_USERC PCREATION PARCHIVE_ PLAST_MOD PBACKUP_D
+--------------- ------------- --------- --------- --------- ---------
+QijZSMoOp2irgA
+
+AkiZgf2kp2irgA             488          0 AsmZgf2kp2irgA              702
+AsmZgf2kp2irgA            702 18-APR-24           18-APR-24
+
+/////////////////
+
+SQL> select * FROM PPOM_OBJECT p where p.puid='QijZSMoOp2irgA';
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+QijZSMoOp2irgA  gOtZSMoOp2irgA                          1042
+              18-APR-24                  0
+
+
+////////////////
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+QijZSMoOp2irgA  gOtZSMoOp2irgA                          1042
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+              18-APR-24                  0
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+AsmZgf2kp2irgA              702          0 AkiZgf2kp2irgA             488
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+AsmZgf2kp2irgA            702 18-APR-24           18-APR-24                    0
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+         0          0
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+         0
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+         0 Teamcenter                       A2CustomItem
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+┐┐┐┐┐┐
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+              1                0
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+                           1
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+         0                                           1
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+000249
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+AAAAAAAAAAAAAA                          -1
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+                       AAAAAAAAAAAAAA          -1
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+--------------------------------------------------------------------------------
+
+
+PUID            PTIMESTAMP                              PPID ROWNING_SITEU
+--------------- --------------------------------- ---------- ---------------
+ROWNING_SITEC PLSD      POBJECT_PROPERTIES
+------------- --------- ------------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+RLAST_MOD_USERU RLAST_MOD_USERC  PACL_BITS ROWNING_GROUPU  ROWNING_GROUPC
+--------------- --------------- ---------- --------------- --------------
+ROWNING_USERU   ROWNING_USERC PLAST_MOD PARCHIVE_ PCREATION PBACKUP_D VLA_572_17
+--------------- ------------- --------- --------- --------- --------- ----------
+VLA_572_14 VLA_572_12
+---------- ----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+ VLA_572_7 POBJECT_APPLICATION              POBJECT_TYPE
+---------- -------------------------------- --------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+PREVISION_LIMIT PREVISION_NUMBER RWSO_THREADU    RWSO_THREADC ROWNING_PROJECT
+--------------- ---------------- --------------- ------------ ---------------
+ROWNING_PROJECTC PACTIVE_SEQ ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PDATE_REL
+---------------- ----------- --------------- --------------------- ---------
+ VLA_626_8 PFND0ORIGINALLOCATIONCODE         VLA_626_2
+---------- -------------------------------- ----------
+PITEM_ID
+--------------------------------------------------------------------------------
+RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC RPREFERRED_GLOB
+--------------- -------------------------- ---------------
+RPREFERRED_GLOBAL_ALTC RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE
+---------------------- --------------- ---------- -------------------
+PIS_CONFIGURATION_ITEM     PIS_VI
+---------------------- ----------
+PA2PERSISTENT
+----------------------

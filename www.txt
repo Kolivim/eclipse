@@ -1,0 +1,29 @@
+...
+
+save.addActionListener(new ActionListener()
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            String fileName = JOptionPane.showInputDialog("Enter file name");//String finalFileName = fileName.getText();
+            FileWriter outFile = new FileWriter(fileName +".txt",true);
+            outFile.write(inputroute.getText());
+            outFile.close();
+        }
+    });
+
+...
+
+btnOpenDir.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        fileChooser.setDialogTitle("Выбор директории");
+        // Определение режима - только каталог
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int result = fileChooser.showOpenDialog(FileChooserTest.this);
+        // Если директория выбрана, покажем ее в сообщении
+        if (result == JFileChooser.APPROVE_OPTION )
+                  JOptionPane.showMessageDialog(FileChooserTest.this, 
+                                                fileChooser.getSelectedFile());
+    }
+});
+
+...

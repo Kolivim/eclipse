@@ -1,0 +1,395 @@
+package com.ebsolutions.catiman.actions;
+
+import java.io.File;
+import java.io.RandomAccessFile;
+
+/*
+ * Tc java classes 
+ */
+import com.teamcenter.rac.kernel.TCSession;
+import com.teamcenter.rac.kernel.TCComponentItemRevision;
+import com.teamcenter.rac.kernel.TCComponentItem;
+import com.teamcenter.rac.kernel.TCComponentItemType;
+import com.teamcenter.rac.kernel.TCComponentDataset;
+import com.teamcenter.rac.kernel.TCComponentBOMWindow;
+import com.teamcenter.rac.kernel.TCComponentBOMWindowType;
+import com.teamcenter.rac.kernel.TCComponentBOMLine;
+import com.teamcenter.rac.kernel.TCComponentRevisionRuleType;
+import com.teamcenter.rac.kernel.TCComponentForm;
+import com.teamcenter.rac.aif.kernel.AIFComponentContext;
+import com.teamcenter.rac.aif.kernel.InterfaceAIFComponent;
+
+/*
+ * Catia integration java classes 
+ */
+import com.ebsolutions.catiman.ErrorWarningMessages;
+import com.ebsolutions.catiman.PortalContext;
+import com.ebsolutions.catiman.commands.TClassUserLUSCommand;
+
+
+/**
+ * Sample file. 
+ * This class is not launched by the CATIAV5 integration
+ *
+ * @date 02/06/2008
+ */
+public class SampleIndependentSilentLUS 
+{
+     /**
+      * Current TC session: needed to access Tc server (service.call)
+      * null value is not allowed.
+      */
+     protected TCSession session = null;
+
+     /**
+      * This flag defines wether the LUS should be performed in silent mode or not
+      */
+     protected boolean is_silent[];
+
+     /**
+      * title of the messages
+      */
+     private String _title = "Sample Independent SilentLUS";
+
+     /**
+      * components that contains the assembly to LUS. 
+      */
+     private TCComponentItem[] item = null;
+     private TCComponentItemRevision[] item_revision = null;
+     private TCComponentDataset[] part_dataset = null;
+     private TCComponentDataset[] product_dataset = null;
+     private TCComponentDataset[] drawing_dataset = null;
+     private TCComponentForm[] other = null;
+     private TCComponentBOMWindow bom_window[] = null;
+
+     /**
+      * The constructor.
+      */
+     public SampleIndependentSilentLUS()
+     {
+         /* try to find the TCSession
+         note: this is not the only way to retrieve the TCSession. */
+         session = PortalContext.getContext().getSession();
+     }
+
+     /* --------------------------------------------------------------------- */
+     /*
+      * Sample main function
+      * @date 02/06/2008
+      */
+     public void customerProcess() {
+
+          showInformationMessage("START of silent LUS");
+          TClassUserLUSCommand silent_lus_command = null;
+
+
+          /*
+           * example of searching items to LUS
+           */
+          int return_value = findItemToLUS();
+          if (return_value < 0)
+          {
+               /* Unable to find any item to LUS */
+               return;
+          }
+
+
+          /**
+           * Initialize the API
+           */
+          silent_lus_command = new TClassUserLUSCommand(session);
+
+          /*
+           * API: LUS process.
+           * call the "executeLUS" function
+           */
+          /*******  Item  ********/
+          try
+          {
+               if (item[0] != null)
+               {
+                    silent_lus_command.executeLUS(item[0], is_silent[0]);
+                    showInformationMessage("pause in silent LUS after Item");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (1) Exception : " + ex);
+          }
+
+
+          /*******  Item Revision  ********/
+          try
+          {
+               if (item_revision[1] != null)
+               {
+                    silent_lus_command.executeLUS(item_revision[1], is_silent[1]);
+                    showInformationMessage("pause in silent LUS after Item_rev");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (2) Exception : " + ex);
+          }
+
+
+          /*******  bom window  ********/
+          try
+          {
+               if (bom_window[2] != null)
+               {
+                    silent_lus_command.executeLUS(bom_window[2], is_silent[2]);
+                    showInformationMessage("pause in silent LUS after bom_widow");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (3) Exception : " + ex);
+          }
+
+
+          /******* CATPart dataset  ********/
+          try
+          {
+               if (part_dataset[3] != null)
+               {
+                    silent_lus_command.executeLUS(part_dataset[3], is_silent[3]);
+                    showInformationMessage("pause in silent LUS after CATPart");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (4) Exception : " + ex);
+          }
+
+
+          /******* CATProduct dataset  ********/
+          try
+          {
+               if (product_dataset[4] != null)
+               {
+                    silent_lus_command.executeLUS(product_dataset[4], is_silent[4]);
+                    showInformationMessage("pause in silent LUS after CATProduct");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (5) Exception : " + ex);
+          }
+
+
+          /******* CATDrawing dataset  ********/
+          try
+          {    
+               if (drawing_dataset[5] != null)
+               {
+                    silent_lus_command.executeLUS(drawing_dataset[5], is_silent[5]);
+                    showInformationMessage("pause in silent LUS after CATDrawing");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (6) Exception : " + ex);
+          }
+
+
+          /******* other dataset  ********/
+          try
+          {   
+               if (other[6] != null)
+               {
+                    silent_lus_command.executeLUS(other[6], is_silent[6]);
+                    showInformationMessage("pause in silent LUS ");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (7) Exception : " + ex);
+          }
+
+
+          silent_lus_command.stopProcess();
+
+     }
+
+     /**
+      * is used to display an Error message
+      * @param i_msg (I) the message to be displayed
+      */
+     private void showErrorMessage(final String i_msg)
+     {
+         ErrorWarningMessages.showErrorMessage(i_msg, _title);
+     }
+
+     /**
+      * is used to display an Information message
+      * @param i_msg (I) the message to display
+      */
+     private void showInformationMessage(final String i_msg)
+     {
+         ErrorWarningMessages.showInformationMessage(i_msg, _title);
+     }
+     /**
+      * Sample of searching item to LUS.
+      * read the query.txt file that contains the item_id, item_rev_id and silent mode of the selected item 
+      * The first line contains the number of assembly to LUS
+      * Then, for each assembly, we need 3 lines : item_id, item_rev_id and silent_mode
+      *  example :
+      *     2
+      *     000010
+      *     A
+      *     true
+      *     000020
+      *     B
+      *     false
+      */
+     protected int findItemToLUS()
+     {
+          String item_id = null;
+          String item_rev_id = null;
+
+          int return_value = 0;
+          int nb_assy = 0;
+          RandomAccessFile reader = null;
+          File file = null;
+
+          try
+          {
+               String file_path = "c:\\catiman_tmp\\tmp\\query.txt";
+               file = new File(file_path);
+               reader = new RandomAccessFile(file, "r");
+               nb_assy = Integer.valueOf(reader.readLine()).intValue();
+
+               is_silent = new boolean[nb_assy];
+               item = new TCComponentItem[nb_assy];
+               item_revision = new TCComponentItemRevision[nb_assy];
+               part_dataset = new TCComponentDataset[nb_assy];
+               product_dataset = new TCComponentDataset[nb_assy];
+               drawing_dataset = new TCComponentDataset[nb_assy];
+               other = new TCComponentForm[nb_assy];
+               bom_window = new TCComponentBOMWindow[nb_assy];
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("error 0 - " + ex);
+               return_value = -1;
+          }
+
+          for (int i = 0 ; i < (nb_assy) ; i++)
+          {
+               try
+               {
+                    item_id = reader.readLine();
+                    item_rev_id = reader.readLine();
+                    is_silent[i] = Boolean.valueOf(reader.readLine()).booleanValue();
+
+                    // search item name item_id 
+                    TCComponentItemType it = (TCComponentItemType)(session.getTypeComponent("Item"));
+                    item[i] = it.find(item_id);
+
+                    if (item[i] == null)
+                    {
+                         showErrorMessage("Error : item <" + item_id + ">not found");
+                         return_value = -1;
+                    }
+                    else
+                    {
+                         // the item was found, search the correction item revision
+                         AIFComponentContext[] revisions = item[i].getChildren();
+                         TCComponentItemRevision revision_component = null;
+
+                         for (int j = 0; j < revisions.length; j++)
+                         {
+                              InterfaceAIFComponent component = revisions[j].getComponent();
+                              if (component instanceof TCComponentItemRevision)
+                              {
+                                   revision_component = (TCComponentItemRevision) component;
+
+                                   if (revision_component.getProperty("item_revision_id").equals(item_rev_id))
+                                   {
+                                        item_revision[i] = revision_component;
+                                        break;
+                                   }
+                              }
+                         }
+
+                         if (item_revision[i] == null)
+                         {
+                              showErrorMessage("Error : Item revision [" + item_rev_id + "] doesn't exist for item [" + item_id + "]");
+                              return_value = -1;
+                         }
+                         else
+                         {
+                              // create the BOMWindow with the item revision previously found 
+                              TCComponentBOMWindowType type = (TCComponentBOMWindowType)session.getTypeComponent("BOMWindow");
+                              TCComponentRevisionRuleType rule = (TCComponentRevisionRuleType)session.getTypeComponent("RevisionRule");
+                              bom_window[i] = type.create(rule.getDefaultRule());
+
+                              /* Define the BOMWindow top line */
+                              TCComponentBOMLine top_line = bom_window[i].setWindowTopLine(item[i], item_revision[i], null, null);
+                         }
+                    }
+               }
+               catch (Exception ex)
+               {
+                    showErrorMessage("error 1 - " + ex);
+                    return_value = -1;
+               }
+
+               // search for a dataset (CATPart or CATProduct and/or CATDrawing)
+               try
+               {
+                    int nb = item_revision[i].getChildrenCount();
+                    if (nb > 0)
+                    {
+                         AIFComponentContext[] aif_comp_cont = item_revision[i].getChildren();
+
+                         for (int j = 0 ; j < nb ; j++)
+                         {
+                              InterfaceAIFComponent int_aif_comp = aif_comp_cont[j].getComponent();
+
+
+                              if (int_aif_comp.getType().equals("CATPart"))
+                              {
+                                   part_dataset[i] = (TCComponentDataset)int_aif_comp;
+                              }
+                              else if (int_aif_comp.getType().equals("CATProduct"))
+                              {
+                                   product_dataset[i] = (TCComponentDataset)int_aif_comp;
+                              }
+                              else if (int_aif_comp.getType().equals("CATDrawing"))
+                              {
+                                   drawing_dataset[i] = (TCComponentDataset)int_aif_comp;
+                              }
+                              else if (int_aif_comp.getType().equals("ItemRevision Master"))
+                              {
+                                   other[i] = (TCComponentForm)int_aif_comp;
+                              }
+                         }
+                    }
+               }
+               catch (Exception ex)
+               {
+                    showErrorMessage("error 2 - " + ex);
+                    return_value = -1;
+               }
+          }
+          try
+          {
+               reader.close();
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("error 3 - " + ex);
+          }
+          return return_value;
+     }
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+     System.out.println("Lets try this");
+     SampleIndependentSilentLUS test = new SampleIndependentSilentLUS();
+     //test.customerProcess();  
+    }
+
+}

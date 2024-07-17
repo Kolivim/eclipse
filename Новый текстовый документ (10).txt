@@ -1,0 +1,2332 @@
+...
+
+TCComponentProjectType prjType = (TCComponentProjectType) session.getTypeComponent (ITypeName.TC_Project);
+
+TCComponent [] = проекты prjType.extent (session.getUser (), правда);
+...
+
+//numTry - number of attemts    
+private static TCSession getCurrentSession(int numTry) throws Exception {
+        try {
+            TCSession session = null;
+            ISessionService iss=null;
+            int numtry=numTry;
+            while (iss==null && numtry>0) {
+                iss = AifrcpPlugin.getSessionService();
+                numtry--;
+            }
+
+            session=(TCSession)iss.getSession("com.teamcenter.rac.kernel.TCSession");
+            return session;
+            } 
+        catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+...
+
+	AbstractAIFUIApplication application = AIFUtility.getCurrentApplication();
+			TCSession session = (TCSession) application.getSession();
+			UI();
+
+...
+
+...
+
+File[] exportedFiles = ((TCComponentDataset)myDataset).getFiles("UGPART");
+
+...
+
+saveAsItem
+
+public TCComponentItem saveAsItem(java.lang.String itemID,
+                                  java.lang.String revisionID)
+                           throws TCException
+Takes a copy of this ItemRevision component and creates a new Item.
+ 
+
+Parameters:
+itemID - the item ID
+revisionID - the revision id
+Returns:
+A Tc Component representing the newly copied Item Revision.
+
+...
+
+  }
+
+
+  public static TCComponentItem findItem(String strItemID, String itemType) throws TCException {
+    TCSession m_session = (TCSession) AIFDesktop.getActiveDesktop().getCurrentApplication().getSession();
+    TCComponentItemType tcItemType = (TCComponentItemType) m_session.getTypeComponent(itemType);
+    TCComponentItem item = null;
+    if (tcItemType != null)
+      item = tcItemType.find(strItemID);
+    return item;
+  }
+
+...
+
+public static TCComponentItem createItem(String id, String rev, String type, String name) throws TCException {
+     TCComponentItem search = searchItem(id);
+     if (search == null) {
+       TCComponentItemType typeItem = (TCComponentItemType)session.getTypeComponent("Item");
+       search = typeItem.create(id, rev, type, name, "", new TCComponent());
+       return search;
+     }
+     return null;     
+   }
+   
+   public static TCComponentItem searchItem(String id) throws TCException
+   {
+     TCComponentItemType type = (TCComponentItemType)session.getTypeComponent("Item");
+     TCComponentItem item = type.find(id);
+     return item;
+   }
+   
+   public static void addToNewStuff(TCComponentItem object) {
+     try {
+       TCComponentFolder newStuffFolder = session.getUser().getNewStuffFolder();
+       addItemToFolder(object, newStuffFolder);
+     } catch (TCException e) {
+       e.printStackTrace();
+     }
+   }
+   
+   public static void addItemToFolder(TCComponentItem createItem, TCComponentFolder folder) {
+     if (folder == null) {
+       return;
+     }
+     try {
+       folder.add("contents", createItem);
+     }
+     catch (Exception localException) {}
+   }
+
+...
+
+		/*
+		List<String> where = new ArrayList<String>();
+where.add( ContactsContract.Contacts.HAS_PHONE_NUMBER+"=1" );
+where.add( ContactsContract.Contacts.IN_VISIBLE_GROUP+"=1" );
+If you need to convert it to a simple array...
+
+String[] simpleArray = new String[ where.size() ];
+where.toArray( simpleArray );
+		 */
+
+..............
+
+private TCComponentForm getFormOfType(String paramString, TCComponent[] paramArrayOfTCComponent) {
+    TCComponentForm tCComponentForm = null;
+    int i = 0;
+    if (paramArrayOfTCComponent == null || (i = paramArrayOfTCComponent.length) == 0)
+      return tCComponentForm; 
+    for (byte b = 0; b < i; b++) {
+      if (paramArrayOfTCComponent[b] instanceof TCComponentForm) {
+        if (paramString == null || paramString.length() == 0) {
+          tCComponentForm = (TCComponentForm)paramArrayOfTCComponent[b];
+          break;
+        } 
+        if (((TCComponentForm)paramArrayOfTCComponent[b]).getType().equals(paramString)) {
+          tCComponentForm = (TCComponentForm)paramArrayOfTCComponent[b];
+          break;
+        } 
+      } 
+    } 
+    return tCComponentForm;
+  }
+
+............
+
+ TCComponentItem tCComponentItem = ((TCComponentBOMLine)interfaceAIFComponent).getItem();
+
+.............
+
+// Find the data collection by name
+TCComponentDatasetType datasetType = (TCComponentDatasetType) TCUtil.GetSession().getTypeComponent("Dataset");
+TCComponentDataset dataset = datasetType.find(datasetName);
+// Get the file according to the file type and file name
+File file = dataset.getFile("Text", fileName);
+
+.....
+
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+
+import com.teamcenter.rac.aifrcp.AIFUtility;
+import com.teamcenter.rac.kernel.TCComponent;
+import com.teamcenter.rac.kernel.TCComponentDataset;
+import com.teamcenter.rac.kernel.TCComponentDatasetType;
+import com.teamcenter.rac.kernel.TCComponentItem;
+import com.teamcenter.rac.kernel.TCComponentItemRevision;
+
+import com.teamcenter.rac.kernel.TCException;
+import com.teamcenter.rac.kernel.TCSession;
+
+public class AttachDataset extends AbstractHandler {
+ 
+ public void AttachDataset() throws TCException {
+  
+        TCComponent tc=null;
+        tc= (TCComponent)AIFUtility.getCurrentApplication().getTargetComponent();
+        TCSession session=(TCSession) tc.getSession();
+        session.getUser();
+        TCComponentItem item=(TCComponentItem)tc;
+  
+       TCComponent[] comp=item.getRelatedComponents();
+       int count=0;
+
+      for(int i=0;i<comp.length;i++)
+     {
+            if(comp[i] instanceof TCComponentItemRevision && count==0)
+     {
+    TCComponentDataset dataset;
+    TCComponentDatasetType datasettype=null;
+    datasettype=(TCComponentDatasetType) session.getTypeComponent("PDF");
+    
+    dataset=datasettype.create("Test", "test desc", "PDF");
+    comp[i].add("IMAN_specification",dataset);
+    
+   }
+  }
+ }
+
+...
+
+Hi jayanth,
+
+Did u know how to export the dataset files in specified location??
+
+REPLY
+
+UnknownNovember 15, 2018 at 3:45 AM
+this should work:
+
+public static List <String> exportDatasetsToDirectory(TCComponentDataset dscp, String exportDir) throws Exception
+{
+List exportedFiles = new ArrayList();
+
+TCComponentTcFile[] files = dscp.getTcFiles();
+for(int l = 0; l < files.length; l++)
+{
+
+TCComponentTcFile tcf = (TCComponentTcFile) files[l];
+File f = tcf.getFmsFile();
+InputStream in = new FileInputStream(f);
+
+String exportfilename = exportDir + "\\" + tcf;
+OutputStream out = new FileOutputStream(exportfilename);
+exportedFiles.add(exportfilename);
+
+byte[] buffer = new byte[1024];
+int bytesRead;
+
+while ((bytesRead = in.read(buffer)) >= 0) {
+out.write(buffer, 0, bytesRead);
+}
+out.close();
+in.close();
+}
+return exportedFiles;
+}
+
+...
+
+package ru.cccp3d.helpers;
+
+import com.teamcenter.rac.aif.ApplicationDef;
+import com.teamcenter.rac.aifrcp.AIFUtility;
+import com.teamcenter.rac.kernel.TCComponent;
+import com.teamcenter.rac.kernel.TCComponentBOMViewRevision;
+import com.teamcenter.rac.kernel.TCComponentBOMViewRevisionType;
+import com.teamcenter.rac.kernel.TCComponentDataset;
+import com.teamcenter.rac.kernel.TCComponentDatasetType;
+import com.teamcenter.rac.kernel.TCComponentFolder;
+import com.teamcenter.rac.kernel.TCComponentItem;
+import com.teamcenter.rac.kernel.TCComponentItemRevision;
+import com.teamcenter.rac.kernel.TCComponentItemType;
+import com.teamcenter.rac.kernel.TCComponentViewType;
+import com.teamcenter.rac.kernel.TCComponentViewTypeType;
+import com.teamcenter.rac.kernel.TCException;
+import com.teamcenter.rac.kernel.TCSession;
+
+public class TCComponentsHelper
+ {
+   private static final TCSession session = (TCSession)AIFUtility.getDefaultSession();
+   
+   public static TCComponentDataset createDataset(String type, String name) throws TCException {
+     return createDataset(type, name, "");
+   }
+   
+   public static TCComponentDataset createDataset(String type, String name, String tool) throws TCException {
+     TCComponentDatasetType typeDS = (TCComponentDatasetType)session.getTypeComponent("Text");
+     TCComponentDataset dataSet = typeDS.create(name, name, type, tool);
+     return dataSet;
+   }
+   
+   public static TCComponentItem createItem(String id, String rev, String type, String name) throws TCException {
+     TCComponentItem search = searchItem(id);
+     if (search == null) {
+       TCComponentItemType typeItem = (TCComponentItemType)session.getTypeComponent("Item");
+       search = typeItem.create(id, rev, type, name, "", new TCComponent());
+       return search;
+     }
+     return null;     
+   }
+   
+   public static TCComponentItem searchItem(String id) throws TCException
+   {
+     TCComponentItemType type = (TCComponentItemType)session.getTypeComponent("Item");
+     TCComponentItem item = type.find(id);
+     return item;
+   }
+   
+   public static void addToNewStuff(TCComponentItem object) {
+     try {
+       TCComponentFolder newStuffFolder = session.getUser().getNewStuffFolder();
+       addItemToFolder(object, newStuffFolder);
+     } catch (TCException e) {
+       e.printStackTrace();
+     }
+   }
+   
+   public static void addItemToFolder(TCComponentItem createItem, TCComponentFolder folder) {
+     if (folder == null) {
+       return;
+     }
+     try {
+       folder.add("contents", createItem);
+     }
+     catch (Exception localException) {}
+   }
+   
+   public static void openInTC(TCComponent comp) {
+     ApplicationDef applicationDef = AIFUtility.getAIFApplicationDefMgr().getApplicationDef("com.teamcenter.rac.ui.perspectives.navigatorPerspective");
+     applicationDef.openApplication(new com.teamcenter.rac.aif.kernel.InterfaceAIFComponent[] { comp });
+   } 
+ 
+   public static void copyToClipBoard(TCComponent comp) {} 
+ 
+   public static void createDefaultBomView(TCComponentItem item)	
+     try
+     {
+       TCComponentItemRevision rev = item.getLatestItemRevision();
+       TCComponentBOMViewRevision createBVR = createBVR(rev, "View");
+       createBVR.save();
+       rev.lock();
+       rev.save();
+       rev.unlock();
+     } catch (TCException e) {
+       e.printStackTrace();
+     }
+   }
+   
+   public static TCComponentViewType findBOMViewType(String sBOMViewType, TCSession session) {
+     TCComponentViewType vt = null;
+     try {
+       TCComponentViewTypeType tc_vtt = (TCComponentViewTypeType)session.getTypeComponent("PSViewType");
+       TCComponent[] array_vt = tc_vtt.extent();
+       for (int i = 0; i < array_vt.length; i++)
+         if (array_vt[i].toString().equals(sBOMViewType)) {
+           vt = (TCComponentViewType)array_vt[i];
+           break;
+         }
+     } catch (TCException ex) {
+       ex.printStackTrace();
+     }
+     return vt;
+   }
+   
+   public static TCComponentBOMViewRevision createBVR(TCComponentItemRevision ir, String bv_type) throws TCException {
+     TCSession session = ir.getSession();
+     TCComponentBOMViewRevision bvr = null;
+     TCComponentViewType vt = findBOMViewType(bv_type, session);
+     TCComponentBOMViewRevisionType tc_bvr = (TCComponentBOMViewRevisionType)session.getTypeComponent("BOMView Revision");
+     bvr = tc_bvr.create(ir.getItem().getProperty("item_id"), ir.getProperty("item_revision_id"), vt, false);
+     return bvr;
+   }
+ }
+
+...
+
+package ru.cccp3d.helpers;
+ 
+public class TCItemHelper {
+ 
+private String m_id;
+private String m_rev;
+private String m_type;
+private String m_name;
+ 
+public TCItemHelper(String id, String rev, String type, String name) {
+m_id = id;
+m_rev = rev;
+m_type = type;
+m_name = name;
+}
+ 
+public void setId(String paramString) {
+this.m_id = paramString;
+}
+ 
+public String getId() {
+return this.m_id;
+}
+ 
+public void setRev(String paramString) {
+this.m_rev = paramString;
+}
+ 
+public String getRev() {
+return this.m_rev;
+}
+ 
+public void setType(String paramString) {
+this.m_type = paramString;
+}
+ 
+public String getType() {
+return this.m_type;
+}
+ 
+public void setName(String paramString) {
+this.m_name = paramString;
+}
+ 
+public String getName() {
+return this.m_name;
+}
+ 
+}
+ 
+Класс диалогового окна, за основу взят TitleAreaDialog просто потому что нашел пример с ним в интернете, в принципе можно взять какой-нибудь другой класс из org.eclipse.jface.dialogs
+
+ 
+packagepackage ru.cccp3d.components;
+ 
+import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+ 
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+ 
+import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Shell;
+ 
+import ru.cccp3d.helpers.TCItemHelper;
+ 
+public class NewItemDialog extends TitleAreaDialog {
+ 
+    private String selectedButton;
+    private TCItemHelper resultItem;
+    private String title, bodyMsg; 
+    private int msgType; //IMessageProvider  
+    private TCItemHelper m_item; 
+    private Text textId;
+    private Text textName;
+    private Text textRev; 
+    private Combo comboType;
+ 
+    /** 
+     * @param parentShell   - Parent Shell 
+     * @param title         - Title of the dialogue. 
+     * @param bodyMsg       - Body message of the dialogue. 
+     * @param item  - Item default value. 
+     * @param msgType       - 'IMessageProvider.INFORMATION '  Can be one of: NONE ERROR INFORMATION WARNING
+     */
+    public NewItemDialog(
+            Shell parentShell, String title, String bodyMsg, 
+            TCItemHelper item,
+            int msgType)  { //for type see: IMessageProvider
+   
+        super(parentShell);
+ 
+        this.m_item = item;
+ 
+         
+        //Set labels. 
+        this.title = title;
+        this.bodyMsg = bodyMsg;
+        
+        //set type
+        this.msgType = msgType;
+        
+        // avoid help button poping up.
+        this.setHelpAvailable(false);
+        
+        resultItem = null;
+ 
+        selectedButton = null;
+    }
+ 
+    /** Dialogue constructor */
+    @Override
+    public void create() {
+ 
+        super.create();
+ 
+        //The 'Message' of a TitleArea dialogue only spans 1-2 lines. Then text is cut off. 
+        //It is not very efficient for longer messages. 
+        //Thus we utilize it as a 'title' and instaed we appeng a label to act as body. (see below). 
+        setMessage(this.title, this.msgType); //$NON-NLS-1$
+        //setTitle(); //not used.
+        
+        //Set the size of the dialogue. 
+        //We avoid hard-coding size, instead we tell it to figure out the most optimal size.
+        //this.getShell().setSize(650, 550); //Hard-Coded = bad.
+        this.getShell().setSize(getInitialSize());
+    }
+ 
+    /** Return the buttonID of the button that the user selected if he pressed ok. 
+     * 
+     * @return ButtonID of selected button.
+     */
+    public String getSelectedButton() {
+        return selectedButton;
+    }
+    
+    public TCItemHelper getResultItem() {
+     return resultItem;
+    }
+ 
+ 
+    @Override
+    protected Control createDialogArea(Composite parent) {
+        Composite area = (Composite) super.createDialogArea(parent);
+        Composite container = new Composite(area, SWT.NONE);
+        container.setLayoutData(new GridData(GridData.FILL_BOTH));
+        GridLayout layout = new GridLayout(2, false);
+        container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        container.setLayout(layout);
+        
+        Label label = new Label(container, 0);
+        label.setText(this.bodyMsg);
+        label = new Label(container, 0);
+        label.setText("");
+        label = new Label(container, 0);
+        
+        label.setText("Идентификатор:");
+        textId = new Text(container, 0);
+        textId.setSize(40,15);
+        label = new Label(container, 0);
+        label.setText("Наименование:");       
+        textName = new Text(container, 0);
+        label = new Label(container, 0);
+        label.setText("Ревизия:");
+        textRev = new Text(container, 0);
+        label = new Label(container, 0);
+        label.setText("Тип объекта:");
+        
+        // типы Item
+        comboType = new Combo(container, 0);
+        comboType.add("Complect");
+        comboType.add("Detal");
+        comboType.add("Document");
+        comboType.add("Material");
+        comboType.add("Prochee");
+        if (m_item != null) {
+         textId.setText(m_item.getId());
+         textRev.setText(m_item.getRev());
+         textName.setText(m_item.getName());
+        }        
+        return area;
+    }
+ 
+    // save content of the Text fields because they get disposed
+    // as soon as the Dialog closes
+    protected void saveInput() {
+     resultItem = new TCItemHelper(textId.getText()  , textRev.getText(), comboType.getText(), textName.getText());
+        
+    }
+ 
+    /** Called when the ok button is pressed */
+    @Override
+    protected void okPressed() {
+        saveInput(); // save input.
+        super.okPressed(); // close dialogue
+    }
+ 
+}
+ 
+Ну и реализация обработчика нажатия кнопки  на тулбаре (как сделать кнопу есть в Client Customization Programmer's Guid). Импорт надо почистить, так как пробывал разные варианты, накопилось много лишнего.
+
+ 
+import java.awt.Frame;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+import java.util.Map.Entry;
+ 
+import javax.swing.SwingUtilities;
+ 
+import ru.cccp3d.components.*;
+import ru.cccp3d.helpers.*;
+ 
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.window.Window;
+import com.teamcenter.rac.aif.AIFClipboard;
+import com.teamcenter.rac.aif.AIFPortal;
+import com.teamcenter.rac.aif.AIFTransferable;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.ClipboardOwner;
+import java.awt.datatransfer.Transferable;
+ 
+import java.util.AbstractMap.SimpleEntry;
+ 
+ 
+import com.teamcenter.rac.aif.AbstractAIFUIApplication;
+import com.teamcenter.rac.aif.kernel.AIFComponentContext;
+import com.teamcenter.rac.aif.kernel.AbstractAIFSession;
+import com.teamcenter.rac.aif.kernel.InterfaceAIFComponent;
+import com.teamcenter.rac.aifrcp.AIFUtility;
+import com.teamcenter.rac.kernel.*;
+import com.teamcenter.rac.util.MessageBox;
+import com.teamcenter.rac.util.Registry;
+import com.teamcenter.rac.util.Utilities;
+import com.teamcenter.rac.classification.*;
+import com.teamcenter.rac.classification.common.*;
+import com.teamcenter.rac.classification.common.operations.G4MOpenOperation;
+ 
+ 
+public class SampleHandler extends AbstractHandler implements ClipboardOwner {
+/**
+* The constructor.
+*/
+public SampleHandler() {
+}
+ 
+/**
+* the command has been executed, so extract extract the needed information
+* from the application context.
+*/
+public Object execute(ExecutionEvent event) throws ExecutionException {
+IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+        //--- Set Dialogue options.
+        String title = "Создание записи в классификаторе совместно с классифицированным объектом";
+        String body = " Текст пояснения \n"
+                + "Ещё текст пояснения.";
+             
+        int msgType = IMessageProvider.INFORMATION;  //Can be one of: NONE ERROR INFORMATION WARNING
+        //--- Instantiate & open the dialogue.
+        NewItemDialog myDialog =
+                new NewItemDialog(window.getShell(), title, body, null, msgType);
+        int retVal = myDialog.open();
+ 
+        //Handle dialogue outcome.
+        switch (retVal) {
+        case Window.OK:  //Avoid using generic '1' and '0' as it's confusing. Use defined constants as shown.
+         // Нажато Ok - создаем и классифициурем объект
+         TCItemHelper itemInfo;
+         itemInfo = myDialog.getResultItem();
+         TCComponentItem item;
+     try {
+     item = TCComponentsHelper.createItem(itemInfo.getId(),itemInfo.getRev(),itemInfo.getType(),itemInfo.getName());
+     
+     /*
+      * Скопируем созданный компонент в буфер
+      */
+ 
+     //Vector localVector = new Vector();
+     //localVector.addElement(item);
+     AIFClipboard localAIFClipboard = AIFPortal.getClipboard();
+     AbstractAIFUIApplication currentApplication = AIFUtility.getCurrentApplication();
+     Registry m_reg = currentApplication.getRegistry();
+     AbstractG4MContext m_context = ((AbstractG4MApplication)currentApplication).getG4MContext();
+     //AbstractAIFSession localAbstractAIFSession = currentApplication.getSession();
+     //AIFTransferable localAIFTransferable = new AIFTransferable(localVector);
+     AIFTransferable localAIFTransferable = new AIFTransferable(item);
+     localAIFClipboard.setContents(localAIFTransferable, this); //??? можно вместо this поставить null !!!
+     
+     /*
+      * Теперь надо выполнить вставку
+      */
+     currentApplication.getSession().setStatus("Paste Tc Component from Clipbord");
+     
+     try {
+     Object localObject3;
+         localObject3 = new G4MOpenOperation(m_context, m_reg.getString("g4mOpenOperation.MESSAGE"));
+                    ((G4MOpenOperation)localObject3).setComponent((InterfaceAIFComponent)item);
+                    ((G4MOpenOperation)localObject3).executeOperation();
+ 
+} catch (Exception e) {
+MessageBox.post(e);
+}
+currentApplication.getSession().setReadyStatus();
+ 
+     } catch (TCException e) {
+     MessageDialog.openInformation(
+     window.getShell(),
+     "Ошибка при создании объекта Item типа " + itemInfo.getType(),
+     e.getError());
+     }
+         
+         
+            //System.out.println("You selected option: " +  myDialog.getResultItem().getName());
+            break;
+        case Window.CANCEL:
+            //System.out.println("You clicked cancle");
+            break;
+        default:
+            System.out.println("Unexpected closure of dialogue.");
+            break;
+        }
+ 
+return null;
+}
+ 
+/*
+* (non-Javadoc)
+* @see java.awt.datatransfer.ClipboardOwner#lostOwnership(java.awt.datatransfer.Clipboard, java.awt.datatransfer.Transferable)
+*/
+public void lostOwnership(Clipboard paramClipboard, Transferable paramTransferable) {}
+ 
+}
+
+...
+
+public String extractZipFile(TCComponent component) {
+        String fileName = "";
+        String pathToTempDir = System.getProperty("java.io.tmpdir");
+
+        try {
+            TCComponentDataset dataset = (TCComponentDataset) component;
+            File[] namedRefs = dataset.getFiles("", pathToTempDir);
+            for(File file: namedRefs) {
+                if(file.getName().endsWith("zip")) {
+                    fileName = file.getName();
+                    return fileName;
+                } 
+            }            
+        } catch (TCException exception) {
+            exception.printStackTrace();
+        }
+
+        return fileName;
+    }
+
+...
+
+Стоя на ревизии item'а, опускаюсь до нужного Dataset'а (код внизу). Это проблем не вызывает. Но как быть, если стоя на Dataset'е необходимо найти ревизию item'а?
+
+AIFComponentContext[] itemRevChild = itemRev.getChildren();
+for (AIFComponentContext itrch : itemRevChild) {
+	if (itrch.getContext().toString().contains("root_activity")) { //если дочерний объект в нужном отношении
+		InterfaceAIFComponent activity = itrch.getComponent();
+		TCComponent activityCom = (TCComponent)activity;
+		TCComponent[] activityComps = activityCom.getRelatedComponents(); //все объекты в отношениях с TCComponent activityCom
+		for (TCComponent activityComp : activityComps) {
+			if (activityComp.getTypeComponent().toString().contains("MENCProgram")) { //если объект нужного типа
+				TCComponent[] achPrComps = activityComp.getRelatedComponents();		 //все объекты в отношениях с TCComponent activityComp
+				for (TCComponent achPrComp : achPrComps) {
+					if (achPrComp.getTypeComponent().toString().contains("UGCAMPTP")) { //если объект нужного типа
+						TCComponentDataset cam_dataset = (TCComponentDataset)achPrComp;
+						TCComponentTcFile tc_files[] = cam_dataset.getTcFiles(); //получаем файлы TCComponentDataset cam_dataset
+						for (TCComponentTcFile tc_file : tc_files) {
+							tc_file.getFile(sPath);
+						}
+					}
+				}
+			}
+		}
+		break;
+	}
+}
+
+...
+
+Спасибо за подсказки! Вот что получилось в итоге:
+
+if (comp.getTypeComponent().toString().contains("MENCProgram")) {
+	try {
+		String itemRevId = "error", itemId = "error";
+		AIFComponentContext[] compUsed = comp.whereReferenced(); //где используется компонент MENCProgram
+		for (AIFComponentContext compU : compUsed) {
+			InterfaceAIFComponent compI = compU.getComponent();
+			TCComponent compTC = (TCComponent)compI; //преобразование в TCComponent compTC
+			AIFComponentContext[] compTCUsed = compTC.whereReferenced(); //где используется компонент TCComponent compTC
+			for (AIFComponentContext compTCU : compTCUsed) {
+				InterfaceAIFComponent compTCI = compTCU.getComponent();
+				TCComponent compTC2 = (TCComponent)compTCI; //преобразование в TCComponent compTC2
+				TCComponentItemRevision itemRev = (TCComponentItemRevision)compTC2; //преобразование в TCComponentItemRevision itemRev
+				itemRevId = itemRev.getProperty("item_revision_id"); //получение item_revision_id
+				TCComponentItem item = itemRev.getItem(); //получение самого item
+				itemId = item.getProperty("item_id"); //получение item_id
+				//получены item_id и item_revision_id
+			}
+		}
+		/*...*/
+	} catch (TCException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+...
+
+package com.ebsolutions.catiman.actions;
+
+import java.io.File;
+import java.io.RandomAccessFile;
+
+/*
+ * Tc java classes 
+ */
+import com.teamcenter.rac.kernel.TCSession;
+import com.teamcenter.rac.kernel.TCComponentItemRevision;
+import com.teamcenter.rac.kernel.TCComponentItem;
+import com.teamcenter.rac.kernel.TCComponentItemType;
+import com.teamcenter.rac.kernel.TCComponentDataset;
+import com.teamcenter.rac.kernel.TCComponentBOMWindow;
+import com.teamcenter.rac.kernel.TCComponentBOMWindowType;
+import com.teamcenter.rac.kernel.TCComponentBOMLine;
+import com.teamcenter.rac.kernel.TCComponentRevisionRuleType;
+import com.teamcenter.rac.kernel.TCComponentForm;
+import com.teamcenter.rac.aif.kernel.AIFComponentContext;
+import com.teamcenter.rac.aif.kernel.InterfaceAIFComponent;
+
+/*
+ * Catia integration java classes 
+ */
+import com.ebsolutions.catiman.ErrorWarningMessages;
+import com.ebsolutions.catiman.PortalContext;
+import com.ebsolutions.catiman.commands.TClassUserLUSCommand;
+
+
+/**
+ * Sample file. 
+ * This class is not launched by the CATIAV5 integration
+ *
+ * @date 02/06/2008
+ */
+public class SampleIndependentSilentLUS 
+{
+     /**
+      * Current TC session: needed to access Tc server (service.call)
+      * null value is not allowed.
+      */
+     protected TCSession session = null;
+
+     /**
+      * This flag defines wether the LUS should be performed in silent mode or not
+      */
+     protected boolean is_silent[];
+
+     /**
+      * title of the messages
+      */
+     private String _title = "Sample Independent SilentLUS";
+
+     /**
+      * components that contains the assembly to LUS. 
+      */
+     private TCComponentItem[] item = null;
+     private TCComponentItemRevision[] item_revision = null;
+     private TCComponentDataset[] part_dataset = null;
+     private TCComponentDataset[] product_dataset = null;
+     private TCComponentDataset[] drawing_dataset = null;
+     private TCComponentForm[] other = null;
+     private TCComponentBOMWindow bom_window[] = null;
+
+     /**
+      * The constructor.
+      */
+     public SampleIndependentSilentLUS()
+     {
+         /* try to find the TCSession
+         note: this is not the only way to retrieve the TCSession. */
+         session = PortalContext.getContext().getSession();
+     }
+
+     /* --------------------------------------------------------------------- */
+     /*
+      * Sample main function
+      * @date 02/06/2008
+      */
+     public void customerProcess() {
+
+          showInformationMessage("START of silent LUS");
+          TClassUserLUSCommand silent_lus_command = null;
+
+
+          /*
+           * example of searching items to LUS
+           */
+          int return_value = findItemToLUS();
+          if (return_value < 0)
+          {
+               /* Unable to find any item to LUS */
+               return;
+          }
+
+
+          /**
+           * Initialize the API
+           */
+          silent_lus_command = new TClassUserLUSCommand(session);
+
+          /*
+           * API: LUS process.
+           * call the "executeLUS" function
+           */
+          /*******  Item  ********/
+          try
+          {
+               if (item[0] != null)
+               {
+                    silent_lus_command.executeLUS(item[0], is_silent[0]);
+                    showInformationMessage("pause in silent LUS after Item");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (1) Exception : " + ex);
+          }
+
+
+          /*******  Item Revision  ********/
+          try
+          {
+               if (item_revision[1] != null)
+               {
+                    silent_lus_command.executeLUS(item_revision[1], is_silent[1]);
+                    showInformationMessage("pause in silent LUS after Item_rev");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (2) Exception : " + ex);
+          }
+
+
+          /*******  bom window  ********/
+          try
+          {
+               if (bom_window[2] != null)
+               {
+                    silent_lus_command.executeLUS(bom_window[2], is_silent[2]);
+                    showInformationMessage("pause in silent LUS after bom_widow");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (3) Exception : " + ex);
+          }
+
+
+          /******* CATPart dataset  ********/
+          try
+          {
+               if (part_dataset[3] != null)
+               {
+                    silent_lus_command.executeLUS(part_dataset[3], is_silent[3]);
+                    showInformationMessage("pause in silent LUS after CATPart");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (4) Exception : " + ex);
+          }
+
+
+          /******* CATProduct dataset  ********/
+          try
+          {
+               if (product_dataset[4] != null)
+               {
+                    silent_lus_command.executeLUS(product_dataset[4], is_silent[4]);
+                    showInformationMessage("pause in silent LUS after CATProduct");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (5) Exception : " + ex);
+          }
+
+
+          /******* CATDrawing dataset  ********/
+          try
+          {    
+               if (drawing_dataset[5] != null)
+               {
+                    silent_lus_command.executeLUS(drawing_dataset[5], is_silent[5]);
+                    showInformationMessage("pause in silent LUS after CATDrawing");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (6) Exception : " + ex);
+          }
+
+
+          /******* other dataset  ********/
+          try
+          {   
+               if (other[6] != null)
+               {
+                    silent_lus_command.executeLUS(other[6], is_silent[6]);
+                    showInformationMessage("pause in silent LUS ");
+               }
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("SampleLUS error (7) Exception : " + ex);
+          }
+
+
+          silent_lus_command.stopProcess();
+
+     }
+
+     /**
+      * is used to display an Error message
+      * @param i_msg (I) the message to be displayed
+      */
+     private void showErrorMessage(final String i_msg)
+     {
+         ErrorWarningMessages.showErrorMessage(i_msg, _title);
+     }
+
+     /**
+      * is used to display an Information message
+      * @param i_msg (I) the message to display
+      */
+     private void showInformationMessage(final String i_msg)
+     {
+         ErrorWarningMessages.showInformationMessage(i_msg, _title);
+     }
+     /**
+      * Sample of searching item to LUS.
+      * read the query.txt file that contains the item_id, item_rev_id and silent mode of the selected item 
+      * The first line contains the number of assembly to LUS
+      * Then, for each assembly, we need 3 lines : item_id, item_rev_id and silent_mode
+      *  example :
+      *     2
+      *     000010
+      *     A
+      *     true
+      *     000020
+      *     B
+      *     false
+      */
+     protected int findItemToLUS()
+     {
+          String item_id = null;
+          String item_rev_id = null;
+
+          int return_value = 0;
+          int nb_assy = 0;
+          RandomAccessFile reader = null;
+          File file = null;
+
+          try
+          {
+               String file_path = "c:\\catiman_tmp\\tmp\\query.txt";
+               file = new File(file_path);
+               reader = new RandomAccessFile(file, "r");
+               nb_assy = Integer.valueOf(reader.readLine()).intValue();
+
+               is_silent = new boolean[nb_assy];
+               item = new TCComponentItem[nb_assy];
+               item_revision = new TCComponentItemRevision[nb_assy];
+               part_dataset = new TCComponentDataset[nb_assy];
+               product_dataset = new TCComponentDataset[nb_assy];
+               drawing_dataset = new TCComponentDataset[nb_assy];
+               other = new TCComponentForm[nb_assy];
+               bom_window = new TCComponentBOMWindow[nb_assy];
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("error 0 - " + ex);
+               return_value = -1;
+          }
+
+          for (int i = 0 ; i < (nb_assy) ; i++)
+          {
+               try
+               {
+                    item_id = reader.readLine();
+                    item_rev_id = reader.readLine();
+                    is_silent[i] = Boolean.valueOf(reader.readLine()).booleanValue();
+
+                    // search item name item_id 
+                    TCComponentItemType it = (TCComponentItemType)(session.getTypeComponent("Item"));
+                    item[i] = it.find(item_id);
+
+                    if (item[i] == null)
+                    {
+                         showErrorMessage("Error : item <" + item_id + ">not found");
+                         return_value = -1;
+                    }
+                    else
+                    {
+                         // the item was found, search the correction item revision
+                         AIFComponentContext[] revisions = item[i].getChildren();
+                         TCComponentItemRevision revision_component = null;
+
+                         for (int j = 0; j < revisions.length; j++)
+                         {
+                              InterfaceAIFComponent component = revisions[j].getComponent();
+                              if (component instanceof TCComponentItemRevision)
+                              {
+                                   revision_component = (TCComponentItemRevision) component;
+
+                                   if (revision_component.getProperty("item_revision_id").equals(item_rev_id))
+                                   {
+                                        item_revision[i] = revision_component;
+                                        break;
+                                   }
+                              }
+                         }
+
+                         if (item_revision[i] == null)
+                         {
+                              showErrorMessage("Error : Item revision [" + item_rev_id + "] doesn't exist for item [" + item_id + "]");
+                              return_value = -1;
+                         }
+                         else
+                         {
+                              // create the BOMWindow with the item revision previously found 
+                              TCComponentBOMWindowType type = (TCComponentBOMWindowType)session.getTypeComponent("BOMWindow");
+                              TCComponentRevisionRuleType rule = (TCComponentRevisionRuleType)session.getTypeComponent("RevisionRule");
+                              bom_window[i] = type.create(rule.getDefaultRule());
+
+                              /* Define the BOMWindow top line */
+                              TCComponentBOMLine top_line = bom_window[i].setWindowTopLine(item[i], item_revision[i], null, null);
+                         }
+                    }
+               }
+               catch (Exception ex)
+               {
+                    showErrorMessage("error 1 - " + ex);
+                    return_value = -1;
+               }
+
+               // search for a dataset (CATPart or CATProduct and/or CATDrawing)
+               try
+               {
+                    int nb = item_revision[i].getChildrenCount();
+                    if (nb > 0)
+                    {
+                         AIFComponentContext[] aif_comp_cont = item_revision[i].getChildren();
+
+                         for (int j = 0 ; j < nb ; j++)
+                         {
+                              InterfaceAIFComponent int_aif_comp = aif_comp_cont[j].getComponent();
+
+
+                              if (int_aif_comp.getType().equals("CATPart"))
+                              {
+                                   part_dataset[i] = (TCComponentDataset)int_aif_comp;
+                              }
+                              else if (int_aif_comp.getType().equals("CATProduct"))
+                              {
+                                   product_dataset[i] = (TCComponentDataset)int_aif_comp;
+                              }
+                              else if (int_aif_comp.getType().equals("CATDrawing"))
+                              {
+                                   drawing_dataset[i] = (TCComponentDataset)int_aif_comp;
+                              }
+                              else if (int_aif_comp.getType().equals("ItemRevision Master"))
+                              {
+                                   other[i] = (TCComponentForm)int_aif_comp;
+                              }
+                         }
+                    }
+               }
+               catch (Exception ex)
+               {
+                    showErrorMessage("error 2 - " + ex);
+                    return_value = -1;
+               }
+          }
+          try
+          {
+               reader.close();
+          }
+          catch (Exception ex)
+          {
+               showErrorMessage("error 3 - " + ex);
+          }
+          return return_value;
+     }
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+     System.out.println("Lets try this");
+     SampleIndependentSilentLUS test = new SampleIndependentSilentLUS();
+     //test.customerProcess();  
+    }
+
+}
+
+...
+
+package util;
+
+import com.teamcenter.rac.kernel.TCComponentBOMLine;
+import com.teamcenter.rac.kernel.TCComponentBOMWindow;
+import com.teamcenter.rac.kernel.TCComponentBOMWindowType;
+import com.teamcenter.rac.kernel.TCComponentDataset;
+import com.teamcenter.rac.kernel.TCComponentDatasetType;
+import com.teamcenter.rac.kernel.TCComponentItem;
+import com.teamcenter.rac.kernel.TCComponentItemRevision;
+import com.teamcenter.rac.kernel.TCComponentItemType;
+import com.teamcenter.rac.kernel.TCComponentType;
+import com.teamcenter.rac.kernel.TCException;
+import com.teamcenter.rac.kernel.TCSession;
+
+public class ItemUtil {
+	/**
+	  * @ Function function: Get the BOMLINE and BOMWINDOW @ input parameters of the default version rule through ItemRevision:
+	  * @Param Revision a version
+	  * @Return Bomline, Bomline.Window () Get bomwindow @ Note: Please turn off bomwindow after using BOMLINE
+	 */
+	public static TCComponentBOMLine getBOMLine(TCComponentItemRevision revision, TCSession session) {
+		TCComponentBOMLine bomLine = null;
+		try {
+			TCComponentType tccomponentType = session.getTypeComponent("BOMWindow");
+			if (tccomponentType != null && tccomponentType instanceof TCComponentBOMWindowType) {
+				TCComponentBOMWindowType bomwindowType = (TCComponentBOMWindowType) tccomponentType;
+				TCComponentBOMWindow bomwindow = bomwindowType.create(null); // Default version rule
+				if (bomwindow != null) {
+					bomLine = bomwindow.setWindowTopLine(null, revision, null, null);
+				} else {
+					System.out.println("bomwindow == null");
+				}
+			} else {
+				System.out.println(
+						"tccomponentType == null || (tccomponentType instanceof TCComponentBOMWindowType == false)");
+			}
+		} catch (TCException e) {
+			e.printStackTrace();
+		}
+		return bomLine;
+	}
+
+	/**
+	  * @ Function function: query a single item according to item_id and item type (TC12 allows different types of Items to have the same Item_ID) @ input parameters: @Param
+	 *                                                                  itemId
+	  * To query Item ID
+	  * @Param ITEMTYPE Type To Query ItemID
+	  * @Param session client session @ Return Output:
+	  * @return queried Item
+	 */
+	public static TCComponentItem querySingleItem(String itemId, String itemType, TCSession session) {
+		try {
+			TCComponentType compType = session.getTypeComponent(itemType);
+			if (compType != null && compType instanceof TCComponentItemType) {
+				TCComponentItemType TCType = (TCComponentItemType) compType;
+				TCComponentItem[] items = TCType.findItems(itemId);
+				if (items != null && items.length > 0) {
+					for (int i = 0; i < items.length; i++) {
+						String type = items[i].getType();
+						if (type.equals(itemType)) {
+							return items[i];
+						}
+					}
+				} else {
+					System.out.println("items == null || items.length <= 0");
+				}
+			} else {
+				System.out.println("compType == null || (compType instanceof TCComponentItemType == false)");
+			}
+		} catch (TCException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	  * @ Function function: Create a dataset @ input parameter:
+	  * @Param DTTYPE Dataset Type
+	  * @PARAM DTNAME Dataset Name
+	  * @Param DTDESC Data Set Description
+	  * @Param session client session, can delete and use global sessions as needed
+	 */
+	public static TCComponentDataset createDataset(String dtType, String dtName, String dtDesc, TCSession session) {
+		TCComponentDataset dataset = null;
+		try {
+			TCComponentType tctype = session.getTypeComponent(dtType);
+			if (tctype != null && tctype instanceof TCComponentDatasetType) {
+				TCComponentDatasetType tcDtType = (TCComponentDatasetType) tctype;
+				dataset = tcDtType.create(dtName, dtDesc, dtType);
+			}
+		} catch (TCException e) {
+			e.printStackTrace();
+		}
+		return dataset;
+	}
+}
+
+...
+
+package util;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class ExcelUtil {
+	/**
+	 * @ Function function: Create a name non-repetitive folder @ return output in the temporary directory of the operating system:
+	  * @Return Returns the path to the created folder, the return path ends contains directory separators "\\"
+	 */
+	public static String createTempDir() {
+		String dir = "";
+		String tempDir = System.getProperty("java.io.tmpdir");
+		Date date = new Date();
+		long time = date.getTime();
+		if (tempDir.endsWith("\\")) {
+			dir = tempDir + time + "\\";
+		} else {
+			dir = tempDir + "\\" + time + "\\";
+		}
+		System.out.println("Final DIR ==" + dir);
+		File file = new File(dir);
+		if (!file.exists()) {
+			boolean isOk = file.mkdirs();
+			if (isOk) {
+				System.out.println("The file directory creates success!");
+			} else {
+				System.out.println("The file directory creates failed!");
+			}
+		} else {
+			System.out.println(dir + "The directory already exists!");
+		}
+		return dir;
+	}
+
+	/**
+	  * @    : Generate and write a worksheet to a physical file @ input parameters:
+	  * @Param XWB a worksheet
+	  * @Param FilePath Need to write the physical file path
+	 */
+	public static void writeWBToFile(XSSFWorkbook xwb, String filePath) {
+
+		try {
+
+			FileOutputStream fos = new FileOutputStream(filePath);
+
+			xwb.write(fos);
+
+			fos.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	  * Specify ROW and specify the specified value setting specified value in the specified sheet page
+	 * 
+	 * @param sheet
+	 * @param row
+	 * @param cell
+	 * @param value
+	 */
+	public static void setCellValue(XSSFSheet sheet, int row, int cell, String value) {
+
+		XSSFRow myRow = sheet.getRow(row);
+
+		if (myRow == null) {
+
+			myRow = sheet.createRow(row);
+		}
+
+		XSSFCell myCell = myRow.getCell(cell);
+
+		if (myCell == null) {
+
+			myCell = myRow.createCell(cell);
+		}
+
+		myCell.setCellType(XSSFCell.CELL_TYPE_STRING);
+		myCell.setCellValue(value);
+	}
+	
+	/**
+	  * @Function function: Under this EXCEL's file path and the index of the Sheet page, you get this Excel specified SHEET page @ input parameters:
+	  * @Param ExcelfilePath Excel file path
+	  * @Param SheetIndex to get the index of the Sheet page
+	 */
+	public static XSSFSheet getExcelSheetFromFilePath(String excelFilePath, int sheetIndex) {
+
+		try {
+			File file = new File(excelFilePath);
+			FileInputStream fis = new FileInputStream(file);
+			XSSFWorkbook xwb = new XSSFWorkbook(fis);
+			XSSFSheet sheet = xwb.getSheetAt(sheetIndex);
+			fis.close();
+			return sheet;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+}
+
+...
+
+package bean;
+/**
+   * Some properties used to store ItemRevision and Bomline
+ * @author LIDESEN
+ *
+ */
+public class ItemInfo {
+	private String item_id = "";
+	private String object_name = "";
+	private String object_desc = "";
+	private String bl_sequance_no = "";
+	private String bl_uom = "";
+
+	public ItemInfo() {
+		super();
+	}
+
+	public ItemInfo(String item_id, String object_name, String object_desc, String bl_sequance_no, String bl_uom) {
+		super();
+		this.item_id = item_id;
+		this.object_name = object_name;
+		this.object_desc = object_desc;
+		this.bl_sequance_no = bl_sequance_no;
+		this.bl_uom = bl_uom;
+	}
+
+	public String getItem_id() {
+		return item_id;
+	}
+
+	public void setItem_id(String item_id) {
+		this.item_id = item_id;
+	}
+
+	public String getObject_name() {
+		return object_name;
+	}
+
+	public void setObject_name(String object_name) {
+		this.object_name = object_name;
+	}
+
+	public String getObject_desc() {
+		return object_desc;
+	}
+
+	public void setObject_desc(String object_desc) {
+		this.object_desc = object_desc;
+	}
+
+	public String getBl_sequance_no() {
+		return bl_sequance_no;
+	}
+
+	public void setBl_sequance_no(String bl_sequance_no) {
+		this.bl_sequance_no = bl_sequance_no;
+	}
+
+	public String getBl_uom() {
+		return bl_uom;
+	}
+
+	public void setBl_uom(String bl_uom) {
+		this.bl_uom = bl_uom;
+	}
+
+	@Override
+	public String toString() {
+		return "ItemInfo [item_id=" + item_id + ", object_name=" + object_name + ", object_desc=" + object_desc
+				+ ", bl_sequance_no=" + bl_sequance_no + ", bl_uom=" + bl_uom + "]";
+	}
+
+}
+
+... что то про коллекции Item'ов
+
+package domain;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+
+import com.sun.mail.handlers.message_rfc822;
+import com.teamcenter.rac.aif.AbstractAIFUIApplication;
+import com.teamcenter.rac.aif.kernel.AIFComponentContext;
+import com.teamcenter.rac.aif.kernel.InterfaceAIFComponent;
+import com.teamcenter.rac.aifrcp.AIFUtility;
+import com.teamcenter.rac.kernel.TCComponentBOMLine;
+import com.teamcenter.rac.kernel.TCComponentDataset;
+import com.teamcenter.rac.kernel.TCComponentItem;
+import com.teamcenter.rac.kernel.TCComponentItemRevision;
+import com.teamcenter.rac.kernel.TCException;
+import com.teamcenter.rac.kernel.TCPreferenceService;
+import com.teamcenter.rac.kernel.TCSession;
+import com.teamcenter.rac.util.MessageBox;
+
+import bean.ItemInfo;
+import util.ExcelUtil;
+import util.ItemUtil;
+
+/**
+   * Obtain the preferences configured on the TC to get the BOM tree information on the TC, print into a report, create a data set, put the data set to the itemRevision where the top-level Bomline is located, and upload the report to the data set.
+ * 
+ * @author LIDESEN
+ *
+ */
+public class MyHandler extends AbstractHandler {
+	private static AbstractAIFUIApplication app = null;
+	private static TCSession session = null;
+	private static Logger logger = null;
+	List<ItemInfo> list = new ArrayList<ItemInfo>();
+
+	public Object execute(ExecutionEvent arg0) throws ExecutionException {
+		// Initializing the log module
+		logger = getLogger();
+		// Initialize the current application of TC
+		app = AIFUtility.getCurrentApplication();
+		// Get session
+		session = (TCSession) app.getSession();
+		// Get preferred service
+		TCPreferenceService preferenceService = session.getPreferenceService();
+
+		/**
+		  * Get BOM tree by selecting the mouse
+		 */
+		/*
+		InterfaceAIFComponent com = app.getTargetComponent();
+		if (com != null) {
+			if (com instanceof TCComponentItemRevision) {
+				TCComponentItemRevision itemRevision = (TCComponentItemRevision) com;
+				 // Get the BOMELINE object through the zero component version, the object is also the bottom BOMELINE object of the BOM tree
+				TCComponentBOMLine topBomLine = ItemUtil.getBOMLine(itemRevision, session);
+				 // Save some attributes of the top-level Bomline to some properties through Javabean to the collection
+				try {
+					list.add(new ItemInfo(itemRevision.getProperty("item_id"), itemRevision.getProperty("object_name"),
+							itemRevision.getProperty("object_desc"), topBomLine.getProperty("bl_sequance_no"),
+							topBomLine.getProperty("bl_uom")));
+					 // Get all Bomline objects under the BOM tree
+					AIFComponentContext[] bomLines = topBomLine.getChildren();
+					for (int i = 0; i < bomLines.length; i++) {
+						InterfaceAIFComponent bomline = bomLines[i].getComponent();
+						if (bomline instanceof TCComponentBOMLine) {
+							TCComponentBOMLine bl = (TCComponentBOMLine) bomline;
+							 // Get the Revision object via Bomline
+							TCComponentItemRevision itemRevision2 = ((TCComponentBOMLine) bl).getItemRevision();
+							 // Save the itemRevidion and Bomline properties in Bomline to the collection through Javabean
+							list.add(new ItemInfo(itemRevision2.getProperty("item_id"),
+									itemRevision2.getProperty("object_name"), itemRevision2.getProperty("object_desc"),
+									bl.getProperty("bl_sequence_no"), bl.getProperty("bl_uom")));
+							 // Remature traverside BOM tree
+							recursion(bl);
+						}
+					}
+					 / / Get the template ExcL file Sheet object
+					String exclePath = "C:\\excel\\bomMessage.xlsx";
+					XSSFSheet sheet = ExcelUtil.getExcelSheetFromFilePath(exclePath, 0);
+					if (sheet != null) {
+						 // Print the List data into the Excel file. The external loop is a ROW object that gets an Excle template;
+						 // Since the Excle template starts from the second line, it is necessary for the FOR cycle index from 1 to 1; if it is traversed to the end of the List collection, List.Size () + 1.
+						for (int i = 1; i < list.size() + 1; i++) {
+							 // The index of the set element starts from 0, so below is list.get (i - 1) instead of list.get (i)
+							ItemInfo itemInfo = list.get(i - 1);
+							 // Internal cycle is to obtain a Cell object and set the value of Cell
+							for (int j = 0; j < 6; j++) {
+								if (j == 0) {
+									 // serial number
+									ExcelUtil.setCellValue(sheet, i, j, i + "");
+								} else if (j == 1) {
+									// id
+									ExcelUtil.setCellValue(sheet, i, j, itemInfo.getItem_id());
+								} else if (j == 2) {
+									 // Name
+									ExcelUtil.setCellValue(sheet, i, j, itemInfo.getObject_name());
+								} else if (j == 3) {
+									 									// describe 
+									ExcelUtil.setCellValue(sheet, i, j, itemInfo.getObject_desc());
+								} else if (j == 4) {
+									ExcelUtil.setCellValue(sheet, i, j, itemInfo.getBl_sequance_no());
+								} else if (j == 5) {
+									ExcelUtil.setCellValue(sheet, i, j, itemInfo.getBl_uom());
+								}
+							}
+						}
+						 // Get the Sheet worksheet
+						XSSFWorkbook workbook = sheet.getWorkbook();
+						 // Get system temporary directory path
+						String tempDir = ExcelUtil.createTempDir();
+						 // Create an Excel file export path
+						 String eXortpath = Tempdir + itemRevision.getProperty ("Object_name") + "Information table .xlsx";
+						 // Save the worksheet of Excel and save it to the local physical path
+						ExcelUtil.writeWBToFile(workbook, exortPath);
+						// Create a dataset under top-level Bomline
+						TCComponentDataset dataset = ItemUtil.createDataset("MSExcelX",
+								 ItemRevision.getProperty ("Object_name") + "information table", "", session);
+						 / / Add an Excle file to the data set
+						dataset.setFiles(new String[] { exortPath }, new String[] { "excel" });
+						 // Use the standard relationship to hang the data set to the top-level Bomline is located under itemRevision.
+						itemRevision.add("IMAN_specification", dataset);
+						 MessageBox.post ("Congratulations, Report Generation!", "Tips", MessageBox.information;
+
+					} else {
+						 Loginfo ("SHEET page is empty!");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+		} else {
+			 Messagebox.post ("Please select the top of the BOM tree!", "Error", MessageBox.Error);
+		}
+		*/
+		
+		/**
+		  * Get the BOM tree through the first option to store the zero component ID in the top-level Bomline
+		 */
+		if (preferenceService != null) {
+			/ / Get the value in the preferred item
+			String[] preValue = preferenceService.getStringValues("my_topBom_id");
+			if (preValue != null && preValue.length > 0) {
+				// Since I have only one ItemID in the value of the preferences, the value is directly
+				String itemId = preValue[0];
+				// Get zero component object Item via zero component ID
+				TCComponentItem item = ItemUtil.querySingleItem(itemId, "Item", session);
+				if (item != null) {
+					try {
+						/ / Get zero component version object ItemRevision via zero component object
+						TCComponentItemRevision itemRevision = item.getLatestItemRevision();
+						// Get the BOMELINE object through the zero component version, the object is also the bottom BOMELINE object of the BOM tree
+						TCComponentBOMLine topBomLine = ItemUtil.getBOMLine(itemRevision, session);
+						// Save some attributes of the top-level Bomline to some properties through Javabean to the collection
+						list.add(new ItemInfo(itemRevision.getProperty("item_id"),
+								itemRevision.getProperty("object_name"), itemRevision.getProperty("object_desc"),
+								topBomLine.getProperty("bl_sequance_no"), topBomLine.getProperty("bl_uom")));
+						// Get all Bomline objects under the BOM tree
+						AIFComponentContext[] bomLines = topBomLine.getChildren();
+						for (int i = 0; i < bomLines.length; i++) {
+							InterfaceAIFComponent bomline = bomLines[i].getComponent();
+							if (bomline instanceof TCComponentBOMLine) {
+								TCComponentBOMLine bl = (TCComponentBOMLine) bomline;
+								// Get the Revision object via Bomline
+								TCComponentItemRevision itemRevision2 = ((TCComponentBOMLine) bl).getItemRevision();
+								// Save the itemRevidion and Bomline properties in Bomline to the collection through Javabean
+								list.add(new ItemInfo(itemRevision2.getProperty("item_id"),
+										itemRevision2.getProperty("object_name"),
+										itemRevision2.getProperty("object_desc"),
+										itemRevision2.getProperty("bl_sequance_no"),
+										itemRevision2.getProperty("bl_uom")));
+								// Remature traverside BOM tree
+								recursion(bl);
+							}
+						}
+						/ / Get the template ExcL file Sheet object
+						String exclePath = "C:\\excel\\bomMessage.xlsx";
+						XSSFSheet sheet = ExcelUtil.getExcelSheetFromFilePath(exclePath, 0);
+						if (sheet != null) {
+							/*
+							  * Print the List data to the Excel file. The external loop is a ROW object that gets an Excle template;
+							  * Since the Excle template starts from the second line, it is necessary for the FOR cycle index from 1; if it is traversed to the end of the List collection, List.size () + 1.
+							 */
+							for (int i = 1; i < list.size() + 1; i++) {
+								// The index of the set element starts from 0, so below is list.get (i - 1) instead of list.get (i)
+								ItemInfo itemInfo = list.get(i - 1);
+								// Internal cycle is to obtain a Cell object and set the value of Cell
+								for (int j = 0; j < 6; j++) {
+									if (j == 0) {
+										// serial number
+										ExcelUtil.setCellValue(sheet, i, j, i + "");
+									} else if (j == 1) {
+										// id
+										ExcelUtil.setCellValue(sheet, i, j, itemInfo.getItem_id());
+									} else if (j == 2) {
+										// Name
+										ExcelUtil.setCellValue(sheet, i, j, itemInfo.getObject_name());
+									} else if (j == 3) {
+										// describe
+										ExcelUtil.setCellValue(sheet, i, j, itemInfo.getObject_desc());
+									} else if (j == 4) {
+										ExcelUtil.setCellValue(sheet, i, j, itemInfo.getBl_sequance_no());
+									} else if (j == 5) {
+										ExcelUtil.setCellValue(sheet, i, j, itemInfo.getBl_uom());
+									}
+								}
+							}
+							// Get the Sheet worksheet
+							XSSFWorkbook workbook = sheet.getWorkbook();
+							// Get system temporary directory path
+							String tempDir = ExcelUtil.createTempDir();
+							// Create an Excel file export path
+							String exortPath = tempDir + itemRevision.getProperty("object_name") + "Information table .xlsx";
+							// Save the worksheet of Excel and save it to the local physical path
+							ExcelUtil.writeWBToFile(workbook, exortPath);
+							// Create a dataset under top-level Bomline
+							TCComponentDataset dataset = ItemUtil.createDataset("MSExcelX",
+									itemRevision.getProperty("object_name") + "Information Sheet", "", session);
+							/ / Add an Excle file to the data set
+							dataset.setFiles(new String[] { exortPath }, new String[] { "excel" });
+							// Use the standard relationship to hang the data set to the top-level Bomline is located under itemRevision.
+							itemRevision.add("IMAN_specification", dataset);
+							MessageBox.post("Congratulations, the report generation is successful!", "hint", MessageBox.INFORMATION);
+						} else {
+							loginfo("The Sheet page is empty!");
+						}
+					} catch (TCException e) {
+						e.printStackTrace();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				} else {
+					loginfo("Get zero component object failed!");
+				}
+			} else {
+				loginfo("Get the first option failed!");
+			}
+		} else {
+			loginfo("Get the first option service failed!");
+		}
+		return null;
+	}
+
+	// Remove the BOM tree and add BOM related information to the collection
+	public void recursion(TCComponentBOMLine bomLine) throws Exception {
+		// Get all Bomline objects under the BOM tree
+		AIFComponentContext[] bomLines = bomLine.getChildren();
+		for (int i = 0; i < bomLines.length; i++) {
+			InterfaceAIFComponent bomline = bomLines[i].getComponent();
+			if (bomline instanceof TCComponentBOMLine) {
+				TCComponentBOMLine bl = (TCComponentBOMLine) bomline;
+				// Get the Revision object via Bomline
+				TCComponentItemRevision itemRevision2 = ((TCComponentBOMLine) bl).getItemRevision();
+				// Save the itemRevidion and Bomline properties in Bomline to the collection through Javabean
+				ItemInfo itemInfo = new ItemInfo(itemRevision2.getProperty("item_id"),
+						itemRevision2.getProperty("object_name"), itemRevision2.getProperty("object_desc"),
+						itemRevision2.getProperty("bl_sequance_no"), itemRevision2.getProperty("bl_uom"));
+				list.add(itemInfo);
+				loginfo(itemInfo.toString());
+				// Remature traverside BOM tree
+				recursion(bl);
+			}
+		}
+	}
+
+	private void loginfo(String info) {
+		logger.info(info + "\r\n");
+	}
+
+	private Logger getLogger() {
+		if (logger != null) {
+			return logger;
+		}
+		Logger logger = Logger.getLogger("tang");
+		logger.setLevel(Level.ALL); // Record all levels
+		try {
+			/ * Setup file log log * /
+			FileHandler fileHandler = new FileHandler("C:\\lidesen.txt"); // If there is no existence, it will not be created automatically, it will exceed
+			fileHandler.setFormatter(new SimpleFormatter());
+			logger.addHandler(fileHandler);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return logger;
+	}
+}
+
+...
+
+Программирование под Teamcenter начал изучать недавно. Нашел пример как создать TCComponentItem, с ним вроде все понятно. Вопрос: как создать деталь, чтобы допустим пользователь вводил имя, id, ревизию?
+
+ 
+
+public static TCComponentItem createItem(String id, String rev, String type, String name) throws TCException {
+     TCComponentItem search = searchItem(id);
+     if (search == null) {
+       TCComponentItemType typeItem = (TCComponentItemType)session.getTypeComponent("Item");
+       search = typeItem.create(id, rev, type, name, "", new TCComponent());
+       return search;
+     }
+     return null;     
+   }
+   
+   public static TCComponentItem searchItem(String id) throws TCException
+   {
+     TCComponentItemType type = (TCComponentItemType)session.getTypeComponent("Item");
+     TCComponentItem item = type.find(id);
+     return item;
+   }
+   
+   public static void addToNewStuff(TCComponentItem object) {
+     try {
+       TCComponentFolder newStuffFolder = session.getUser().getNewStuffFolder();
+       addItemToFolder(object, newStuffFolder);
+     } catch (TCException e) {
+       e.printStackTrace();
+     }
+   }
+   
+   public static void addItemToFolder(TCComponentItem createItem, TCComponentFolder folder) {
+     if (folder == null) {
+       return;
+     }
+     try {
+       folder.add("contents", createItem);
+     }
+     catch (Exception localException) {}
+   }
+
+...
+
+visibleWhen>
+<reference
+definitionId="com.teamcenter.rac.pse.inMainPerspective">
+</reference>
+</visibleWhen>
+
+...
+
+The following figure shows the code used to create the previous examples:
+public class testlayout extends JDialog
+{
+protected JButton one, two, three;
+protected JPanel buttonPanel;
+public testlayout ( Frame parent, String title )
+{
+super ( parent, title, false );
+// Create a new panel with a ButtonLayout Manager
+buttonPanel = new JPanel();
+buttonPanel.setlayout ( new ButtonLayout(ButtonLayout.HORIZONTAL));
+// Create three buttons
+one = new JButton ( "OK" );
+two = new JButton ( "Apply" );
+three = new JButton ( "Cancel" );
+// Add the buttons to the Panel created
+buttonPanel.add (one );
+buttonPanel.add (two);
+buttonPanel.add (three);
+this.add (buttonPanel);
+this.pack ();
+}
+}
+
+...
+
+masterForm.getFormTCProperty("svoistvo").setStringValue("znachenie");
+
+...
+
+private void loginfo(String info) {
+		logger.info(info + "\r\n");
+	}
+
+	private Logger getLogger() {
+		if (logger != null) {
+			return logger;
+		}
+		Logger logger = Logger.getLogger("tang");
+		logger.setLevel(Level.ALL); // Record all levels
+		try {
+			/ * Setup file log log * /
+			FileHandler fileHandler = new FileHandler("C:\\lidesen.txt"); // If there is no existence, it will not be created automatically, it will exceed
+			fileHandler.setFormatter(new SimpleFormatter());
+			logger.addHandler(fileHandler);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return logger;
+	}
+
+...
+
+Obtaining one form property
+TCFormProperty p = f.getFormTCProperty(“my_prop_name”);
+• Obtaining all form properties
+TCFormProperty[] props = f.getAllFormProperties();
+• Saving one form property
+TCFormProperty p = f.getFormTCProperty(“my_prop_name”);
+// Get the property to set
+p.setStringValue ( “abc” ); // Set it.
+At this point it is saved to the db.
+• Saving several form properties
+TCFormProperty[] ps = f.getAllFormProperties();
+// Get the property to set
+ps[0].setStringValueData ( “abc” );
+// Sets the value but is not saved.
+ps[1].setStringValueData ( “def” );
+// Sets the value but is not saved.
+f.setTCProperties(ps); // Now is saved to the db.
+...
+
+попробуйте изменить порядок серверов в  ...\portal\plugins\configuration_11000.2.0\client_specific.properties
+
+Там увидите где, и нужный сервер сделайте первым в списке
+
+ 
+
+не забудьте запустить после правок genregxml.bat из папки portal/registry
+
+ 
+
+p.s это для 11го клиента но путь такой же и для 10го
+
+Изменено 22 декабря 2023 пользователем lexx174
+
+...
+
+package util;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class ExcelUtil {
+	/**
+	 * @ Function function: Create a name non-repetitive folder @ return output in the temporary directory of the operating system:
+	  * @Return Returns the path to the created folder, the return path ends contains directory separators "\\"
+	 */
+	public static String createTempDir() {
+		String dir = "";
+		String tempDir = System.getProperty("java.io.tmpdir");
+		Date date = new Date();
+		long time = date.getTime();
+		if (tempDir.endsWith("\\")) {
+			dir = tempDir + time + "\\";
+		} else {
+			dir = tempDir + "\\" + time + "\\";
+		}
+		System.out.println("Final DIR ==" + dir);
+		File file = new File(dir);
+		if (!file.exists()) {
+			boolean isOk = file.mkdirs();
+			if (isOk) {
+				System.out.println("The file directory creates success!");
+			} else {
+				System.out.println("The file directory creates failed!");
+			}
+		} else {
+			System.out.println(dir + "The directory already exists!");
+		}
+		return dir;
+	}
+
+	/**
+	  * @    : Generate and write a worksheet to a physical file @ input parameters:
+	  * @Param XWB a worksheet
+	  * @Param FilePath Need to write the physical file path
+	 */
+	public static void writeWBToFile(XSSFWorkbook xwb, String filePath) {
+
+		try {
+
+			FileOutputStream fos = new FileOutputStream(filePath);
+
+			xwb.write(fos);
+
+			fos.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	  * Specify ROW and specify the specified value setting specified value in the specified sheet page
+	 * 
+	 * @param sheet
+	 * @param row
+	 * @param cell
+	 * @param value
+	 */
+	public static void setCellValue(XSSFSheet sheet, int row, int cell, String value) {
+
+		XSSFRow myRow = sheet.getRow(row);
+
+		if (myRow == null) {
+
+			myRow = sheet.createRow(row);
+		}
+
+		XSSFCell myCell = myRow.getCell(cell);
+
+		if (myCell == null) {
+
+			myCell = myRow.createCell(cell);
+		}
+
+		myCell.setCellType(XSSFCell.CELL_TYPE_STRING);
+		myCell.setCellValue(value);
+	}
+	
+	/**
+	  * @Function function: Under this EXCEL's file path and the index of the Sheet page, you get this Excel specified SHEET page @ input parameters:
+	  * @Param ExcelfilePath Excel file path
+	  * @Param SheetIndex to get the index of the Sheet page
+	 */
+	public static XSSFSheet getExcelSheetFromFilePath(String excelFilePath, int sheetIndex) {
+
+		try {
+			File file = new File(excelFilePath);
+			FileInputStream fis = new FileInputStream(file);
+			XSSFWorkbook xwb = new XSSFWorkbook(fis);
+			XSSFSheet sheet = xwb.getSheetAt(sheetIndex);
+			fis.close();
+			return sheet;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+}
+
+...
+
+	//获得Home目录
+​	  TCComponentFolder homeFolder=session.getUser().getHomeFolder();
+​	//创建普通文件夹
+​	  TCComponentFolderType folderType=(TCComponentFolderType) session.getTypeComponent("Folder");
+​	  TCComponentFolder folder=folderType.create("folderName", "description", "Folder");
+​	//将组件挂在文件夹下，字符串为文件夹与组件的关系
+​	  folder.add("contents", component);
+​	//获取临时文件夹
+​	  TCComponentFolder stuffFolder=null;
+​	  stuffFolder=TCComponentFolder.getNewStuffFolder(session);
+​	//另存为
+​	TCComponentFolder newFolder=null;
+​	newFolder=folder.saveAs("newFolderName");
+
+...
+
+TCComponentBOMWindowType bowWinType = (TCComponentBOMWindowType )getSession().getTypeComponent("BOMWindow");
+
+bomWin = bowWinType.create(null); // create bom window configured with the default revision rule
+
+TCComponentBOMLine bl= bomWin.setWindowTopLine(_tcItem, itemRev, null, null);
+
+// get children if any
+if (bl.hasChildren()){
+
+AIFComponentContext[] childContext = bl.getChildren();
+
+for(int i = 0; i < childContext.length; i++){
+
+TCComponentBOMLine child = (TCComponentBOMLine)childContext.getComponent();
+
+TCComponentItem item = child.getItem();
+
+}
+
+...
+
+Object data = ((IStructuredSelection)m_selection).getFirstElement();
+
+AIFComponentContext Ir = ((AIFComponentContext)data).getComponent().getChildren()[((AIFComponentContext)data).getComponent().getChildren().length - 1];//ревизия
+
+TCComponentItemRevision ic = (TCComponentItemRevision)Ir.getComponent();
+
+TCComponentBOMWindowType bowWinType = (TCComponentBOMWindowType)ic.getSession().getTypeComponent("BOMWindow");
+
+TCComponentBOMWindow bomWin = bowWinType.create(null);
+
+TCComponentBOMLine bl = bomWin.setWindowTopLine(null, ic, null, null);
+
+...
+
+TCComponentBOMLine bl = bomWin.setWindowTopLine(***); // ROOT BOMLine
+        
+AIFComponentContext[] ctxes = bl.getChildren();
+for (AIFComponentContext ctx : ctxes) {
+    TCComponentBOMLine child = (TCComponentBOMLine)ctx.getComponent();
+    bl.remove("bl_all_child_lines", child);
+    bl.save();
+}
+bl.save();
+bl.refresh();
+bomWin.save();
+bomWin.refresh();
+
+...
+
+public static TCComponentBOMLine getBOMLine(TCComponentItemRevision revision, TCSession session) {
+		TCComponentBOMLine bomLine = null;
+		try {
+			TCComponentType tccomponentType = session.getTypeComponent("BOMWindow");
+			if (tccomponentType != null && tccomponentType instanceof TCComponentBOMWindowType) {
+				TCComponentBOMWindowType bomwindowType = (TCComponentBOMWindowType) tccomponentType;
+				TCComponentBOMWindow bomwindow = bomwindowType.create(null); // Default version rule
+				if (bomwindow != null) {
+					bomLine = bomwindow.setWindowTopLine(null, revision, null, null);
+				} else {
+					System.out.println("bomwindow == null");
+				}
+			} else {
+				System.out.println(
+						"tccomponentType == null || (tccomponentType instanceof TCComponentBOMWindowType == false)");
+			}
+		} catch (TCException e) {
+			e.printStackTrace();
+		}
+		return bomLine;
+	}
+/**
+	  * @ Function function: query a single item according to item_id and item type (TC12 allows different types of Items to have the same Item_ID) @ input parameters: @Param
+	 *                                                                  itemId
+	  * To query Item ID
+	  * @Param ITEMTYPE Type To Query ItemID
+	  * @Param session client session @ Return Output:
+	  * @return queried Item
+	 */
+	public static TCComponentItem querySingleItem(String itemId, String itemType, TCSession session) {
+		try {
+			TCComponentType compType = session.getTypeComponent(itemType);
+			if (compType != null && compType instanceof TCComponentItemType) {
+				TCComponentItemType TCType = (TCComponentItemType) compType;
+				TCComponentItem[] items = TCType.findItems(itemId);
+				if (items != null && items.length > 0) {
+					for (int i = 0; i < items.length; i++) {
+						String type = items[i].getType();
+						if (type.equals(itemType)) {
+							return items[i];
+						}
+					}
+				} else {
+					System.out.println("items == null || items.length <= 0");
+				}
+			} else {
+				System.out.println("compType == null || (compType instanceof TCComponentItemType == false)");
+			}
+		} catch (TCException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+...
+
+In ITK we have several APIs to clone an existing structure. If you are working on client-side, here is an example to clone a structure.
+
+private void BOMClone
+                 (TCComponentItem oldItem,
+   TCComponentItem newItem, 
+                        TCSession session) throws TCException 
+{
+ // TODO Auto-generated method stub
+ TCComponentBOMWindow oldBomWindow = null;
+ TCComponentBOMWindow newBomWindow = null;
+ try {
+        TCComponentRevisionRuleType ruleType =                                                                                 (TCComponentRevisionRuleType) session
+                                      .getTypeComponent("RevisionRule");
+               TCComponentRevisionRule defRule = ruleType.getDefaultRule();
+               TCComponentBOMWindowType bomType =                                                                                (TCComponentBOMWindowType) session
+                                      .getTypeComponent("BOMWindow");
+               oldBomWindow = bomType.create(defRule);
+        oldBomWindow.setWindowTopLine(oldItem, null, null, null);
+        TCComponentBOMLine oldBomTopLine =                                                                                             oldBomWindow.getTopBOMLine();
+        AIFComponentContext[] oldBomContext =                                                                                              oldBomTopLine.getChildren();
+        TCComponentItemRevision[] childItems  = new                                                                TCComponentItemRevision[oldBomContext.length];
+               for ( int i=0; i < oldBomContext.length; i++ ) 
+        {
+   if ( oldBomContext[i].getComponent() instanceof                                                                           TCComponentBOMLine )
+   {
+   TCComponentBOMLine childBomLine = new                                                                                           TCComponentBOMLine();
+   childBomLine =(TCComponentBOMLine)                                                                                           oldBomContext[i].getComponent();
+                 childItems[i] = (TCComponentItemRevision)                                                                                     childBomLine.getItemRevision();
+   }
+        }
+        newBomWindow = bomType.create(defRule);
+        newBomWindow.setWindowTopLine(newItem, null, null, null);
+        TCComponentBOMLine newBomTopLine =                                                                                        newBomWindow.getTopBOMLine();
+         newBomTopLine.add(null, childItems);
+        newBomWindow.save();
+        newBomWindow.close();
+        oldBomWindow.close();
+ } 
+        catch (TCException e) 
+        {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+ }
+}
+
+...
+
+
+		StructuredSelection selection = (StructuredSelection)(HandlerUtil.getCurrentSelectionChecked(event));
+	
+		AIFComponentContext aifctxt = (AIFComponentContext)AdapterUtil.getAdapter(selection.getFirstElement(),AIFComponentContext.class, true );
+		
+		TCComponentBOMLine bom = (TCComponentBOMLine) aifctxt.getComponent();
+		
+		recorrer (bom);
+			
+		return null;
+	}
+	
+	
+	private Object recorrer (TCComponentBOMLine bom){
+		
+		try {
+			 
+			 AIFComponentContext[] children = bom.getChildren();
+			 
+			 for (int i=0; i<bom.getChildrenCount(); i++) {
+			 
+			 TCComponentBOMLine bomchildren = (TCComponentBOMLine) children[i].getComponent();
+			 System.out.println(bom.getProperty("bl_level_starting_0"));
+			 System.out.println(bom.getProperty("object_string") + " -> " + bomchildren.getProperty("object_string") + " - " + bomchildren.getProperty("bl_sequence_no"));
+			 
+			 recorrer (bomchildren);
+			 }
+			
+		} catch (TCException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+...
+
+  TCProperty BOMLine;
+     TCProperty ItemId;
+     TCProperty ItemName;
+     TCProperty RevisionId;
+     TCProperty ItemRevisionState;
+     TCProperty ItemType;
+  
+     for (int i = 0; i < children.length; i++)
+     {
+   TCComponent tc=(TCComponent) children[i].getComponent();
+   BOMLine=tc.getTCProperty("bl_indented_title");
+   ItemId=tc.getTCProperty("bl_item_item_id");
+   ItemName=tc.getTCProperty("bl_item_object_name");
+   RevisionId=tc.getTCProperty("bl_rev_fnd0RevisionId");
+   ItemRevisionState=tc.getTCProperty("bl_rev_release_status_list");
+   ItemType=tc.getTCProperty("bl_item_object_type");
+   
+   table.setValueAt(BOMLine, i,0 );
+   
+   table.setValueAt(ItemId, i,1 );
+   
+   table.setValueAt(ItemName, i,2 );
+   
+   table.setValueAt(RevisionId, i,3 );
+   
+   table.setValueAt(ItemRevisionState, i,4 );
+   
+   table.setValueAt(ItemType, i,5 );
+  }
+
+...
+
+6. /** Get variant list of bomline */
+
+    public static String[] getVariants(TCComponentBOMLine bLine) {
+        if (bLine == null)
+            return null;
+
+        TCComponentItemRevision rev;
+        VariantCondition varCond;
+        try {
+            rev = bLine.getItemRevision();
+            TCComponent bomLineCond = bLine.getReferenceProperty("bl_condition_tag");
+            ItemRevVariantData irvd = ItemRevVariantData.create(rev, bLine.window());
+
+            if (bomLineCond == null) {
+                varCond = VariantCondition.create(bLine.window());
+                if (irvd != null) {
+                    varCond.setVariantDataContext(irvd);
+                }
+            } else {
+                varCond = VariantCondition.create(bomLineCond, bLine.window(), irvd);
+            }
+
+            return varCond.asText();
+        } catch (TCException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+...
+
+WSOM_set_object_type
+
+...
+
+How to create next ItemRevision for exists Item?
+
+I'm looks docs and see that I cant use CreateItems function, I must use CreateObject.
+
+TCSession session = (TCSession) AIFUtility.getDefaultSession();
+DataManagementService dmservice = DataManagementService.getService(session);
+
+CreateInput irev = new CreateInput();
+irev.boName = "ItemRevision";
+irev.stringProps.put( "object_desc", "object_desc" );
+irev.stringProps.put( "object_name", "object_name_test" );
+irev.stringProps.put( "item_revision_id", "01" );
+
+CreateIn[] ci = new CreateIn[1];
+ci[0] = new CreateIn();
+ci[0].data = irev;
+ci[0].clientId = Integer.valueOf(1).toString();
+
+CreateResponse cr = dmservice.createObjects(ci);
+But the error dissappers: "Wrong symbol NULL object (in object) - required object not exists"
+
+...
+
+You can use AIFUtility.getCurrentApplication().getSession() to get the current session, and session.getUserName() to get the username of the currently-logged-in user.
+
+AbstractAIFSession session = AIFUtility.getCurrentApplication().getSession();
+String username = session.getUserName();
+String registry = session.getRegistry();
+
+...

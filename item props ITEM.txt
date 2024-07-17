@@ -1,0 +1,395 @@
+WARN : 18:58:11,078  - TcLogger$IC_PrintStream.log:?
+Получен itemSborka = 000170-Сборка
+
+WARN : 18:58:11,496  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : ip_classification = 
+
+WARN : 18:58:11,497  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : last_release_status = 
+
+WARN : 18:58:11,497  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : process_stage = 
+
+WARN : 18:58:11,497  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : current_id = 000170
+
+WARN : 18:58:11,497  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : current_id_context = 
+
+WARN : 18:58:11,497  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : acl_bits = 0
+
+WARN : 18:58:11,497  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : preferred_global_alt = 
+
+WARN : 18:58:11,497  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : null_logical = 
+
+WARN : 18:58:11,497  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : current_name = Сборка
+
+WARN : 18:58:11,497  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : IMAN_external_object_link = 
+
+WARN : 18:58:11,497  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : has_global_alternates = 
+
+WARN : 18:58:11,498  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : TC_Generic_Architecture = 
+
+WARN : 18:58:11,498  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : object_type = CustomItem
+
+WARN : 18:58:11,498  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : external_apps = 
+
+WARN : 18:58:11,498  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : IMAN_master_form = 000170
+
+WARN : 18:58:11,498  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : user_can_unmanage = Y
+
+WARN : 18:58:11,498  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : is_variant_item = 
+
+WARN : 18:58:11,498  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : Fnd0ShapeRelation = 
+
+WARN : 18:58:11,499  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : fnd0objectId = gipZRrE6p2irgA
+
+WARN : 18:58:11,499  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : TC_sst_record = 
+
+WARN : 18:58:11,499  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : displayable_revisions = 000170/A;1-Сборка
+
+WARN : 18:58:11,499  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : a2Persistent = 
+
+WARN : 18:58:11,499  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : gov_classification = 
+
+WARN : 18:58:11,499  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : is_linked_to_generic_component = 
+
+WARN : 18:58:11,499  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : generic_component_object_string = 
+
+WARN : 18:58:11,499  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : export_sites = 
+
+WARN : 18:58:11,500  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : checked_out_date = 
+
+WARN : 18:58:11,500  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : checked_out_user =  
+
+WARN : 18:58:11,500  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : release_status_list = 
+
+WARN : 18:58:11,500  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : VisItemRevCreatedSnapshot2D = 
+
+WARN : 18:58:11,500  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : has_variant_module = 
+
+WARN : 18:58:11,500  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : fnd0defining_objects = 
+
+WARN : 18:58:11,500  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : reservation = 
+
+WARN : 18:58:11,500  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : wso_thread = 
+
+WARN : 18:58:11,501  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : is_vi = 
+
+WARN : 18:58:11,501  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : altid_list = 
+
+WARN : 18:58:11,501  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : null_string = 
+
+WARN : 18:58:11,501  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : owning_organization = 
+
+WARN : 18:58:11,501  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : bom_view_tags = 
+
+WARN : 18:58:11,501  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : EC_affected_item_rel = 
+
+WARN : 18:58:11,501  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : release_statuses = 
+
+WARN : 18:58:11,501  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : EC_snapshot_rel = 
+
+WARN : 18:58:11,503  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : CM_list = 
+
+WARN : 18:58:11,503  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : EC_problem_item_rel = 
+
+WARN : 18:58:11,503  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : timestamp = gmvZRrE6p2irgA
+
+WARN : 18:58:11,503  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : checked_out_change_id =  
+
+WARN : 18:58:11,503  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : checked_out =  
+
+WARN : 18:58:11,503  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : IMAN_based_on = 
+
+WARN : 18:58:11,503  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : TC_CAE_Results = 
+
+WARN : 18:58:11,504  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : global_alt_list = 
+
+WARN : 18:58:11,504  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : EC_addressed_by_rel = 
+
+WARN : 18:58:11,504  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : fnd0complying_objects = 
+
+WARN : 18:58:11,504  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : object_string = 000170-Сборка
+
+WARN : 18:58:11,504  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : EC_reference_item_rel = 
+
+WARN : 18:58:11,504  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : IMAN_manifestation = 
+
+WARN : 18:58:11,504  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : expl_checkout =  
+
+WARN : 18:58:11,505  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : uom_tag = each
+
+WARN : 18:58:11,505  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : IMAN_Rendering = 
+
+WARN : 18:58:11,505  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : owning_site = 
+
+WARN : 18:58:11,505  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : item_id = 000170
+
+WARN : 18:58:11,505  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : IMAN_vi_sos = 
+
+WARN : 18:58:11,505  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : IMAN_classification = 
+
+WARN : 18:58:11,505  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : configuration_object_tag = 
+
+WARN : 18:58:11,505  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : TC_CAE_Criteria = 
+
+WARN : 18:58:11,506  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : TC_CAE_Defining = 
+
+WARN : 18:58:11,506  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : revision_limit = 1
+
+WARN : 18:58:11,506  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : current_desc = 
+
+WARN : 18:58:11,506  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : TC_CAE_Source = 
+
+WARN : 18:58:11,506  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : change = 
+
+WARN : 18:58:11,506  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : current_job = 
+
+WARN : 18:58:11,506  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : Fnd0ListsCustomNotes = 
+
+WARN : 18:58:11,506  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : object_properties = 0
+
+WARN : 18:58:11,507  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : object_desc = 
+
+WARN : 18:58:11,507  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : ip_logged = 
+
+WARN : 18:58:11,507  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : TC_CAE_Include = 
+
+WARN : 18:58:11,507  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : license_list = 
+
+WARN : 18:58:11,507  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : owning_project = 
+
+WARN : 18:58:11,507  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : fnd0IsCheckoutable = Y
+
+WARN : 18:58:11,507  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : id_dispdefault = 
+
+WARN : 18:58:11,507  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : protection = RWDC--cOPSXI-iwAr-UNGtf-LLmbsQT
+
+WARN : 18:58:11,507  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : item_revision = 
+
+WARN : 18:58:11,507  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : owning_user = infodba (infodba)
+
+WARN : 18:58:11,507  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : last_mod_user = infodba
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : Fnd0DiagramTmplRelation = 
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : ics_subclass_name = 
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : archive_date = 
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : is_configuration_item = 
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : active_seq = 1
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : EC_solution_item_rel = 
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : project_list = 
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : TC_WorkContext_Relation = 
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : IMAN_aliasid = 
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : IMAN_MEView = 
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : IMAN_reference = 
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : IMAN_requirement = 
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : Fnd0ListsParamReqments = 
+
+WARN : 18:58:11,508  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : Fnd0StruObjAttrOverride = 
+
+WARN : 18:58:11,509  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : project_ids =  
+
+WARN : 18:58:11,509  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : TC_CAE_Target = 
+
+WARN : 18:58:11,509  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : fnd0OriginalLocationCode = 
+
+WARN : 18:58:11,509  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : ContactInCompany = 
+
+WARN : 18:58:11,509  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : LocationInCompany = 
+
+WARN : 18:58:11,509  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : more_revisions = 
+
+WARN : 18:58:11,509  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : item_master_tag = 000170
+
+WARN : 18:58:11,509  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : creation_date = 16-Apr-2024 01:18
+
+WARN : 18:58:11,509  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : last_mod_date = 16-Apr-2024 01:18
+
+WARN : 18:58:11,509  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : IMAN_ic_intent = 
+
+WARN : 18:58:11,509  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : revision_number =  
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : ics_classified = 
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : backup_date = 
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : proj_assign_mod_date = 
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : TC_CAE_Param = 
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : lsd = 16-Apr-2024 01:18
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : revision_list = 000170/A;1-Сборка
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : based_on = 
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : has_module = 
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : ead_paragraph = 
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : has_variants = 
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : pid = 1042
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : publication_sites = 
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : is_modifiable = Y
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : projects_list =  
+
+WARN : 18:58:11,510  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : process_stage_list = 
+
+WARN : 18:58:11,511  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : date_released = 
+
+WARN : 18:58:11,511  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : Fnd0Diagram_Attaches = 
+
+WARN : 18:58:11,511  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : FND_TraceLink = 
+
+WARN : 18:58:11,511  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : TC_AuditLog = 
+
+WARN : 18:58:11,511  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : owning_group = dba
+
+WARN : 18:58:11,511  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : object_name = Сборка
+
+WARN : 18:58:11,511  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : has_trace_link = 
+
+WARN : 18:58:11,511  - TcLogger$IC_PrintStream.log:?
+itemSborka  properties : object_application = Teamcenter

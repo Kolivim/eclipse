@@ -1,0 +1,114 @@
+public void createReviseAndDelete()
+{
+try
+{
+int numberOfItems = 3;
+// Reserve Item IDs and Create Items with those IDs
+ItemIdsAndInitialRevisionIds[] itemIds = generateItemIds(numberOfItems, "Item");
+CreateItemsOutput[] newItems = createItems(itemIds, "Item");
+// Copy the Item and ItemRevision to separate arrays for further
+// processing
+Item[] items = new Item[newItems.length];
+ItemRevision[] itemRevs = new ItemRevision[newItems.length];
+for (int i = 0; i < items.length; i++)
+{
+items[i] = newItems[i].item;
+itemRevs[i] = newItems[i].itemRev;
+}
+// Reserve revision IDs and revise the Items
+Map<BigInteger,RevisionIds> allRevIds = generateRevisionIds(items);
+reviseItems(allRevIds, itemRevs);
+// Delete all objects created
+deleteItems(items);
+}
+1-6 Teamcenter Services PLM00076 12.0
+Раздел 1: Getting started with Teamcenter Services
+Getting started with Teamcenter Services
+catch (ServiceException e)
+{
+System.out.println(e.getMessage());
+}
+}
+.
+.
+.
+/**
+* Create Items
+*
+* @param itemIds Array of Item and Revision IDs
+* @param itemType Type of item to create
+*
+* @return Set of Items and ItemRevisions
+*
+* @throws ServiceException If any partial errors are returned
+*/
+@SuppressWarnings("unchecked")
+public CreateItemsOutput[] createItems(ItemIdsAndInitialRevisionIds[] itemIds, String itemType)
+throws ServiceException
+{
+// Get the service stub
+DataManagementService dmService = DataManagementService.getService(Session.getConnection());
+// Populate form type
+GetItemCreationRelatedInfoResponse relatedResponse = dmService.getItemCreationRelatedInfo(itemType, null);
+String[] formTypes = new String[0];
+if ( relatedResponse.serviceData.sizeOfPartialErrors() > 0)
+throw new ServiceException( "DataManagementService.getItemCretionRelatedInfo returned a partial error.");
+formTypes = new String[relatedResponse.formAttrs.length];
+for ( int i = 0; i < relatedResponse.formAttrs.length; i++ )
+{
+FormAttributesInfo attrInfo = relatedResponse.formAttrs[i];
+formTypes[i] = attrInfo.formType;
+}
+ItemProperties[] itemProps = new ItemProperties[itemIds.length];
+for (int i = 0; i < itemIds.length; i++)
+{
+// Create form in cache for form property population
+ModelObject[] forms = createForms(itemIds[i].newItemId, formTypes[0],
+itemIds[i].newRevId, formTypes[1],
+null, false);
+ItemProperties itemProperty = new ItemProperties();
+itemProperty.clientId = "AppX-Test";
+itemProperty.itemId = itemIds[i].newItemId;
+itemProperty.revId = itemIds[i].newRevId;
+itemProperty.name = "AppX-Test";
+itemProperty.type = itemType;
+itemProperty.description = "Test Item for the SOA AppX sample application.";
+itemProperty.uom = "";
+// Retrieve one of form attribute value from Item master form.
+ServiceData serviceData = dmService.getProperties(forms, new String[]{"project_id"});
+if ( serviceData.sizeOfPartialErrors() > 0)
+throw new ServiceException( "DataManagementService.getProperties returned a partial error.");
+Property property = null;
+try
+{
+property= forms[0].getPropertyObject("project_id");
+}
+catch ( NotLoadedException ex){}
+// Only if value is null, we set new value
+if ( property == null || property.getStringValue() == null || property.getStringValue().length() == 0)
+{
+itemProperty.extendedAttributes = new ExtendedAttributes[1];
+ExtendedAttributes theExtendedAttr = new ExtendedAttributes();
+theExtendedAttr.attributes = new HashMap<String,String>();
+theExtendedAttr.objectType = formTypes[0];
+theExtendedAttr.attributes.put("project_id", "project_id");
+itemProperty.extendedAttributes[0] = theExtendedAttr;
+}
+itemProps[i] = itemProperty;
+}
+// *****************************
+// Execute the service operation
+// *****************************
+CreateItemsResponse response = dmService.createItems(itemProps, null, "");
+// before control is returned the ChangedHandler will be called with
+// newly created Item and ItemRevisions
+// The AppXPartialErrorListener is logging the partial errors returned
+// In this simple example if any partial errors occur we will throw a
+PLM00076 12.0 Teamcenter Services 1-7
+Getting started with Teamcenter Services
+Раздел 1: Getting started with Teamcenter Services
+// ServiceException
+if (response.serviceData.sizeOfPartialErrors() > 0)
+throw new ServiceException( "DataManagementService.createItems returned a partial error.");
+return response.output;
+}

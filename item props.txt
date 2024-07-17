@@ -1,0 +1,533 @@
+
+InterfaceAIFComponent c.getClass() : class com.teamcenter.rac.kernel.TCComponentItemRevision
+
+
+c is TCComponentItemRevision : 000171/A;1-Деталь
+
+
+c propertie : ip_classification = 
+
+
+c propertie : last_release_status = 
+
+
+c propertie : process_stage = 
+
+
+c propertie : IMAN_3D_snap_shot = 
+
+
+c propertie : epm_proposed_reviewers = 
+
+
+c propertie : current_id = 000171
+
+
+c propertie : current_id_context = 
+
+
+c propertie : acl_bits = 0
+
+
+c propertie : null_logical = 
+
+
+c propertie : current_name = Деталь
+
+
+c propertie : ps_parents = 
+
+
+c propertie : IMAN_external_object_link = 
+
+
+c propertie : participants = 
+
+
+c propertie : VisMarkup = 
+
+
+c propertie : TC_Generic_Architecture = 
+
+
+c propertie : object_type = A2CustomItemRevision
+
+
+c propertie : external_apps = 
+
+
+c propertie : user_can_unmanage = Y
+
+
+c propertie : IMAN_Motion = 
+
+
+c propertie : Fnd0ShapeRelation = 
+
+
+c propertie : IMAN_UG_scenario = 
+
+
+c propertie : IMAN_Simulation = 
+
+
+c propertie : IMAN_MEMfgModel = 
+
+
+c propertie : interpart_equations = 
+
+
+c propertie : fnd0objectId = gqpZRrE6p2irgA
+
+
+c propertie : TC_sst_record = 
+
+
+c propertie : SimplifiedRendering = 
+
+
+c propertie : gov_classification = 
+
+
+c propertie : checked_out_date = 
+
+
+c propertie : export_sites = 
+
+
+c propertie : checked_out_user =  
+
+
+c propertie : gde_bvr_list = 
+
+
+c propertie : release_status_list = 
+
+
+c propertie : fnd0defining_objects = 
+
+
+c propertie : VisItemRevCreatedSnapshot2D = 
+
+
+c propertie : has_variant_module = 
+
+
+c propertie : reservation = 
+
+
+c propertie : view = 
+
+
+c propertie : declared_options = 
+
+
+c propertie : Thumbnail_Source = 
+
+
+c propertie : current_revision_id = A
+
+
+c propertie : wso_thread = 
+
+
+c propertie : is_vi = 
+
+
+c propertie : altid_list = 
+
+
+c propertie : null_string = 
+
+
+c propertie : IMAN_UG_altrep = 
+
+
+c propertie : owning_organization = 
+
+
+c propertie : MEProcess = 
+
+
+c propertie : release_statuses = 
+
+
+c propertie : EC_affected_item_rel = 
+
+
+c propertie : EC_snapshot_rel = 
+
+
+c propertie : IMAN_UG_wave_geometry = 
+
+
+c propertie : EC_problem_item_rel = 
+
+
+c propertie : sequence_id = 1
+
+
+c propertie : timestamp = guoZRrE6p2irgA
+
+
+c propertie : checked_out_change_id =  
+
+ 
+c propertie : checked_out =  
+
+ 
+c propertie : IMAN_based_on = 
+
+ 
+c propertie : TC_CAE_Results = 
+
+ 
+c propertie : VisSession = 
+
+ 
+c propertie : EC_addressed_by_rel = 
+
+ 
+c propertie : BOM_Rollup = 
+
+ 
+c propertie : fnd0complying_objects = 
+
+ 
+c propertie : object_string = 000171/A;1-Деталь
+
+ 
+c propertie : EC_reference_item_rel = 
+
+ 
+c propertie : IMAN_manifestation = 
+
+ 
+c propertie : expl_checkout =  
+
+ 
+c propertie : TC_Validation = 
+
+ 
+c propertie : geometric_interfaces = 
+
+ 
+c propertie : sequence_anchor = 
+
+ 
+c propertie : IMAN_Rendering = 
+
+ 
+c propertie : owning_site = 
+
+ 
+c propertie : item_id = 000171
+
+ 
+c propertie : IMAN_master_form_rev = 000171/A
+
+ 
+c propertie : IMAN_classification = 
+
+ 
+c propertie : TC_CAE_Criteria = 
+ 
+
+c propertie : is_IRDC = 
+ 
+
+c propertie : TC_CAE_Defining = 
+
+ 
+c propertie : TC_ProductManual = 
+
+ 
+c propertie : revision_limit = 1
+
+ 
+c propertie : current_desc = 
+
+ 
+c propertie : TC_CAE_Source = 
+
+ 
+c propertie : interpart_links = 
+
+ 
+c propertie : allowable_participant_types = Proposed Responsible Party, Proposed Reviewers
+
+ 
+c propertie : change = 
+
+ 
+c propertie : sequence_limit = 3
+
+ 
+c propertie : current_job = 
+
+ 
+c propertie : Fnd0ListsCustomNotes = 
+ 
+
+c propertie : variant_expression_block = 
+
+ 
+c propertie : representation_for = 
+
+ 
+c propertie : object_properties = 0
+
+ 
+c propertie : object_desc = 
+ 
+
+c propertie : CAEAnalysis = 
+
+ 
+c propertie : ip_logged = 
+
+ 
+c propertie : TC_CAE_Include = 
+
+ 
+c propertie : license_list = 
+
+ 
+c propertie : owning_project = 
+
+ 
+c propertie : fnd0CurrentLocationCode = 
+
+ 
+c propertie : current_id_type = Identifier
+
+ 
+c propertie : fnd0IsCheckoutable = Y
+
+ 
+c propertie : TC_Attaches = 
+
+ 
+c propertie : protection = RWDC--cOPSXI-iwAr-UNGtf-LLmbsQT
+
+ 
+c propertie : id_dispdefault = 
+
+ 
+c propertie : item_revision = 
+
+ 
+c propertie : IMAN_specification = 
+
+ 
+c propertie : IMAN_UG_wave_part_link = 
+
+ 
+c propertie : owning_user = infodba (infodba)
+
+ 
+c propertie : a2Relation = 
+
+ 
+c propertie : last_mod_user = infodba
+
+ 
+c propertie : Fnd0DiagramTmplRelation = 
+
+ 
+c propertie : ics_subclass_name = 
+
+ 
+c propertie : archive_date = 
+
+ 
+c propertie : MESetup = 
+
+ 
+c propertie : active_seq = 1
+
+ 
+c propertie : EC_solution_item_rel = 
+
+ 
+c propertie : IMAN_UG_udf = 
+
+ 
+c propertie : project_list = 
+
+ 
+c propertie : TC_WorkContext_Relation = 
+
+ 
+c propertie : assignable_participant_types = Proposed Responsible Party, Proposed Reviewers
+
+ 
+c propertie : IMAN_aliasid = 
+
+ 
+c propertie : parametric_interfaces = 
+
+ 
+c propertie : IMAN_reference = 
+
+ 
+c propertie : Fnd0ListsParamReqments = 
+
+ 
+c propertie : IMAN_requirement = 
+
+ 
+c propertie : current_id_uid = 
+
+ 
+c propertie : effectivity_text = 
+
+ 
+c propertie : project_ids =  
+
+ 
+c propertie : Fnd0StruObjAttrOverride = 
+
+ 
+c propertie : TC_CAE_Target = 
+
+ 
+c propertie : TCEng_rdv_plmxml_unconfigured = 
+
+ 
+c propertie : ps_children = 
+
+ 
+c propertie : IMAN_UG_wave_position = 
+
+ 
+c propertie : IMAN_UG_expression = 
+
+ 
+c propertie : TCEng_rdv_plmxml_configured = 
+
+ 
+c propertie : items_tag = 000171-Деталь
+ 
+
+c propertie : ContactInCompany = 
+
+ 
+c propertie : LocationInCompany = 
+
+ 
+c propertie : used_options = 
+
+ 
+c propertie : fms_tickets = 
+
+ 
+c propertie : item_master_tag = 000171/A
+
+ 
+c propertie : creation_date = 16-Apr-2024 01:18
+
+ 
+c propertie : last_mod_date = 16-Apr-2024 01:18
+
+ 
+c propertie : gc_updated_from_object_string = 
+
+ 
+c propertie : revision_number =  
+
+ 
+c propertie : ics_classified = 
+
+ 
+c propertie : backup_date = 
+
+ 
+c propertie : proj_assign_mod_date = 
+
+ 
+c propertie : TC_CAE_Param = 
+
+ 
+c propertie : lsd = 16-Apr-2024 01:18
+
+ 
+c propertie : IMAN_snapshot = 
+
+ 
+c propertie : mating_constraints = 
+
+ 
+c propertie : IMAN_UG_promotion = 
+ 
+
+c propertie : structure_revisions = 
+
+ 
+c propertie : based_on = 
+
+ 
+c propertie : revision_list = 000171/A;1-Деталь
+
+ 
+c propertie : intent_text = 
+
+ 
+c propertie : IMAN_MEWorkInstruction = 
+
+ 
+c propertie : has_module = 
+
+ 
+c propertie : ead_paragraph = 
+
+ 
+c propertie : has_variants = 
+ 
+
+c propertie : pid = 1045
+
+ 
+c propertie : publication_sites = 
+
+ 
+c propertie : epm_proposed_responsible_party = 
+
+ 
+c propertie : is_modifiable = Y
+
+ 
+c propertie : projects_list =  
+
+ 
+c propertie : process_stage_list = 
+
+ 
+c propertie : date_released = 
+
+ 
+c propertie : item_revision_id = A
+
+ 
+c propertie : FND_TraceLink = 
+
+ 
+c propertie : Fnd0Diagram_Attaches = 
+
+ 
+c propertie : owning_group = dba
+
+ 
+c propertie : object_name = Деталь
+
+ 
+c propertie : HasParticipant = 
+
+ 
+c propertie : has_trace_link = 
+
+ 
+c propertie : mvl_text = 
+
+ 
+c propertie : object_application = Teamcenter

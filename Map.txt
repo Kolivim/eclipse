@@ -1,0 +1,8 @@
+...
+SortedSet<String> keys = new TreeSet<>(map.keySet());
+for (String key : keys) { 
+   String value = map.get(key);
+   // do something
+}
+...
+
