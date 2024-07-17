@@ -1,0 +1,29 @@
+...
+
+			/*
+			System.out.println ("Получен итоговый для элемента = " + itemDBUid + " лист itemUid вложенных элементов = " + itemsUidList);
+			for (String iIud : itemsUidList) {
+				System.out.println ("Из листа: для элемента = " + itemDBUid + " получен itemUid вложенного элемента = " + iIud);
+			}
+			*/
+
+...
+
+			conn = db.getConnection (); // Подключение к базе данных
+			System.out.println ("getChildren(String itemDBUid): Успешно подключен к базе данных!");
+			
+			String sql = "select * from global_name"; //SELECT owner, table_name FROM all_tables // select * from global_name; // SELECT * FROM all_tables
+			stmt = conn.createStatement(); // Создать объект операции с данными
+			System.out.println ("dbase() conn.createStatement(): " + conn.createStatement().toString());
+			
+			rst = stmt.executeQuery(sql); // stmt выполняет оператор запроса и помещает возвращенный результат в первый
+			System.out.println ("dbase() stmt.executeQuery(sql): " + rst.toString());
+			
+			while(rst.next()){	// Обходим набор результатов:
+				String nameDB = rst.getString("GLOBAL_NAME");
+				System.out.println ("Query: nameDB = " + nameDB);
+
+				//String ename=rst.getString(2);// int|number|numeric--->int  varchar2() --->String // String ename=rst.getString("ename"); // String newDate=f.format(date);
+				// Date date=rst.getDate("hiredate"); // Time time=rst.getTime(5); // SimpleDateFormat f = new SimpleDateFormat ("гггг ММ месяц дд день");
+			}
+...

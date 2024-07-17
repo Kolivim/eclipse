@@ -1,0 +1,42 @@
+//numTry - number of attemts    
+private static TCSession getCurrentSession(int numTry) throws Exception {
+        try {
+            TCSession session = null;
+            ISessionService iss=null;
+            int numtry=numTry;
+            while (iss==null && numtry>0) {
+                iss = AifrcpPlugin.getSessionService();
+                numtry--;
+            }
+
+            session=(TCSession)iss.getSession("com.teamcenter.rac.kernel.TCSession");
+            return session;
+            } 
+        catch (Exception ex) {
+            throw ex;
+        }
+    }
+
+
+...
+
+import com.teamcenter.rac.aifrcp.AIFUtility;
+import com.teamcenter.rac.aif.kernel.AIFComponentContext;
+import com.teamcenter.rac.aif.kernel.InterfaceAIFComponent;
+import com.teamcenter.rac.kernel.TCComponent;
+import com.teamcenter.rac.kernel.TCComponentItem;
+import com.teamcenter.rac.kernel.TCComponentItemRevision;
+
+...
+
+// если надо получить несколько выделенных
+InterfaceAIFComponent[] c_targets = AIFUtility.getTargetComponents();
+
+//если надо получить один (только первый) выделенный
+InterfaceAIFComponent c_target = AIFUtility.getTargetComponent();
+
+// ну и дальше проверяем тип выделенного и работаем с ним как с объектом этого типа
+if (c_target instanceof TCComponentItem) {
+    TCComponentItem item = (TCComponentItem)c_target;
+    TCComponentItemRevision revision = item.getLatestItemRevision();
+...

@@ -1,0 +1,371 @@
+package setproperty.handlers;
+
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.swt.widgets.Item;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.jface.dialogs.MessageDialog;
+
+import com.teamcenter.rac.aif.AIFDesktop;
+import com.teamcenter.rac.aif.kernel.AIFComponentContext;
+import com.teamcenter.rac.aif.kernel.AbstractAIFSession;
+import com.teamcenter.rac.aif.kernel.InterfaceAIFComponent;
+import com.teamcenter.rac.aifrcp.AIFUtility;
+import com.teamcenter.rac.kernel.TCComponent;
+import com.teamcenter.rac.kernel.TCComponentFolder;
+import com.teamcenter.rac.kernel.TCComponentItem;
+import com.teamcenter.rac.kernel.TCComponentItemRevision;
+import com.teamcenter.rac.kernel.TCComponentItemRevisionType;
+import com.teamcenter.rac.kernel.TCComponentItemType;
+import com.teamcenter.rac.kernel.TCException;
+import com.teamcenter.rac.kernel.TCProperty;
+import com.teamcenter.rac.kernel.TCSession;
+
+
+public class SampleHandler extends AbstractHandler {
+	
+	
+	public SampleHandler() {
+	}
+
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		
+
+		TCSession tcSession=(TCSession) extracted();
+		String serverName=tcSession.getServerName();
+		System.out.println("Server name: " + serverName);
+		
+		
+		/** Ищем ревизии в папке */
+        InterfaceAIFComponent targetComponent = AIFUtility.getTargetComponent();
+       
+        System.out.println("Start find revision: " + targetComponent);
+        
+	    java.util.Date maxSborkaDate = new Date(233345223232L);
+		System.out.println("Установлена maxSborkaDate = " + maxSborkaDate.toString());
+		InterfaceAIFComponent topSborka = null;
+		
+	    java.util.Date maxDetalDate = new Date(233345223232L);
+		System.out.println("Установлена maxDetalDate = " + maxDetalDate.toString());
+		InterfaceAIFComponent topDetal = null;
+			
+	    /** Поиск в папке Сборки и Детали с максимальными датами: */
+	    //A1
+        TCComponentFolder folder = null;
+        if(targetComponent instanceof TCComponentFolder) {
+    	   folder = (TCComponentFolder)targetComponent;
+    	   try {
+    		    System.out.println("Find revision - type target == folder is true");
+    		   
+    		    AIFComponentContext[] components = folder.getChildren();
+    		   
+    		    ArrayList<InterfaceAIFComponent> sborkaList = new ArrayList<InterfaceAIFComponent>();
+    		    ArrayList<InterfaceAIFComponent> detalList = new ArrayList<InterfaceAIFComponent>();
+    		   
+    		    for(int i = 0; i < components.length; i++) {
+    			   
+    			   System.out.println("AIFComponentContext[] components[i] i = : " + i + ", ug = " + components[i].toString() +
+    					   " , components[i].getComponent(): " + components[i].getComponent().toString() +
+    					   " , getContext(): " + components[i].getContext().toString());
+    			   
+    			    InterfaceAIFComponent componentAIF = components[i].getComponent();
+    			    componentAIF .getClass();
+    			    System.out.println("InterfaceAIFComponent c.getClass() : " + componentAIF .getClass());
+    			  
+    			    if(componentAIF instanceof TCComponentItemRevision){
+    			    	System.out.println("c is TCComponentItemRevision : " + componentAIF .toString());
+
+    				    String timeCr = componentAIF.getProperty("creation_date");
+    				    System.out.println("c is TCComponentItemRevision : " + componentAIF .toString() + ", timeCreation = " + timeCr);
+    				    
+    				    String name = componentAIF.getProperty("object_name");
+    				    System.out.println("c is TCComponentItemRevision : " + componentAIF .toString() + ", object_name = " + name);
+    				    
+    				    if (name.equals("Деталь")){
+    				    	detalList.add(componentAIF);
+    				    }
+    				    
+    				    if (name.equals("Сборка")){
+    				    	sborkaList.add(componentAIF);
+    				    }
+    				   
+ 
+    				    /** Парсим полученный String в Date */
+    				    DateFormat formatter = new SimpleDateFormat("d-MMM-yyyy HH:mm");	// 16-Apr-2024 01:06	//	String testDate = "29-Apr-2010,13:00:14 PM"; 	
+    				    java.util.Date datePersistent = formatter.parse(timeCr);
+    				    System.out.println(datePersistent);
+    				   
+    				    /** Преобразуем формат полученного Date в требуемый по ТЗ */
+    		            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy.MM.dd_hh.mm.ss"); // Formatting date // sdf.format(new Date()) // "dd-MM-yyyy" // ГГГГ.ММ.ДД_чч.мм.сс
+    		            String parsedDate = sdformat.format(datePersistent);	//	String parsedDate = sdformat.format(new Date(233345223232L));
+     				    System.out.println("new Date in format: " + parsedDate);
+    				    //
+     				    
+     				    
+     				    /** Перебираем все полученные свойства */
+     				    //
+    				    /*
+    				   Map<String,String> mapProps = null; //new HashMap<String,String>();
+    				   mapProps = componentAIF.getProperties();
+    				   for(Entry<String, String> entry: mapProps.entrySet()) {
+    					   String key = entry.getKey(); // get key
+    					   String value = entry.getValue();	// get value
+        				   System.out.println("c propertie : " + key + " = " + value);
+    					}
+ //    				   timestamp = guoZRrE6p2irgA   					
+    				   */
+     				   //
+    				   
+     				   //
+     				   /*
+    				   TCProperty[] prop = ((TCComponentItemRevision) componentAIF).getAllTCProperties();
+    				   for(int k = 0; k <prop.length; k++) {
+    					   String a = prop[k].getName();
+//    					   String b = prop[k].getStringValue();
+    					   
+         				   System.out.println("TCProperty[] prop: getName() = " + a
+//         						   + ", getStringValue() = " + b
+         						   );
+    				   }
+    				   */
+    				   //
+    			   }
+
+    			   }
+    		    
+    		    /** Ищем в листах Сборку и Деталь с максимальной датой {Вынести в отдельный метод, возвращающий InterfaceAIFComponent и из него получить время !!!}*/
+    		    //
+
+    			
+    		    for (InterfaceAIFComponent sborka : sborkaList){
+				    String timeCr = sborka.getProperty("creation_date");
+				    System.out.println("c is TCComponentItemRevision : " + sborka.toString() + " , timeCreation = " + timeCr);
+				    
+				    /** Парсим полученный String в Date */
+
+				    DateFormat formatter = new SimpleDateFormat("d-MMM-yyyy HH:mm");	// 16-Apr-2024 01:06	//	String testDate = "29-Apr-2010,13:00:14 PM"; 	
+				    java.util.Date dateSborka = formatter.parse(timeCr);
+				    System.out.println("Получена дата создания сборки в java.util.Date = " + dateSborka);
+				    
+				    if(dateSborka.after(maxSborkaDate)){
+				    	maxSborkaDate = dateSborka;
+				    	topSborka = sborka;
+					    System.out.println("Получена top дата создания сборки в Date = " + maxSborkaDate
+					    		+ ", установлена InterfaceAIFComponent topSborka = " + topSborka);
+				    }
+    		    }
+    		    
+			    System.out.println("Итоговая top дата создания сборки в Date = " + maxSborkaDate
+			    		+ ",  преобразованная в требуемый формат topSborka = " + getStringDateFormat(maxSborkaDate)
+			    		+ ",  InterfaceAIFComponent topSborka = " + topSborka);
+ 
+			    
+//			    java.util.Date maxDetalDate = new Date(233345223232L);
+//    			System.out.println("Установлена maxDetalDate = " + maxDetalDate.toString());
+//    			InterfaceAIFComponent topDetal = null;
+    			
+    		    for (InterfaceAIFComponent detal : detalList){
+				    String timeCr = detal.getProperty("creation_date");
+				    System.out.println("c is TCComponentItemRevision : " + detal.toString() + " , timeCreation = " + timeCr);
+				    
+				    /** Парсим полученный String в Date */
+				    DateFormat formatter = new SimpleDateFormat("d-MMM-yyyy HH:mm");	// 16-Apr-2024 01:06	//	String testDate = "29-Apr-2010,13:00:14 PM"; 	
+				    java.util.Date dateDetal = formatter.parse(timeCr);
+				    System.out.println("Получена дата создания сборки в java.util.Date = " + dateDetal);
+				    
+				    if(dateDetal.after(maxDetalDate)){
+				    	maxDetalDate = dateDetal;
+				    	topDetal = detal;
+					    System.out.println("Получена top дата создания Детали в Date = " + maxDetalDate
+					    		+ ", установлена InterfaceAIFComponent topDetal = " + topDetal);
+				    }
+    		    }
+    		    
+			    System.out.println("Итоговая top дата создания Детали в Date = " + maxDetalDate
+			    		+ ",  преобразованная в требуемый формат topDetal = " + getStringDateFormat(maxDetalDate)
+			    		+ ",  InterfaceAIFComponent topDetal = " + topDetal);
+
+			    System.out.println("Итого получены Деталь = " + topDetal + " , и Сборка = " + topSborka); // InterfaceAIFComponent topDetal, topSborka
+			    
+    		   } catch (TCException e) {
+    			   e.printStackTrace();
+    			   } catch (Exception e) {	// catch MAP's
+				e.printStackTrace();
+			}
+    	   }else {
+    		   System.out.println("Error type target == folder, is not folder");
+           }
+        
+	    //A1
+		
+        
+        //B1
+        try {
+
+			/*
+			String sborkaId = topSborka.getProperty("item_id");
+			// Здесь получаем Item криво
+//			String sborkaType = topSborka.getProperty("object_type");
+			TCComponentItem itemSborka = findItem(sborkaId, "A2CustomItem");
+			System.out.println("Получен itemSborka = " + itemSborka);
+			
+			//
+			
+			System.out.println("После обновления - topSborka.getProperty('a2Persistent') : " + persistent);
+			Map<String,String> mapProps = itemSborka.getProperties();
+			for(Entry<String, String> entry: mapProps.entrySet()) {
+				String key = entry.getKey(); // get key
+				String value = entry.getValue();	// get value
+				System.out.println("itemSborka  properties : " + key + " = " + value);
+				}
+			
+			//
+			
+//			a2Persistent			
+			String persistentB = topSborka.getProperty("a2Persistent");
+			System.out.println("До обновления - topSborka.getProperty('a2Persistent') : " + persistentB);
+			itemSborka.setProperty("a2Persistent", getStringDateFormat(maxSborkaDate));
+			String persistent = topSborka.getProperty("a2Persistent");
+			*/
+ 
+//			System.out.println("После обновления - topSborka.getProperty('a2Persistent') : " + persistent);
+//			itemSborka.save();
+			 
+			
+			/*
+			Map<String,String> mapProps2 = itemSborka.getProperties();
+			for(Entry<String, String> entry: mapProps2.entrySet()) {
+				String key = entry.getKey();
+				String value = entry.getValue();
+				System.out.println("itemSborka  properties : " + key + " = " + value);
+				}
+			*/
+			
+        	/** Получаем ItemRevision и Item: и устанавливаем в a2Persistent 'Сборка' время создания 'Деталь' */
+			//
+//			/*
+			String sborkaId = topSborka.getProperty("item_id");
+			String sborkaType = topSborka.getProperty("object_type");
+			String sborkaRevisionId = topSborka.getProperty("item_revision_id");
+			TCComponentItemRevision itemSborkaRev = findItemRevision(sborkaId, sborkaType, sborkaRevisionId);
+			System.out.println("Получена ревизия Item'a 'Сборка' - TCComponentItemRevision : " + itemSborkaRev );
+			
+			TCComponentItem itemSborkaOne = itemSborkaRev.getItem();
+			System.out.println("Получен Item 'Сборка' - TCComponentItem : " + itemSborkaOne );
+			
+			String persistentBefore = topSborka.getProperty("a2Persistent"); // .getProperty("a2Persistent");
+			System.out.println("Получен до изменения TCComponentItem 'Сборка' .getProperty('a2Persistent') : " + persistentBefore);
+			itemSborkaOne.setProperty("a2Persistent", getStringDateFormat(maxDetalDate));
+			itemSborkaOne.setProperty("a2Persistent", getStringDateFormat(maxDetalDate));
+			String persistentAfter = itemSborkaOne.getProperty("a2Persistent"); // .topSborka.getProperty("a2Persistent");
+			System.out.println("Получен после изменения TCComponentItem 'Сборка' .getProperty('a2Persistent') : " + persistentAfter);
+//			*/
+			//
+			
+			//
+			String relB = itemSborkaRev.getProperty("a2Relation");
+			System.out.println("Получен до изменения TCComponentItemRevision 'Сборка' .getProperty('a2Relation') : " + relB);
+			itemSborkaRev.setProperty("a2Relation", topDetal.getProperty("current_id"));
+			String relA = itemSborkaRev.getProperty("a2Relation");
+			System.out.println("Получен до изменения TCComponentItemRevision 'Сборка' .getProperty('a2Relation') : " + relA);
+			//
+			
+			
+			//
+	        /** Проверка: */
+	        String itemIdA = itemSborkaOne.getProperty("item_id");
+			String itemTypeA = "A2CustomItem"; // topSborka.getProperty("object_type");
+			TCComponentItem itemSborkaA = findItem(itemIdA, itemTypeA);
+			String persistentAfterA = itemSborkaA.getProperty("a2Persistent");
+			System.out.println("Проверка с БД: Получен после изменения TCComponentItem 'Сборка' .getProperty('a2Persistent') : " + persistentAfter
+					+ " , для TCComponentItem itemSborkaA = " + itemSborkaA.toString());
+	        //
+			
+			
+			//
+			String detalId = topDetal.getProperty("item_id");
+			String detalType = topDetal.getProperty("object_type");
+			String detalRevisionId = topDetal.getProperty("item_revision_id");
+			TCComponentItemRevision itemDetalRev = findItemRevision(detalId, detalType, detalRevisionId);
+			System.out.println("Получена ревизия Item'a 'Деталь' - TCComponentItemRevision : " + itemDetalRev);
+			
+			
+			TCComponent[] c = itemSborkaA.getRelatedComponents();
+			System.out.println("TCComponent[] itemSborkaA.getRelatedComponents(): " + c);
+			for(int l = 0; l < c.length; l++) {
+				   System.out.println("TCComponent[] .getRelatedComponents() c: " + c[l].toString());
+			   }
+			
+			
+			/*
+			TCComponentItemRevision[] revisionsMass = new TCComponentItemRevision[1];
+			revisionsMass[0] = itemDetalRev;
+			itemSborkaA.setRelated(detalType , revisionsMass);
+			System.out.println("itemSborkaA.setRelated('a2Relation', revisionsMass);");
+			String relationSborka = itemSborkaA.getProperty("a2Relation");
+			System.out.println("Получен после itemSborkaA.setRelated('a2Relation', revisionsMass) 'Сборка' .getProperty('a2Relation') : " + relationSborka);
+			*/
+			//
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//B1
+ 
+        
+		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+		MessageDialog.openInformation(
+				window.getShell(),
+				"Setproperty",
+				"Свойства элементов установлены");
+		return null;
+	}
+	
+	
+	private AbstractAIFSession extracted() {
+		return AIFUtility.getCurrentApplication().getSession();
+	}
+	
+	
+	public static TCComponentItem findItem(String strItemID, String itemType) throws TCException {
+		TCSession m_session = (TCSession) AIFDesktop.getActiveDesktop().getCurrentApplication().getSession();
+		TCComponentItemType tcItemType = (TCComponentItemType) m_session.getTypeComponent(itemType);
+		TCComponentItem item = null;
+		
+		if (tcItemType != null) item = tcItemType.find(strItemID);
+		
+		return item;
+		}
+	
+	
+	public static TCComponentItemRevision findItemRevision(String strItemID, String itemType, String revisionId) throws TCException {
+		TCSession m_session = (TCSession) AIFDesktop.getActiveDesktop().getCurrentApplication().getSession();
+		TCComponentItemRevisionType tcItemType = (TCComponentItemRevisionType) m_session.getTypeComponent(itemType);
+		TCComponentItemRevision item = null;
+		
+		if (tcItemType != null) item = tcItemType.findRevision(strItemID, /*"A"*/ revisionId);
+		
+		return item;
+		}
+	
+	
+	/** Преобразуем формат полученного Date в требуемый по ТЗ */
+	private String getStringDateFormat(java.util.Date date) {
+        SimpleDateFormat sdformat = new SimpleDateFormat("yyyy.MM.dd_hh.mm.ss"); // Formatting date // sdf.format(new Date()) // "dd-MM-yyyy" // ГГГГ.ММ.ДД_чч.мм.сс
+        String parsedDate = sdformat.format(date);	//	String parsedDate = sdformat.format(new Date(233345223232L));
+        System.out.println("getStringDateFormat(Date date): new Date in format: " + parsedDate);
+        return parsedDate;
+	}
+	
+}

@@ -1,0 +1,38 @@
+SQL> SELECT t_03.ritems_tagu, t_03.puid, t_02.pcreation_date FROM PWORKSPACEOBJECT t_01 , PPOM_APPLICATION_OBJECT t_02 , PITEMREVISION t_03 WHERE ( ( ( t_03.ritems_tagu IN  ('QmtZSMoOp2irgA', 'QunZSMoOp2irgA' ) AND ( ( t_01.pactive_seq != 0 ) AND (t_01.VLA_572_14 = 0 ) ) ) AND t_02.pcreation_date IN  ( SELECT  MAX ( t_05.pcreation_date ) AS max_5 FROM PWORKSPACEOBJECT t_04 , PPOM_APPLICATION_OBJECT t_05 , PITEMREVISION t_06 WHERE ( ( ( t_03.ritems_tagu = t_06.ritems_tagu ) AND ( ( t_04.pactive_seq != 0 ) AND (t_04.VLA_572_14 = 0 ) ) ) AND ( t_04.puid = t_05.puid AND t_05.puid = t_06.puid ) ) ) ) AND ( t_01.puid = t_02.puid AND t_02.puid = t_03.puid ) );
+
+RITEMS_TAGU     PUID            PCREATION
+--------------- --------------- ---------
+QmtZSMoOp2irgA  QqjZSMoOp2irgA  18-APR-24
+QunZSMoOp2irgA  QutZSMoOp2irgA  18-APR-24
+
+//////////////////////////////////////////////////////
+
+SELECT PA2CUSTOMITEMREVISION.puid, ptimestamp, ppid, rowning_siteu, rowning_sitec, plsd, pobject_properties, parchive_info, rlast_mod_useru, rlast_mod_userc, pacl_bits, rowning_groupu, rowning_groupc, rowning_useru, rowning_userc, plast_mod_date, parchive_date, pcreation_date, pbackup_date,VLA_572_17,VLA_572_14,VLA_572_12, pgov_classification,VLA_572_10, pip_classification,VLA_572_7, pobject_application, pobject_type, pobject_desc, pobject_name, prevision_limit, prevision_number, rwso_threadu, rwso_threadc, rowning_projectu, rowning_projectc, pactive_seq, rowning_organizationu, rowning_organizationc, pdate_released,VLA_846_13,VLA_846_11,VLA_846_10,VLA_846_9, pfnd0CurrentLocationCode, pitem_revision_id, rsequence_anchoru, rsequence_anchorc, psequence_limit, psequence_id, ritems_tagu, ritems_tagc, rvariant_expression_blocku, rvariant_expression_blockc, phas_variant_module, pa2Relation 
+FROM PPOM_OBJECT,PPOM_APPLICATION_OBJECT,PWORKSPACEOBJECT, PITEMREVISION, PA2CUSTOMITEMREVISION  
+WHERE PITEMREVISION.puid=PA2CUSTOMITEMREVISION.puid AND PWORKSPACEOBJECT.puid=PA2CUSTOMITEMREVISION.puid AND PPOM_APPLICATION_OBJECT.puid=PA2CUSTOMITEMREVISION.puid AND PPOM_OBJECT.puid=PA2CUSTOMITEMREVISION.puid AND  PA2CUSTOMITEMREVISION.puid IN ('QqjZSMoOp2irgA','QutZSMoOp2irgA');
+
+////////////////////////////////////////////////////////
+
+SQL> SELECT V.puid,V.pseq,pvalu_0,pvalc_0,ptimestamp,pdeleted from PSTRUCTURE_REVISIONS V LEFT OUTER JOIN POM_TIMESTAMP t ON t.puid = V.puid WHERE V.puid IN ('QqjZSMoOp2irgA','QutZSMoOp2irgA');
+
+PUID                  PSEQ PVALU_0            PVALC_0 PTIMESTAMP        PDELETED
+--------------- ---------- --------------- ---------- --------------- ----------
+QutZSMoOp2irgA           0 gGuZSMoOp2irgA         664
+
+SQL>
+
+//////////////////////////////////////////////
+
+SELECT t_01.col0, t_04.puid, t_05.puid 
+FROM POMQUERY_IU t_01 , PSTRUCTURE_REVISIONS t_02 , PITEMREVISION t_03 , PPSBOMVIEW t_04 , PPSBOMVIEWREVISION t_05 
+WHERE ( ( ( ( ( t_03.puid = t_01.col1 ) AND ( t_02.pvalu_0 = t_05.puid ) ) AND ( t_05.rbom_viewu = t_04.puid ) ) AND t_02.pseq IN  ( SELECT  MIN ( t_06.pseq ) AS min_9 FROM PSTRUCTURE_REVISIONS t_06 , PITEMREVISION t_07 WHERE ( ( t_07.puid = t_03.puid ) AND ( t_06.puid = t_07.puid ) ) ) ) AND ( t_02.puid = t_03.puid ) );
+
+///////////////////////////////////////
+
+SELECT  DISTINCT t_01.puid, t_03.pval_0 FROM PLISTOFVALUES t_01 , PLOV_ATTACHED_TYPES t_02 , PLOV_ATTACHED_PROPERTIES t_03 WHERE ( ( ( t_02.pval_0 = 'ImanRelation' ) AND ( ( ( t_01.puid = t_02.puid ) AND ( t_01.puid = t_03.puid ) ) AND ( t_02.pseq = t_03.pseq ) ) ) AND ( t_01.puid = t_02.puid AND t_02.puid = t_03.puid ) );
+
+///////////////////////////////////////
+
+SELECT  DISTINCT t_02.puid FROM PSTRUCTURE_REVISIONS t_01 , PITEMREVISION t_02 WHERE ( ( t_01.pvalu_0 = 'gCnZSMoOp2irgA' ) AND ( t_01.puid = t_02.puid ) );
+
+////////////////////////////////////////

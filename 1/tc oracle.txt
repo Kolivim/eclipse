@@ -1,0 +1,1553 @@
+...
+
+SQL> select p.pitem_id from pitem p where p.puid='QijZSMoOp2irgA';
+
+PITEM_ID
+--------------------------------------------------------------------------------
+000249
+
+SQL> select p.pitem_id from pitem p where p.puid='QijZSMoOp2irgA';
+
+PITEM_ID
+--------------------------------------------------------------------------------
+000249
+
+SQL> select p.pitem_id from pitem p where p.puid='QmtZSMoOp2irgA';
+
+PITEM_ID
+--------------------------------------------------------------------------------
+000250
+
+SQL> select p.puid from PPSBOMVIEW p where p.RPARENT_ITEMU  =  ‘QijZSMoOp2irgA’
+  2  ;
+
+PUID
+---------------
+gCjZSMoOp2irgA
+
+SQL> select p.PUID from PBOM_VIEW_TAGS p where p.PVALU_0='gCjZSMoOp2irgA';
+
+PUID
+---------------
+QijZSMoOp2irgA
+
+SQL> select p.pitem_id from pitem p where p.puid='QijZSMoOp2irgA';
+
+PITEM_ID
+--------------------------------------------------------------------------------
+000249
+
+SQL> select p.puid from PPSBOMVIEW p where p.RPARENT_ITEMU  =  ‘QijZSMoOp2irgA’;
+
+PUID
+---------------
+gCjZSMoOp2irgA
+
+SQL> Select p.puid from ppsbomviewrevision p where p.RBOM_VIEWU =' gCjZSMoOp2irgA ';
+
+no rows selected
+
+SQL> Select p.puid from ppsbomviewrevision p where p.RBOM_VIEWU ='gCjZSMoOp2irgA';
+
+PUID
+---------------
+gCnZSMoOp2irgA
+
+SQL> select occ.rchild_itemu from ppsoccurrence occ where occ.RPARENT_BVRU ='gCnZSMoOp2irgA';
+
+RCHILD_ITEMU
+---------------
+QmtZSMoOp2irgA
+QunZSMoOp2irgA
+
+SQL> select p.pitem_id from pitem p where p.puid='QmtZSMoOp2irgA';
+
+PITEM_ID
+--------------------------------------------------------------------------------
+000250
+
+SQL> select p.pitem_id from pitem p where p.puid='QunZSMoOp2irgA';
+
+PITEM_ID
+--------------------------------------------------------------------------------
+000251
+
+SQL>
+
+...
+
+			
+			//inner join infodba.pWorkspaceObject wsoItemRevision on itemRev.puid = wsoItemRevision.puid //infodba.pItemRevision itemRev
+			/*POBJECT_NAME
+			"
+			select itemRev.PITEM_REVISION_ID, paoItemRevision.PCREATION_DATE, wsoItemRevision.POBJECT_NAME
+			from infodba.pItemRevision itemRev 
+			inner join pItem item on itemRev.RITEMS_TAGU = item.puid 
+			inner join pPOM_Application_Object paoItemRevision on itemRev.puid = paoItemRevision.puid 
+			inner join pWorkspaceObject wsoItemRevision on itemRev.puid = wsoItemRevision.puid
+			where item.puid = 'QmtZSMoOp2irgA'
+			";
+			*/
+
+...
+
+select item.pItem_Id as Item_ID, itemRevision.pItem_Revision_Id as Item_Revision_ID, releaseStatus.pName as ReleaseStatus
+from infodba.pItemRevision itemRevision
+inner join infodba.pItem item on itemRevision.RITEMS_TAGU = item.puid
+inner join infodba.pRelease_Status_List releaseStatusList on releaseStatusList.puid = itemRevision.puid
+inner join infodba.pReleaseStatus releaseStatus on releaseStatus.puid = releaseStatusList.pValu_0;
+
+...
+
+select * from global_name
+
+...
+
+{NW}
+
+select item.pItem_Id as Item_ID
+from infodba.pItem item
+
+...
+
+select item.PITEM_ID from infodba.pItem item;
+
+...
+
+select * from infodba.pItem ;
+
+...
+
+select item.PUID from infodba.pItem item;
+
+...
+
+select item.pItem_Id from infodba.pItem item;
+
+...
+
+select count (distinct item.pItem_Id ) as No_Of_Items
+from infodba.pItem item;
+
+...
+
+
+select  itemRev.RITEMS_TAGU
+from pItemRevision itemRev
+inner join pItem item on itemRev.RITEMS_TAGU = item.puid
+where item.pItem_id='000250';
+
+select  * from pItemRevision itemRev where itemRev.RITEMS_TAGU = 'QmtZSMoOp2irgA';
+
+select item.pItem_id, itemRev.PITEM_REVISION_ID
+from pItemRevision itemRev
+inner join pItem item on itemRev.RITEMS_TAGU = item.puid
+where item.pItem_id='000250';
+infodba
+
+PITEM_ID
+--------------------------------------------------------------------------------
+PITEM_REVISION_ID
+--------------------------------
+000250
+A
+
+...
+ // Item_id и Revision_id
+
+select item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID as RevisionId
+from infodba.pItemRevision itemRev
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid
+inner join infodba.pPOM_Application_Object paoItemRevision on itemRev.puid = paoItemRevision.puid
+where itemRev.RITEMS_TAGU = 'QmtZSMoOp2irgA';
+
+select *
+from pPOM_Application_Object paoItemRevision
+where paoItemRevision.puid = 'QmtZSMoOp2irgA';
+
+///
+......
+SQL> select item.pItem_id, itemRev.PITEM_REVISION_ID, paoItemRevision.PCREATION_DATE
+  2  from infodba.pItemRevision itemRev
+  3  inner join pItem item on itemRev.RITEMS_TAGU = item.puid
+  4  inner join pPOM_Application_Object paoItemRevision on itemRev.puid = paoItemRevision.puid
+  5  where itemRev.RITEMS_TAGU = 'QmtZSMoOp2irgA';
+
+PITEM_ID
+--------------------------------------------------------------------------------
+PITEM_REVISION_ID                PCREATION
+-------------------------------- ---------
+000250
+A                                18-APR-24
+......
+
+select item.pItem_id, itemRev.PITEM_REVISION_ID, paoItemRevision.PCREATION 
+from infodba.pItemRevision itemRev
+inner join pItem item on itemRev.RITEMS_TAGU = item.puid
+inner join pPOM_Application_Object paoItemRevision on itemRev.puid = paoItemRevision.puid
+where itemRev.RITEMS_TAGU = 'QmtZSMoOp2irgA';
+
+select item.pItem_id, itemRev.PITEM_REVISION_ID
+from infodba.pItemRevision itemRev
+inner join pItem item on itemRev.RITEMS_TAGU = item.puid
+inner join pPOM_Application_Object paoItemRevision on itemRev.puid = paoItemRevision.puid
+where item.puid = 'QmtZSMoOp2irgA';
+
+ИИИИИИ
+
+SQL> select * from pPOM_Application_Object paoItemRevision where paoItemRevision.puid = 'QmtZSMoOp2irgA';
+
+PUID
+---------------
+PARCHIVE_INFO
+--------------------------------------------------------------------------------
+ROWNING_GROUPU  ROWNING_GROUPC  PACL_BITS RLAST_MOD_USERU RLAST_MOD_USERC
+--------------- -------------- ---------- --------------- ---------------
+ROWNING_USERU   ROWNING_USERC PCREATION PARCHIVE_ PLAST_MOD PBACKUP_D
+--------------- ------------- --------- --------- --------- ---------
+QmtZSMoOp2irgA
+
+AkiZgf2kp2irgA             488          0 AsmZgf2kp2irgA              702
+AsmZgf2kp2irgA            702 18-APR-24           18-APR-24
+
+ИИИИИИ
+
+SQL> select p.pitem_id from pitem p where p.puid = 'QmtZSMoOp2irgA';
+
+PITEM_ID
+--------------------------------------------------------------------------------
+000250
+
+
+///
+
+
+select item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID as RevisionId
+from infodba.pItemRevision itemRev
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid
+inner join infodba.pPOM_Application_Object paoItemRevision on itemRev.puid = paoItemRevision.puid
+inner join infodba.pWorkspaceObject wsoItemRevision on itemRev.puid = wsoItemRevision.puid //infodba.pItemRevision itemRev
+
+...
+
+select item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID as RevisionId
+from infodba.pItemRevision itemRev
+inner join infodba.pImanRelation relation on itemRev.puid = relation.RPRIMARY_OBJECTU
+inner join infodba.pForm formObj on formObj.puid = relation.RSECONDARY_OBJECTU
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid;
+
+...
+
+{NW}
+
+select * from infodba.pItem item where item.pItem_Id==QtuZgrovp2irgA;
+
+//
+WARN : 17:23:52,858  - TcLogger$IC_PrintStream.log:?
+1Element targer item = QtuZgrovp2irgAAAAAAAAAAAAAA
+
+WARN : 17:23:52,859  - TcLogger$IC_PrintStream.log:?
+2Element targer item = Item
+
+WARN : 17:23:52,859  - TcLogger$IC_PrintStream.log:?
+3Element targer item = object_string
+
+WARN : 17:23:52,859  - TcLogger$IC_PrintStream.log:?
+4Element targer item = QtuZgrovp2irgA
+//
+
+...
+
+{Нет строк в результате}
+
+SQL> select * from infodba.pItem item where item.pItem_Id='QtuZgrovp2irgA';
+
+SQL> select * from infodba.pItem item where item.pItem_Id='000015';
+
+select * from infodba.pItem item where item.pItem_Id='000264';
+...
+
+SQL> select * from infodba.pItem item where item.puid='QtuZgrovp2irgA';
+
+
+SQL> select * from infodba.pItem item where item.puid='AfoZSMoOp2irgA'; //000264
+
+select * from infodba.pItem item where item.puid='gqpZRrE6p2irgA';
+
+...
+
+//
+PUID
+---------------
+PITEM_ID
+--------------------------------------------------------------------------------
+ VLA_626_2 PFND0ORIGINALLOCATIONCODE         VLA_626_8 RPREFERRED_GLOB
+---------- -------------------------------- ---------- ---------------
+RPREFERRED_GLOBAL_ALTC RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC
+---------------------- --------------- --------------------------
+RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE     PIS_VI PIS_CONFIGURATION_ITEM
+--------------- ---------- ------------------- ---------- ----------------------
+QtuZgrovp2irgA
+000015
+//
+
+...
+
+
+-- shows all temporary timestamps
+select * from POM_TIMESTAMP;
+
+...
+
+Search by User-Session:
+
+select p.PUSER_NAME, p.PNODE_NAME, p.PPROCESS_ID
+FROM infodba.PPOM_SESSION p, infodba.POM_M_LOCK l
+WHERE l.PROCESS = p.PPROCESS_ID;
+
+Search by Object with a lock:
+
+SELECT wso.POBJECT_TYPE, wso.POBJECT_NAME, wso.PUID
+FROM infodba.PWORKSPACEOBJECT wso, infodba.POM_M_LOCK l
+WHERE l.REF_UID = wso.PUID;
+
+...
+SQL> where TABLE_NAME = UPPER('PWORKSPACEOBJECT');
+SP2-0734: unknown command beginning "where TABL..." - rest of line ignored.
+SQL> SELECT COLUMN_NAME FROM ALL_TAB_COLUMNS
+  2  where TABLE_NAME = UPPER('PWORKSPACEOBJECT');
+
+COLUMN_NAME
+------------------------------
+PUID
+POBJECT_NAME
+POBJECT_DESC
+POBJECT_TYPE
+POBJECT_APPLICATION
+VLA_572_7
+PIP_CLASSIFICATION
+VLA_572_10
+PGOV_CLASSIFICATION
+VLA_572_12
+VLA_572_14
+
+COLUMN_NAME
+------------------------------
+VLA_572_17
+PACTIVE_SEQ
+PREVISION_LIMIT
+RWSO_THREADU
+RWSO_THREADC
+ROWNING_ORGANIZATIONU
+ROWNING_ORGANIZATIONC
+PREVISION_NUMBER
+ROWNING_PROJECTU
+ROWNING_PROJECTC
+PDATE_RELEASED
+...
+
+SQL> SELECT COLUMN_NAME FROM ALL_TAB_COLUMNS
+  2  where TABLE_NAME = UPPER('PPSBOMVIEW');
+
+COLUMN_NAME
+------------------------------
+PUID
+VLA_663_2
+VLA_663_3
+RPARENT_ITEMU
+RPARENT_ITEMC
+RVIEW_TYPEU
+RVIEW_TYPEC
+...
+SQL> SELECT COLUMN_NAME FROM ALL_TAB_COLUMNS
+  2  where TABLE_NAME = UPPER('ppsbomviewrevision');
+
+COLUMN_NAME
+------------------------------
+PUID
+PLEGACY_TRANSFORM_FACTOR
+VLA_664_4
+VLA_664_2
+RBOM_VIEWU
+RBOM_VIEWC
+PIS_PRECISE
+PSTRUCT_LAST_MOD_DATE
+...
+SQL> SELECT COLUMN_NAME FROM ALL_TAB_COLUMNS
+  2  where TABLE_NAME = UPPER('ppsoccurrence');
+
+COLUMN_NAME
+------------------------------
+RXFORMC
+RNOTES_REFU
+RNOTES_REFC
+PUID
+PQTY_VALUE
+PEXT_TRANSFORM_ROT00
+PEXT_TRANSFORM_ROT10
+PEXT_TRANSFORM_ROT20
+PEXT_TRANSFORM_PER0
+PEXT_TRANSFORM_ROT01
+PEXT_TRANSFORM_ROT11
+
+COLUMN_NAME
+------------------------------
+PEXT_TRANSFORM_ROT21
+PEXT_TRANSFORM_PER1
+PEXT_TRANSFORM_ROT02
+PEXT_TRANSFORM_ROT12
+PEXT_TRANSFORM_ROT22
+PEXT_TRANSFORM_PER2
+PEXT_TRANSFORM_TRA0
+PEXT_TRANSFORM_TRA1
+PEXT_TRANSFORM_TRA2
+PEXT_TRANSFORM_INVSCALE
+PSEQ_NO
+
+COLUMN_NAME
+------------------------------
+VLA_876_5
+VLA_876_12
+VLA_876_13
+VLA_876_6
+VLA_876_30
+POCCURRENCE_NAME
+PREF_DESIGNATOR
+RCHILD_ITEMU
+RCHILD_ITEMC
+RALTERNATE_ETC_REFU
+RALTERNATE_ETC_REFC
+
+COLUMN_NAME
+------------------------------
+RVARIANT_CONDITIONU
+RVARIANT_CONDITIONC
+POCCURRENCE_TYPE
+PORDER_NO
+POCC_FLAGS
+RCHILD_BVU
+RCHILD_BVC
+RPARENT_BVRU
+RPARENT_BVRC
+RUOM_TAGU
+RUOM_TAGC
+
+COLUMN_NAME
+------------------------------
+ROCC_TYPEU
+ROCC_TYPEC
+ROCC_THREADU
+ROCC_THREADC
+RXFORMU
+...
+
+//
+WARN : 21:39:39,595  - TcLogger$IC_PrintStream.log:?
+1Element targer item = AfoZSMoOp2irgAAAAAAAAAAAAAA
+
+WARN : 21:39:39,596  - TcLogger$IC_PrintStream.log:?
+2Element targer item = CustomItem
+
+WARN : 21:39:39,596  - TcLogger$IC_PrintStream.log:?
+3Element targer item = object_string
+
+WARN : 21:39:39,596  - TcLogger$IC_PrintStream.log:?
+4Element targer item = AfoZSMoOp2irgA
+//
+
+...
+
+select item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID as RevisionId 
+from infodba.pItemRevision itemRev
+inner join infodba.pImanRelation relation on itemRev.puid = relation.RPRIMARY_OBJECTU
+inner join infodba.pForm formObj on formObj.puid = relation.RSECONDARY_OBJECTU
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid
+and item.pItem_id = '000264';
+
+...
+
+select owningItem.pItem_Id as OwningItem, owningItemRevision.pItem_Revision_Id as OwningItemRevision, dataset.puid as SpecificationDatasetPuid
+from infodba.pItem owningItem
+inner join infodba.pItemRevision owningItemRevision on owningItemRevision.rItems_Tagu = owningItem.puid
+inner join infodba.pImanRelation relation on relation.RPRIMARY_OBJECTU = owningItemRevision.puid
+inner join infodba.pDataset dataset on relation.RSECONDARY_OBJECTU = dataset.puid
+inner join infodba.pImanType specificationType on specificationType.puid = relation.RRELATION_TYPEU
+where specificationType.PTYPE_NAME LIKE 'IMAN_specification';
+
+...
+
+select distinct wso.pobject_name as RootBVR, child.pitem_id as Occurrence Child Item
+from ppsoccurrence occ
+join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru
+join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem child on child.puid = occ.rchild_itemu
+where wso.pobject_name like '000264/A-View'
+
+...
+
+select distinct wso.pobject_name as RootBVR, child.pitem_id as Occurrence Child_Item
+from ppsoccurrence occ
+join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru
+join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem child on child.puid = occ.rchild_itemu
+where wso.pobject_name like '000264/A-View'
+...
+
+select * from pitem where pitem_id like 'T%';
+
+...
+
+select * from infodba.solutionItem item;
+
+...
+
+select distinct wso.pobject_name as RootBVR, child.puid as OccurrencePUID
+from ppsoccurrence occ
+join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru
+join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem child on child.puid = occ.rchild_itemu;
+
+...
+
+select wso.pobject_name as RootBVR, child.puid as OccurrencePUID
+from ppsoccurrence occ
+join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru
+join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem child on child.puid = occ.rchild_itemu;
+
+...
+
+select *
+from ppsoccurrence occ
+join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru
+join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem child on child.puid = occ.rchild_itemu;
+
+...
+
+SQL> select occ.puid ,occ.rchild_itemu from ppsoccurrence occ;
+
+...
+
+select ecnItem.pitem_id as ECN_Item, solutionItem.pitem_id as Solution_Item, solutionItemRevision.pItem_Revision_Id as SolutionItem_Revision
+from infodba.pItemRevision solutionItemRevision
+inner join infodba.pImanRelation solutionItemsRelation ON solutionItemRevision.puid = solutionItemsRelation.RSECONDARY_OBJECTU
+inner join infodba.pItemRevision ecnRevision ON  ecnRevision.puid = solutionitemsrelation.Rprimary_Objectu
+inner join infodba.pItem solutionItem on solutionItem.puid = solutionItemRevision.rItems_Tagu
+inner join infodba.pItem ecnItem on ecnItem.puid = ecnRevision.rItems_Tagu
+inner join infodba.pWorkspaceObject wso ON wso.puid = ecnItem.puid
+order by ecnItem.pitem_id ASC, solutionItem.pitem_id ASC;
+
+...
+
+select owningItem.pItem_Id as OwningItem, owningItemRevision.pItem_Revision_Id as OwningItemRevision, dataset.puid as SpecificationDatasetPuid
+from infodba.pItem owningItem
+inner join infodba.pItemRevision owningItemRevision on owningItemRevision.rItems_Tagu = owningItem.puid
+inner join infodba.pImanRelation relation on relation.RPRIMARY_OBJECTU = owningItemRevision.puid
+inner join infodba.pDataset dataset on relation.RSECONDARY_OBJECTU = dataset.puid
+
+...
+
+SQL> select distinct wso.pobject_name as RootBVR, child.puid as OccurrencePUID
+  2  from ppsoccurrence occ
+  3  join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru
+  4  join pworkspaceobject wso on wso.puid = bvr.puid
+  5  left join pitem child on child.puid = occ.rchild_itemu;
+
+...
+
+{Worked}
+
+select distinct wso.pobject_name as RootBVR
+from ppsoccurrence occ
+join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru
+join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem child on child.puid = occ.rchild_itemu
+where wso.pobject_name like '000264/A-View';
+
+...
+
+select *
+from ppsoccurrence occ
+join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru
+join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem child on child.puid = occ.rchild_itemu
+where wso.pobject_name like '000264/A-View';
+
+...
+
+select * from pworkspaceobject;
+
+//
+PUID
+---------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_TYPE                     POBJECT_APPLICATION               VLA_572_7
+-------------------------------- -------------------------------- ----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_12 VLA_572_14 VLA_572_17 PACTIVE_SEQ PREVISION_LIMIT RWSO_THREADU
+---------- ---------- ---------- ----------- --------------- ---------------
+RWSO_THREADC ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PREVISION_NUMBER
+------------ --------------- --------------------- ----------------
+ROWNING_PROJECT ROWNING_PROJECTC PDATE_REL
+//
+
+...
+
+select * from ppsoccurrence;
+
+//
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+//
+...
+
+{Выборка по UID папки}
+
+select w.pobject_name, w.pobject_type from pworkspaceobject w
+               inner join pcontents pc
+                 on w.puid = pc.pvalu_0
+              where pc.puid='AfoZSMoOp2irgA'
+...
+
+
+select * from pworkspaceobject w
+               inner join pcontents pc
+                 on w.puid = pc.pvalu_0;
+
+//
+PUID
+---------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_TYPE                     POBJECT_APPLICATION               VLA_572_7
+-------------------------------- -------------------------------- ----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_12 VLA_572_14 VLA_572_17 PACTIVE_SEQ PREVISION_LIMIT RWSO_THREADU
+---------- ---------- ---------- ----------- --------------- ---------------
+RWSO_THREADC ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PREVISION_NUMBER
+------------ --------------- --------------------- ----------------
+ROWNING_PROJECT ROWNING_PROJECTC PDATE_REL PUID                  PSEQ
+--------------- ---------------- --------- --------------- ----------
+PVALU_0            PVALC_0
+--------------- ----------
+//
+
+
+ 
+...
+
+.syslog
+
+...
+
+ select * from pPSBomView;
+
+//
+PUID             VLA_663_2  VLA_663_3 RPARENT_ITEMU   RPARENT_ITEMC
+--------------- ---------- ---------- --------------- -------------
+RVIEW_TYPEU     RVIEW_TYPEC
+//
+
+...
+
+To retrieve the properties in cases like this, a query of the below format should help.
+
+select item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID as RevisionId, Formstorageclass.<formproperty>
+from infodba.pItemRevision itemRev
+inner join infodba.pImanRelation relation on itemRev.puid = relation.RPRIMARY_OBJECTU
+inner join infodba.pForm formObj on formObj.puid = relation.RSECONDARY_OBJECTU
+inner join infodba.<formstorageclass> formStorageClass on formStorageClass.puid = infodba.formObj.RDATA_FILEU
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid
+and item.pItem_id = '<an-item-id>';
+Replace the <formproperty> with the property on the form that you would like to retrieve.
+Replace the <an-item-id> with the item id which you would like to query on.
+
+...
+
+
+select item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID as RevisionId
+from infodba.pItemRevision itemRev
+inner join infodba.pImanRelation relation on itemRev.puid = relation.RPRIMARY_OBJECTU
+inner join infodba.pForm formObj on formObj.puid = relation.RSECONDARY_OBJECTU
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid
+inner join PWORKSPACEOBJECT ws on ws.puid = formObj.puid
+and item.pItem_id = '000249';
+
+{inner join PFORM fo on fo.puid = rel.rsecondary_objectu
+inner join PWORKSPACEOBJECT wo on wo.puid = fo.puid}
+
+.......
+
+SQL> select item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID as RevisionId
+  2  from infodba.pItemRevision itemRev
+  3  inner join infodba.pImanRelation relation on itemRev.puid = relation.RPRIMARY_OBJECTU
+  4  inner join infodba.pForm formObj on formObj.puid = relation.RSECONDARY_OBJECTU
+  5  inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid
+  6  inner join PWORKSPACEOBJECT ws on ws.puid = formObj.puid
+  7  and item.pItem_id = '000249';
+
+ITEMID
+--------------------------------------------------------------------------------
+REVISIONID
+--------------------------------
+000249
+A
+...............................................
+
+SQL> select * from PPERSON;
+
+PUID
+---------------
+PUSER_NAME
+--------------------------------------------------------------------------------
+PFORM_NAME                       PPA1
+-------------------------------- --------------------------------
+PPA2                             PPA3
+-------------------------------- --------------------------------
+PPA4                             PPA5
+-------------------------------- --------------------------------
+PPA6                             PPA7
+-------------------------------- --------------------------------
+PPA8
+--------------------------------
+PPA9
+--------------------------------------------------------------------------------
+PPA10                            PTIMEZONE                        PLOCA
+-------------------------------- -------------------------------- -----
+PDATA_SOURCE PLAST_SYN
+------------ ---------
+AgqZgf2kp2irgA
+
+...
+
+
+begin transaction -- you can use rollback in the end just for testing  or commit to writing the changes!
+
+
+update
+sr set pxyz4Property='Yes'
+from
+PXYZ4TESTREVISON  sr --use all capital letters
+inner join PIMANRELATION rel on rel.rprimary_objectu = sr.puid
+inner join PXYZ4RELATIONREL srel on srel.puid = rel.puid --use all capital letters for the Relation
+inner join PFORM fo on fo.puid = rel.rsecondary_objectu
+inner join PWORKSPACEOBJECT wo on wo.puid = fo.puid
+
+where
+sr.pxyz4Property is null and wo.pobject_type = 'XYZ4Form1' -- only revisions with empty property and this related form
+
+rollback -- reverses anything
+
+...
+
+select * from PFORM fo
+inner join PWORKSPACEOBJECT wo on wo.puid = fo.puid;
+
+...
+
+Find all BusinessObjects in database which has certain property:
+
+SELECT cla.pname
+,attr.[pname]
+,[pinitial_value]
+,[pupper_bound]
+,[plower_bound]
+,[pdbname]
+,[rdefining_classu]
+,[rdefining_classc]
+,[plength]
+,[pnull_offset]
+,[pempty_offset]
+,[rreferenced_classu]
+,[rreferenced_classc]
+,[ptype]
+,[pptype]
+,[papid]
+,[pmax_string_length]
+,[pnumber_of_columns]
+,[phas_table]
+,[pnulls_allowed]
+,[punique]
+FROM [TCDatabaseName].[dbo].[PPOM_ATTRIBUTE] attr
+inner join [TCDatabaseName].[dbo].[PPOM_CLASS] cla on cla.puid = attr.rdefining_classu
+WHERE attr.pname ='xyz4Property'
+
+...
+
+-- shows all temporary timestamps
+select * from POM_TIMESTAMP;
+
+...
+
+select * from PPOM_USER
+shows all user in the database
+Info: pstatus 0=active, pstatus 1=deactive
+
+select * from PPOM_USER WHERE PPOM_USER.puser_id='infodba'
+shows only the user infodba
+
+...
+
+Search by Object with a lock:
+
+SELECT wso.POBJECT_TYPE, wso.POBJECT_NAME
+FROM infodba.PWORKSPACEOBJECT wso, infodba.POM_M_LOCK l
+WHERE l.REF_UID = wso.PUID;
+
+...
+
+{NW}
+
+SELECT i1.pitem_id AS ItemID, ir1.pitem_revision_id AS RevID, wso2.pobject_type AS ItemType, wso1.pobject_name AS DSName, wso1.pobject_type AS DSType
+
+FROM infodba.pItem i1, infodba.PITEMREVISION ir1, infodba.PIMANRELATION rel1, infodba.PWORKSPACEOBJECT wso2, infodba.PWORKSPACEOBJECT wso1
+
+WHERE i1.puid = wso2.puid
+
+
+select item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID as RevisionId, 
+from infodba.pItem item
+inner join infodba.pItemRevision itemRev
+inner join infodba.pImanRelation relation on itemRev.puid = relation.RPRIMARY_OBJECTU
+inner join infodba.pForm formObj on formObj.puid = relation.RSECONDARY_OBJECTU
+inner join infodba.<formstorageclass> formStorageClass on formStorageClass.puid = infodba.formObj.RDATA_FILEU
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid
+;
+...
+select * from infodba.PWORKSPACEOBJECT p where p.puid = '000249';
+...
+
+    Select Case ('***** Item name ********') as PERE
+
+            , (SELECT max([PITEMREVISION].[pitem_revision_id]) FROM [tc].[dbo].[PITEM] inner join [dbo].[PITEMREVISION] on [PITEMREVISION].[ritems_tagu]=[PITEM].[puid]
+
+              group by [PITEM].[puid], [PITEM].[pitem_id]
+
+              having [pitem_id] ='***** Item name ********') as PERE_REVISION
+
+            , sum([PPSOCCURRENCE].[pqty_value]) as qty
+
+...
+
+If you're trying to create a sql query for this, take a look at the tables PPSOCCURRENCE, PPSBOMVIEWREVISION, PWORKSPACEOBJECT, PITEMREVISION, and PITEM. 
+Also note that the query will differ depending on whether the BOM is precise or imprecise.
+
+...
+
+select * from infodba.PSOccurrence
+
+//
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+------------ --------------- ---------- --------------- -----------
+//
+
+AfoZSMoOp2irgA = 000264
+QijZSMoOp2irgA = 000249
+...
+{W}
+select * from pitem i
+join ppsoccurrence occ on i.puid = occ.rchild_itemu;
+
+
+select occ.RCHILD_ITEMU from pitem i join ppsoccurrence occ on i.puid = occ.rchild_itemu;
+...
+
+select distinct wso.pobject_name, child.pitem_id from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem child on child.puid = occ.rchild_itemu
+where wso.pobject_name like '000264/A-View';
+
+select distinct wso.pobject_name, child.pitem_id from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem child on child.puid = occ.rchild_itemu
+where wso.pobject_name like '000249/A-View';
+
+
+select distinct wso.pobject_name, child.pitem_id from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem child on child.puid = occ.rchild_itemu
+where wso.pobject_name like '000250/A-View';
+...
+
+
+SQL> select distinct wso.pobject_name, child.pitem_id from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.puid = bvr.puid
+   left join pitem child on child.puid = occ.rchild_itemu
+   where wso.pobject_name like '000251/A-View';
+
+select distinct wso.pobject_name, child.pitem_id from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.puid = bvr.puid
+   left join pitem child on child.puid = occ.rchild_itemu
+   where wso.pobject_name like '000249';
+
+select distinct wso.pobject_name, child.pitem_id from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.puid = bvr.puid
+   left join pitem child on child.puid = occ.rchild_itemu
+   where child.pitem_id ='000249';
+
+select item.pitem_id from pitem item 
+where item.pitem_id ='000249';
+
+
+select * from pitem item 
+where item.pitem_id ='000249';
+
+{Какие ID относятся к VIEW можно узнать:}
+select distinct wso.pobject_name, pitem.pitem_id from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem pitem on pitem.puid = occ.rchild_itemu
+where wso.pobject_name like '000251/A-View';
+
+{Какие ID относятся к VIEW можно узнать:}
+select distinct wso.pobject_name, pitem.pitem_id from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem pitem on pitem.puid = occ.rchild_itemu
+where wso.pobject_name like '000249/A-View';
+
+select * from ppsbomviewrevision where wso.pobject_name like '000249/A-View';
+select * from pworkspaceobject wso where wso.pobject_name like '000249/A-View';
+{QilZSMoOp2irgA}
+
+{по ID item к какому VIEW относится можно узнать:}
+select distinct wso.pobject_name, pitem.pitem_id from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem pitem on pitem.puid = occ.rchild_itemu
+where pitem.pitem_id = '000250';
+
+{по ID item к какому VIEW относится можно узнать:}
+select distinct wso.pobject_name, pitem.pitem_id from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem pitem on pitem.puid = occ.rchild_itemu
+where pitem.pitem_id = '000251'
+
+{NW}
+select distinct wso.pobject_name, pitem.pitem_id from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem pitem on pitem.puid = occ.rchild_itemu
+where pitem.pitem_id = '000249'; {QijZSMoOp2irgA}
+
+{0}
+select * from ppsoccurrence occ 
+where occ.rchild_itemu = 'QijZSMoOp2irgA'; '000249'
+
+select pitem.pitem_id 
+from ppsoccurrence occ 
+join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru 
+join pitem pitem on pitem.puid = occ.rchild_itemu;
+
+{0}
+select * 
+from ppsoccurrence occ 
+join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru 
+join pitem pitem on pitem.puid = occ.rchild_itemu
+where pitem.pitem_id ='000249';
+
+select * 
+from ppsoccurrence occ 
+join pitem pitem on pitem.puid = occ.rchild_itemu
+where pitem.pitem_id ='000249';
+
+select * 
+from ppsoccurrence occ 
+where occ.rchild_itemu ='000249';
+
+select p.RBOM_VIEWU from ppsbomviewrevision p ;
+SQL> select * from ppsbomviewrevision; {RBOM_VIEWU - uid's}
+//
+PUID            PLEGACY_TRANSFORM_FACTOR  VLA_664_4  VLA_664_2 RBOM_VIEWU
+--------------- ------------------------ ---------- ---------- ---------------
+RBOM_VIEWC PIS_PRECISE PSTRUCT_L
+---------- ----------- ---------
+xcgZCQQop2irgA                                    0          0 xYsZCQQop2irgA
+       663           0 17-APR-24
+
+x0hZCQQop2irgA                                    0          0 xwtZCQQop2irgA
+       663           0 17-APR-24
+
+gdkZStlOp2irgA                                    0          0 gJhZStlOp2irgA
+       663           0 21-APR-24
+//
+
+/*
+select wso.pobject_name, child.pitem_id 
+from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.puid = bvr.puid
+left join pitem child on child.puid = occ.rchild_itemu
+where wso.pobject_name='000249';
+select wso.pobject_name, child.pitem_id from ppsoccurrence occ join ppsbomviewrevision bvr on bvr.puid = occ.rparent_bvru join pworkspaceobject wso on wso.rbom_viewu = bvr.puid
+   left join pitem child on child.puid = occ.rchild_itemu
+   where wso.pobject_name='000249';
+
+
+select wso.POBJECT_NAME 
+from pworkspaceobject wso 
+join ppsbomviewrevision bvr on wso.puid = bvr.puid
+where wso.pobject_name='000250';
+
+select wso.POBJECT_NAME 
+from pworkspaceobject wso 
+join ppsbomviewrevision bvr on wso.puid = bvr.RBOM_VIEWU
+where wso.pobject_name='000250';
+
+select wso.puid 
+from pworkspaceobject wso 
+where wso.pobject_name='000249';
+PUID
+---------------
+QilZSMoOp2irgA
+
+//
+PUID
+---------------
+POBJECT_NAME
+--------------------------------------------------------------------------------
+POBJECT_DESC
+--------------------------------------------------------------------------------
+POBJECT_TYPE                     POBJECT_APPLICATION               VLA_572_7
+-------------------------------- -------------------------------- ----------
+PIP_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_10
+----------
+PGOV_CLASSIFICATION
+--------------------------------------------------------------------------------
+VLA_572_12 VLA_572_14 VLA_572_17 PACTIVE_SEQ PREVISION_LIMIT RWSO_THREADU
+---------- ---------- ---------- ----------- --------------- ---------------
+RWSO_THREADC ROWNING_ORGANIZ ROWNING_ORGANIZATIONC PREVISION_NUMBER
+------------ --------------- --------------------- ----------------
+ROWNING_PROJECT ROWNING_PROJECTC PDATE_REL
+--------------- ---------------- ---------
+//
+*/
+
+select item.VLA_626_2 from pitem item where item.pitem_id ='000249'; 
+
+{RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC}
+
+select occ.RPARENT_BVRU
+from ppsoccurrence occ 
+join pitem on pitem.puid = occ.rchild_itemu
+where pitem.pitem_id ='000249';
+
+select occ.RPARENT_BVRU
+from ppsoccurrence occ;
+{UUID пошли не item'ов: BFoZgfcRp2irgA}
+	select * from  ppsbomviewrevision bvr 
+	join pworkspaceobject wso on wso.puid = bvr.puid
+	where  bvr.puid = 'BFoZgfcRp2irgA';
+
+	select wso.POBJECT_NAME from  ppsbomviewrevision bvr 
+	join pworkspaceobject wso on wso.puid = bvr.puid
+	where  bvr.puid = 'BFoZgfcRp2irgA';
+
+
+select occ.RPARENT_BVRC
+from ppsoccurrence occ;
+{664}
+
+select occ.RCHILD_BVC
+from ppsoccurrence occ;
+{-1}
+
+select occ.RCHILD_BVU
+from ppsoccurrence occ;
+{AAAAAAAAAAAAAA}
+
+select * 
+from ppsoccurrence occ;
+
+//
+PUID            PQTY_VALUE PEXT_TRANSFORM_ROT00 PEXT_TRANSFORM_ROT10
+--------------- ---------- -------------------- --------------------
+PEXT_TRANSFORM_ROT20 PEXT_TRANSFORM_PER0 PEXT_TRANSFORM_ROT01
+-------------------- ------------------- --------------------
+PEXT_TRANSFORM_ROT11 PEXT_TRANSFORM_ROT21 PEXT_TRANSFORM_PER1
+-------------------- -------------------- -------------------
+PEXT_TRANSFORM_ROT02 PEXT_TRANSFORM_ROT12 PEXT_TRANSFORM_ROT22
+-------------------- -------------------- --------------------
+PEXT_TRANSFORM_PER2 PEXT_TRANSFORM_TRA0 PEXT_TRANSFORM_TRA1 PEXT_TRANSFORM_TRA2
+------------------- ------------------- ------------------- -------------------
+PEXT_TRANSFORM_INVSCALE PSEQ_NO          VLA_876_5 VLA_876_12 VLA_876_13
+----------------------- --------------- ---------- ---------- ----------
+ VLA_876_6 VLA_876_30
+---------- ----------
+POCCURRENCE_NAME
+--------------------------------------------------------------------------------
+PREF_DESIGNATOR                RCHILD_ITEMU    RCHILD_ITEMC RALTERNATE_ETC_
+------------------------------ --------------- ------------ ---------------
+RALTERNATE_ETC_REFC RVARIANT_CONDIT RVARIANT_CONDITIONC POCCURRENCE_TYPE
+------------------- --------------- ------------------- ----------------
+ PORDER_NO POCC_FLAGS RCHILD_BVU      RCHILD_BVC RPARENT_BVRU    RPARENT_BVRC
+---------- ---------- --------------- ---------- --------------- ------------
+RUOM_TAGU        RUOM_TAGC ROCC_TYPEU      ROCC_TYPEC ROCC_THREADU
+--------------- ---------- --------------- ---------- ---------------
+ROCC_THREADC RXFORMU            RXFORMC RNOTES_REFU     RNOTES_REFC
+//
+
+
+SQL> select wso.POBJECT_NAME from  ppsbomviewrevision bvr
+  2  join pworkspaceobject wso on wso.puid = bvr.puid
+  3  where  bvr.puid = 'BFoZgfcRp2irgA';
+//
+POBJECT_NAME
+--------------------------------------------------------------------------------
+Turning_Express_metric/A-view
+//
+
+SQL> select wso.POBJECT_NAME from pworkspaceobject wso where wso.pobject_name like '000249';
+SQL>  select wso.POBJECT_NAME from pworkspaceobject wso where wso.pobject_name='000249';
+//
+POBJECT_NAME
+--------------------------------------------------------------------------------
+000249
+//
+
+SQL> select wso.POBJECT_NAME from pworkspaceobject wso;
+//
+POBJECT_NAME
+--------------------------------------------------------------------------------
+000001
+000001/A
+000002
+000002/A
+000003
+000003/A
+000004
+000004/A
+000005
+000005/A
+000006
+//
+
+select * from ppsbomviewrevision;
+
+//
+PUID            PLEGACY_TRANSFORM_FACTOR  VLA_664_4  VLA_664_2 RBOM_VIEWU
+--------------- ------------------------ ---------- ---------- ---------------
+RBOM_VIEWC PIS_PRECISE PSTRUCT_L
+---------- ----------- ---------
+xcgZCQQop2irgA                                    0          0 xYsZCQQop2irgA
+       663           0 17-APR-24
+
+x0hZCQQop2irgA                                    0          0 xwtZCQQop2irgA
+       663           0 17-APR-24
+
+gdkZStlOp2irgA                                    0          0 gJhZStlOp2irgA
+       663           0 21-APR-24
+
+//
+
+RBOM_VIEWU
+---------------
+A$oZSMoOp2irgA
+AHqZSMoOp2irgA
+APhZSMoOp2irgA
+AWtZCQQop2irgA
+AauZC48lp2irgA
+AemZSMoOp2irgA
+AniZCQQop2irgA
+AuiZCQQop2irgA
+BFmZgfcRp2irgA
+BZkZgfcRp2irgA
+BtiZgfcRp2irgA
+
+RBOM_VIEWU
+---------------
+Q$lZCQQop2irgA
+QDvZSMoOp2irgA
+QGgZCQQop2irgA
+QOiZSMoOp2irgA
+QPhZCQQop2irgA
+QerZCQQop2irgA
+QnvZCQQop2irgA
+QukZCQQop2irgA
+R4tZCQQop2irgA
+R5qZgfcRp2irgA
+RBgZgfcRp2irgA
+
+RBOM_VIEWU
+---------------
+REnZCQQop2irgA
+RRuZgfcRp2irgA
+RclZCQQop2irgA
+RlsZgfcRp2irgA
+gCiZCQQop2irgA
+gCjZSMoOp2irgA
+gGqZSMoOp2irgA
+gJhZStlOp2irgA
+gTrZCQQop2irgA
+gWmZCQQop2irgA
+gXuZCQQop2irgA
+
+RBOM_VIEWU
+---------------
+gpuZC48lp2irgA
+gtiZSMoOp2irgA
+gvqZCQQop2irgA
+gykZCQQop2irgA
+h0uZgfcRp2irgA
+h1kZgfcRp2irgA
+hgpZgfcRp2irgA
+hkrZCQQop2irgA
+wDvZCQQop2irgA
+wKvZSMoOp2irgA
+wSmZSMoOp2irgA
+
+RBOM_VIEWU
+---------------
+whkZSMoOp2irgA
+wxgZC48lp2irgA
+xIsZgfcRp2irgA
+xYsZCQQop2irgA
+xcqZgfcRp2irgA
+xwoZgfcRp2irgA
+xwtZCQQop2irgA
+
+
+51 rows selected.
+
+SQL> select p.PUID, p.RBOM_VIEWU from ppsbomviewrevision p join pitem item on item.puid=p.puid;
+
+no rows selected
+
+SQL> select p.PUID, p.RBOM_VIEWU from ppsbomviewrevision p join pitem item on item.puid=p.RBOM_VIEWU;
+
+no rows selected
+
+
+
+
+...
+
+To retrieve the properties in cases like this, a query of the below format should help.
+
+select item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID as RevisionId, Formstorageclass.<formproperty>
+from infodba.pItemRevision itemRev
+inner join infodba.pImanRelation relation on itemRev.puid = relation.RPRIMARY_OBJECTU
+inner join infodba.pForm formObj on formObj.puid = relation.RSECONDARY_OBJECTU
+inner join infodba.<formstorageclass> formStorageClass on formStorageClass.puid = infodba.formObj.RDATA_FILEU
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid
+and item.pItem_id = '<an-item-id>';
+
+...
+select itemRev.PITEM_REVISION_ID as RevisionId from infodba.pItemRevision itemRev;
+
+PUID            PITEM_REVISION_ID
+--------------- --------------------------------
+PFND0CURRENTLOCATIONCODE          VLA_846_9 VLA_846_10 VLA_846_11 VLA_846_13
+-------------------------------- ---------- ---------- ---------- ----------
+RITEMS_TAGU     RITEMS_TAGC PSEQUENCE_ID PSEQUENCE_LIMIT RVARIANT_EXPRES
+--------------- ----------- ------------ --------------- ---------------
+RVARIANT_EXPRESSION_BLOCKC RSEQUENCE_ANCHO RSEQUENCE_ANCHORC PHAS_VARIANT_MODULE
+-------------------------- --------------- ----------------- -------------------
+AzsZSMoOp2irgA  A
+                                          0          0          0          0
+AzmZSMoOp2irgA         1042            1               3 AAAAAAAAAAAAAA
+                        -1 AzuZSMoOp2irgA                574
+
+...
+
+select item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID as RevisionId 
+from infodba.pItemRevision itemRev
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid;
+
+select item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID as RevisionId 
+from infodba.pItemRevision itemRev
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid where item.pItem_id = '000249';
+
+select itemRev.RITEMS_TAGU 
+from infodba.pItemRevision itemRev
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid where item.pItem_id = '000249';
+
+//
+QijZSMoOp2irgA
+//
+
+{itemRev.RITEMS_TAGU} = {item.puid}
+
+select itemRev.RITEMS_TAGc, item.pItem_id , item.puid
+from infodba.pItemRevision itemRev
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid where item.pItem_id = '000249';
+
+//
+RITEMS_TAGC
+-----------
+PITEM_ID
+--------------------------------------------------------------------------------
+PUID
+---------------
+1042
+000249
+QijZSMoOp2irgA
+//
+
+//
+PUID            PITEM_REVISION_ID
+--------------- --------------------------------
+PFND0CURRENTLOCATIONCODE          VLA_846_9 VLA_846_10 VLA_846_11 VLA_846_13
+-------------------------------- ---------- ---------- ---------- ----------
+RITEMS_TAGU     RITEMS_TAGC PSEQUENCE_ID PSEQUENCE_LIMIT RVARIANT_EXPRES
+--------------- ----------- ------------ --------------- ---------------
+RVARIANT_EXPRESSION_BLOCKC RSEQUENCE_ANCHO RSEQUENCE_ANCHORC PHAS_VARIANT_MODULE
+-------------------------- --------------- ----------------- -------------------
+PUID
+---------------
+PITEM_ID
+--------------------------------------------------------------------------------
+ VLA_626_2 PFND0ORIGINALLOCATIONCODE         VLA_626_8 RPREFERRED_GLOB
+---------- -------------------------------- ---------- ---------------
+RPREFERRED_GLOBAL_ALTC RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC
+---------------------- --------------- --------------------------
+RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE     PIS_VI PIS_CONFIGURATION_ITEM
+--------------- ---------- ------------------- ---------- ----------------------
+//
+{B}
+select itemRev.RITEMS_TAGc, item.pItem_id , item.puid, item.RUOM_TAGU
+from infodba.pItemRevision itemRev
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid where item.pItem_id = '000249';
+{B}
+select itemRev.RITEMS_TAGc, item.pItem_id , item.puid, item.RUOM_TAGC
+from infodba.pItemRevision itemRev
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid where item.pItem_id = '000249';
+{B}
+select itemRev.RITEMS_TAGc, item.pItem_id , item.puid, item.PIS_CONFIGURATION_ITEM
+from infodba.pItemRevision itemRev
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid where item.pItem_id = '000249';
+//
+
+select item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID  as RevisionId
+from infodba.pItemRevision itemRev
+inner join infodba.pImanRelation relation on itemRev.puid = relation.RPRIMARY_OBJECTU
+inner join infodba.pForm formObj on formObj.puid = relation.RSECONDARY_OBJECTU
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid;
+
+, relation.RSECONDARY_OBJECTU as relation_RSECONDARY_OBJECTU
+
+select relation.RPRIMARY_OBJECTU as relPrim, relation.RSECONDARY_OBJECTU as relSec, item.pItem_id as ItemId, itemRev.PITEM_REVISION_ID  as RevisionId
+from infodba.pItemRevision itemRev
+inner join infodba.pImanRelation relation on itemRev.puid = relation.RPRIMARY_OBJECTU
+inner join infodba.pForm formObj on formObj.puid = relation.RSECONDARY_OBJECTU
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid 
+where item.pItem_id = '000249';
+
+//
+RELPRIM         RELSEC
+--------------- ---------------
+ITEMID
+--------------------------------------------------------------------------------
+REVISIONID
+--------------------------------
+QipZSMoOp2irgA  QitZSMoOp2irgA
+000249
+A
+//
+
+select *
+from infodba.pImanRelation relation;
+//
+PUID            RPRIMARY_OBJECT RPRIMARY_OBJECTC RSECONDARY_OBJE
+--------------- --------------- ---------------- ---------------
+RSECONDARY_OBJECTC RRELATION_TYPEU RRELATION_TYPEC RUSER_DATAU     RUSER_DATAC
+------------------ --------------- --------------- --------------- -----------
+gavZRrE6p2irgA  garZRrE6p2irgA              1042 gatZRrE6p2irgA
+               617 hsmZgfXsp2irgA              211 AAAAAAAAAAAAAA           -1
+//
+select *
+from infodba.pImanRelation relation
+where relation.RPRIMARY_OBJECTU='QipZSMoOp2irgA';
+
+select formObj.puid as puid
+from infodba.pForm formObj
+where formObj.puid = 'QitZSMoOp2irgA';
+
+select *
+from infodba.pForm formObj
+where formObj.puid = 'QitZSMoOp2irgA';
+//
+
+//
+
+//
+ITEMID
+--------------------------------------------------------------------------------
+REVISIONID
+--------------------------------
+RSWP_4T__9ad2ea02
+A
+
+000230
+A
+
+000231
+A
+//
+
+select *
+from infodba.pItemRevision itemRev
+inner join infodba.pImanRelation relation on itemRev.puid = relation.RPRIMARY_OBJECTU
+inner join infodba.pForm formObj on formObj.puid = relation.RSECONDARY_OBJECTU
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid;
+
+//
+
+PUID            PITEM_REVISION_ID
+--------------- --------------------------------
+PFND0CURRENTLOCATIONCODE          VLA_846_9 VLA_846_10 VLA_846_11 VLA_846_13
+-------------------------------- ---------- ---------- ---------- ----------
+RITEMS_TAGU     RITEMS_TAGC PSEQUENCE_ID PSEQUENCE_LIMIT RVARIANT_EXPRES
+--------------- ----------- ------------ --------------- ---------------
+RVARIANT_EXPRESSION_BLOCKC RSEQUENCE_ANCHO RSEQUENCE_ANCHORC PHAS_VARIANT_MODULE
+-------------------------- --------------- ----------------- -------------------
+PUID            RPRIMARY_OBJECT RPRIMARY_OBJECTC RSECONDARY_OBJE
+--------------- --------------- ---------------- ---------------
+RSECONDARY_OBJECTC RRELATION_TYPEU RRELATION_TYPEC RUSER_DATAU     RUSER_DATAC
+------------------ --------------- --------------- --------------- -----------
+PUID            PFORM_FILE                       RDATA_FILEU     RDATA_FILEC
+--------------- -------------------------------- --------------- -----------
+PUID
+---------------
+PITEM_ID
+--------------------------------------------------------------------------------
+ VLA_626_2 PFND0ORIGINALLOCATIONCODE         VLA_626_8 RPREFERRED_GLOB
+---------- -------------------------------- ---------- ---------------
+RPREFERRED_GLOBAL_ALTC RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC
+---------------------- --------------- --------------------------
+RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE     PIS_VI PIS_CONFIGURATION_ITEM
+--------------- ---------- ------------------- ---------- ----------------------
+AAAAAAAAAAAAAA          -1
+
+PUID            PITEM_REVISION_ID
+--------------- --------------------------------
+PFND0CURRENTLOCATIONCODE          VLA_846_9 VLA_846_10 VLA_846_11 VLA_846_13
+-------------------------------- ---------- ---------- ---------- ----------
+RITEMS_TAGU     RITEMS_TAGC PSEQUENCE_ID PSEQUENCE_LIMIT RVARIANT_EXPRES
+--------------- ----------- ------------ --------------- ---------------
+RVARIANT_EXPRESSION_BLOCKC RSEQUENCE_ANCHO RSEQUENCE_ANCHORC PHAS_VARIANT_MODULE
+-------------------------- --------------- ----------------- -------------------
+PUID            RPRIMARY_OBJECT RPRIMARY_OBJECTC RSECONDARY_OBJE
+--------------- --------------- ---------------- ---------------
+RSECONDARY_OBJECTC RRELATION_TYPEU RRELATION_TYPEC RUSER_DATAU     RUSER_DATAC
+------------------ --------------- --------------- --------------- -----------
+PUID            PFORM_FILE                       RDATA_FILEU     RDATA_FILEC
+--------------- -------------------------------- --------------- -----------
+PUID
+---------------
+PITEM_ID
+--------------------------------------------------------------------------------
+ VLA_626_2 PFND0ORIGINALLOCATIONCODE         VLA_626_8 RPREFERRED_GLOB
+---------- -------------------------------- ---------- ---------------
+RPREFERRED_GLOBAL_ALTC RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC
+---------------------- --------------- --------------------------
+RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE     PIS_VI PIS_CONFIGURATION_ITEM
+--------------- ---------- ------------------- ---------- ----------------------
+//
+{W}
+select *
+from infodba.pItemRevision itemRev
+inner join infodba.pImanRelation relation on itemRev.puid = relation.RPRIMARY_OBJECTU
+inner join infodba.pForm formObj on formObj.puid = relation.RSECONDARY_OBJECTU
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid 
+where item.pitem_id = '000249';
+
+select formObj.RCONFIGURATION_OBJECT_TAGC
+from infodba.pItemRevision itemRev
+inner join infodba.pImanRelation relation on itemRev.puid = relation.RPRIMARY_OBJECTU
+inner join infodba.pForm formObj on formObj.puid = relation.RSECONDARY_OBJECTU
+inner join infodba.pItem item on itemRev.RITEMS_TAGU = item.puid 
+where item.pitem_id = '000249';
+
+select * from infodba.pForm formObj;
+select * from infodba.pForm formObj where formObj.puid = 'QijZSMoOp2irgA';
+//
+PUID            PITEM_REVISION_ID
+--------------- --------------------------------
+PFND0CURRENTLOCATIONCODE          VLA_846_9 VLA_846_10 VLA_846_11 VLA_846_13
+-------------------------------- ---------- ---------- ---------- ----------
+RITEMS_TAGU     RITEMS_TAGC PSEQUENCE_ID PSEQUENCE_LIMIT RVARIANT_EXPRES
+--------------- ----------- ------------ --------------- ---------------
+RVARIANT_EXPRESSION_BLOCKC RSEQUENCE_ANCHO RSEQUENCE_ANCHORC PHAS_VARIANT_MODULE
+-------------------------- --------------- ----------------- -------------------
+PUID            RPRIMARY_OBJECT RPRIMARY_OBJECTC RSECONDARY_OBJE
+--------------- --------------- ---------------- ---------------
+RSECONDARY_OBJECTC RRELATION_TYPEU RRELATION_TYPEC RUSER_DATAU     RUSER_DATAC
+------------------ --------------- --------------- --------------- -----------
+PUID            PFORM_FILE                       RDATA_FILEU     RDATA_FILEC
+--------------- -------------------------------- --------------- -----------
+PUID
+---------------
+PITEM_ID
+--------------------------------------------------------------------------------
+ VLA_626_2 PFND0ORIGINALLOCATIONCODE         VLA_626_8 RPREFERRED_GLOB
+---------- -------------------------------- ---------- ---------------
+RPREFERRED_GLOBAL_ALTC RCONFIGURATION_ RCONFIGURATION_OBJECT_TAGC
+---------------------- --------------- --------------------------
+RUOM_TAGU        RUOM_TAGC PHAS_VARIANT_MODULE     PIS_VI PIS_CONFIGURATION_ITEM
+//
+
+
+ITEMID
+--------------------------------------------------------------------------------
+REVISIONID
+--------------------------------
+shops_mill_contour_metric
+A
+
+shops_mill_planar_inch
+A
+
+shops_mill_planar_metric
+A
+//
+
+...
