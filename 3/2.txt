@@ -1,0 +1,1780 @@
+///
+start with Tc documentation for plmxml_export. You need all this in command line. It means you need to identity each parent assembly and then for each assembly you need to extract bom xml one at a time. You also need to configure your transfer mode correctly.
+
+ 
+
+plmxml_export -u=infodba -p=infodba -g=dba -item=ITEM -rev=A
+
+-export_bom=yes -transfermode=justDatasetsOut -out=sample.plmxml
+
+ 
+
+Its very complicated the way you want to do it. I had done it and its super painful. A better approach is to clone your TC EnvA over to TC EnvB.
+///
+
+Hallo, [Привет,]
+
+if you use Pack the parts with the same ID, Rev ID an Find number will be combined to one line and the quantity will display the correct number. [Если вы используете Упаковать детали с одинаковым идентификатором, идентификатором версии и номером поиска, они будут объединены в одну строку, а количество отобразит правильное число.]
+
+ 
+
+In structure manager there is the phisical quantity and the manual quantity. [В менеджере структуры есть физическое количество и ручное количество.]
+
+Phisical quantity is the parts have as many lines as they are displayed. [Физическое количество — это количество линий, равное количеству отображаемых деталей.]
+
+Manual quantity can only be added to an unpacked line. [Количество вручную можно добавить только в неупакованную строку.] If I have 30 washers 30 nuts and 30 screws in my assembly bit I only want to place only one of them the others are displayed only simbolically I can add each of these part once and position it. [Если у меня есть 30 шайб, 30 гаек и 30 винтов в моей сборочной насадке, я хочу разместить только одну из них, остальные отображаются только символически, я могу добавить каждую из этих частей один раз и расположить ее.] After that I enter the quantity manually so the part list displays the correct quantity. [После этого я ввожу количество вручную, чтобы в списке деталей отображалось правильное количество.]
+
+ 
+
+For example
+
+ID|Quantity|Find NR
+
+Child 1234|1|10
+
+Child 1234|1|10
+
+Child 1234|2(manualy added)|10
+
+ 
+
+If I pack it it will look like this:
+
+ID Quantity Find NR
+
+Child 1234|4|10
+
+ 
+
+In you case I would check if I can pack the lines or not
+
+If not than there are some properties which makes them unique so Structure manager can not pack them. There is a pereference in you can define which property should be considered when packing the lines.
+
+///
+
+
+GaneshKadole
+
+5 years ago
+@Sekars , Do items (same item) have different find numbers ? [@Sekars, предметы (один и тот же предмет) имеют разные номера поиска?] If yes then they will not pack together. [Если да, то они не будут собираться вместе.]
+
+
+There is a Teamcenter site preference "BOMExcludeFromPackCheck". [Существует настройка сайта Teamcenter «BOMExcludeFromPackCheck».] By default it is set to 'none'. [По умолчанию установлено значение «нет».]
+
+If multiple instances of same item/bom line have different find numbers, then they will not pack together. [Если несколько экземпляров одной и той же строки товара или спецификации имеют разные номера поиска, они не будут упакованы вместе.] If you add value 'seqno' to this preference, then irrespective of find numbers all bom lines of the same item will pack together with respect to their level. [Если вы добавите к этому параметру значение «seqno», то независимо от номеров поиска все строки одного и того же элемента будут упакованы вместе в соответствии с их уровнем.]
+
+
+Note - After adding new value to preference, it will be needed to restart Teamcenter. [Примечание. После добавления нового значения в предпочтение потребуется перезапустить Teamcenter.]
+
+///
+
+SOA Service Client : Get Wherereference
+tags: Teamcenter SOA Service
+
+
+How to Get Where Reference for object in Teamcenter？
+
+private static void whereReferenced(ModelObject modObj)
+    {
+        WorkspaceObject[] arrWorkspaceObject = new WorkspaceObject[1];
+        arrWorkspaceObject[0] = (WorkspaceObject) modObj;
+ 
+        //com.teamcenter.services.strong.core.DataManagementService
+ 
+        DataManagementService dataManagementService = DataManagementService.getService(connection);
+ 
+        WhereReferencedResponse whereReferencedResponse = dataManagementService.whereReferenced(
+ 
+                arrWorkspaceObject, 3);//3 represent number of levels
+ 
+        if (whereReferencedResponse != null)
+        {
+            WhereReferencedOutput[] whereReferencedOutputs = whereReferencedResponse.output;
+ 
+            if (whereReferencedOutputs != null)
+            {
+ 
+               for (WhereReferencedOutput whereReferencedOutput : whereReferencedOutputs)
+                {
+                    if (whereReferencedOutput != null)
+                    {
+                        WhereReferencedInfo[] whereReferencedinfos = whereReferencedOutput.info;
+                        if (whereReferencedinfos != null)
+                        {
+                            for (WhereReferencedInfo whereReferencedInfo : whereReferencedinfos)
+                            {
+                                System.out.println(whereReferencedInfo.referencer);
+                                System.out.println(whereReferencedInfo.relation);
+                            }
+                        }
+                    }
+                }
+            }
+        }  
+    }
+ 
+
+///
+
+ModelObject[] modelObjects = getModelObjectsFromUIDs( arrayOfUIDs,tcConnection );
+ 
+private static ModelObject[] getModelObjectsFromUIDs(String[] arrayOfUIDs, Connection connection)
+{
+    ModelObject[] arrModelObjects = null;
+    if (arrayOfUIDs.length > 0)
+    {
+        ArrayList<ModelObject> modelObjects = 
+        new ArrayList<ModelObject>(arrayOfUIDs.length);
+        DataManagementService dataManagementService = 
+       DataManagementService.getService(connection);
+        ServiceData loadObjects = 
+        dataManagementService.loadObjects(arrayOfUIDs); //Load objects for provided UIDs
+ 
+       for (int i = 0; i < loadObjects.sizeOfPlainObjects(); i++)
+        {
+            modelObjects.add(loadObjects.getPlainObject(i));
+        }
+        if (modelObjects != null && modelObjects.size() > 0)
+        {
+            arrModelObjects = modelObjects.toArray(new ModelObject[0]);
+        }
+      }
+    return arrModelObjects;
+}
+
+///
+
+Get the Model object from UID
+
+ModelObject[] modelObjects = getModelObjectsFromUIDs( arrayOfUIDs,tcConnection );
+ 
+private static ModelObject[] getModelObjectsFromUIDs(String[] arrayOfUIDs, Connection connection)
+{
+    ModelObject[] arrModelObjects = null;
+    if (arrayOfUIDs.length > 0)
+    {
+        ArrayList<ModelObject> modelObjects = 
+        new ArrayList<ModelObject>(arrayOfUIDs.length);
+        DataManagementService dataManagementService = 
+       DataManagementService.getService(connection);
+        ServiceData loadObjects = 
+        dataManagementService.loadObjects(arrayOfUIDs); //Load objects for provided UIDs
+ 
+       for (int i = 0; i < loadObjects.sizeOfPlainObjects(); i++)
+        {
+            modelObjects.add(loadObjects.getPlainObject(i));
+        }
+        if (modelObjects != null && modelObjects.size() > 0)
+        {
+            arrModelObjects = modelObjects.toArray(new ModelObject[0]);
+        }
+      }
+    return arrModelObjects;
+}
+Now Load the ref_list property on dataset which actually contain the files names
+
+dataManagementService.getProperties( modelObjects, new String[]{ "ref_list" } );
+Dataset  dataset =null;
+ModelObject[] files = null;
+if ( modelObject instanceof Dataset )
+{
+   dataset = ( Dataset )  modelObject;
+   files = dataset.get_ref_list();//Gives named referenced objects
+}
+ 
+Check if named reference is actually the required file
+ 
+ArrayList<ModelObject> al = new ArrayList<ModelObject>();
+ 
+for (int i = 0; i < files.length; i++)
+{
+   if ( files[i] instanceof ImanFile )
+   al.add( files[i] );
+ 
+}
+ 
+ModelObject[] newFiles = al.toArray( new ModelObject[al.size()] ); 
+ 
+//Load the original name for files
+dataManagementService.getProperties( newFiles, new String[]{"original_file_name"} );
+ 
+Get/Download the Files
+//FileManagementUtility is in package com.teamcenter.soa.client
+ FileManagementUtility fileManagementUtility = null;
+ 
+//Get the Fms_BootStrap_Urls Preference
+SessionService localSessionService = SessionService.getService(getTcConnection());
+Session.ScopedPreferenceNames[] arrayOfScopedPreferenceNames = 
+new Session.ScopedPreferenceNames[1];
+ 
+arrayOfScopedPreferenceNames[0] = new Session.ScopedPreferenceNames();
+arrayOfScopedPreferenceNames[0].names = new String[] { "Fms_BootStrap_Urls" };
+arrayOfScopedPreferenceNames[0].scope = paramString2;
+Session.MultiPreferencesResponse localMultiPreferencesResponse =
+localSessionService.getPreferences(arrayOfScopedPreferenceNames);
+ 
+String bootStrapURL=localMultiPreferencesResponse.preferences[0].values[0];
+try
+{
+//strDirPath is folder path /location where file will be downloaded
+fileManagementUtility = new FileManagementUtility( localConnection, null,
+null, new String[]{ bootStrapURL }, strDirPath);
+GetFileResponse responseFiles = 
+fileManagementUtility.getFiles( modelObjects );//Download the files but with Tc internal name
+File[] filesFromModelObjects = responseFiles.getFiles();
+}
+ 
+Rename the file to Original name based on ref list model objects ->newFiles and downloaded files -> filesFromModelObjects
+for(File fSrc : filesFromModelObjects)
+{
+    ImanFile imFle = (ImanFile) newFiles[i];
+    String originalFileName = imFle.get_original_file_name();
+    File fTmpDest = new File(strDirPath + File.separator + originalFileName);
+    fSrc.renameTo(fTmpDest);
+}
+
+///
+
+How to Pack/Unpack BoM
+
+ 
+
+CreateBOMWindowsResponse createBOMWindowsResponse = createBOMWindows2(modObjParent);
+ 
+ BOMWindow[] bomWindows = getBOMWindows(createBOMWindowsResponse);
+ BOMLine parentBOMLine = getParentBOMLine(createBOMWindowsResponse);
+ List<BOMLine> arrChildBOMLines = getChildren(parentBOMLine, plugin);
+ 
+ System.out.println( "Children BOMLines : " + arrChildBOMLines);
+//Expand child lines one by one.
+if(arrChildBOMLines != null && arrChildBOMLines.size() > 0)
+{
+    for (int cnt = 0; cnt < arrChildBOMLines.size(); cnt++)
+    {
+        if(arrChildBOMLines.get(cnt) instanceof BOMLine)
+         {  
+          //Get child bomlines
+          BOMLine bline = (BOMLine)arrChildBOMLines.get(cnt);
+          boolean bIsBomLinePacked = false;
+          try           {
+               bIsBomLinePacked = bline.get_bl_is_packed();
+          } 
+         catch (NotLoadedException e)
+          {
+             System.out.println("get_bl_is_packed attribute not loaded fetching from Tc="+ e);
+             bIsBomLinePacked = (Boolean) plugin.getObjectAttribute(bline,"bl_is_packed", null);
+          }
+         System.out.println("Value for get_bl_is_packed :  " + bIsBomLinePacked);
+         if(bIsBomLinePacked)
+          {
+            System.out.println("BOM Line is packed, unpacking the complete BOMLine");
+ 
+           //com.teamcenter.services.strong.structuremanagement.StructureService
+           StructureService strucService = StructureService.getService(connection);
+           ServiceData response = strucService.packOrUnpack(new BOMLine[] { bline } , 3);
+           if(response.sizeOfPartialErrors() == 0)
+           System.out.println("unpacking successfull ");
+         }
+       }
+    } 
+}
+Explanation :
+StructureService strucService = StructureService.getService(connection);
+ServiceData response = strucService.packOrUnpack(new BOMLine[] { bline } , 3);
+packOrUnpack method parameters are ->1st Parameter) lines - The lines that need to be packed. If pack all option is selected, the children of the lines will be packed.2nd Parameter)flag - 0:pack the lines 1:unpack the lines 2:pack all lines 3:unpack all lines
+
+///
+
+
+private static void setReleaseStatus(ModelObject[] modObjArr, String sReleaseStatus) throws ServiceException
+{
+  //com.teamcenter.services.strong.workflow.WorkflowService
+ 
+ WorkflowService workflowService = WorkflowService.getService(connection);
+ ReleaseStatusOption[] releaseStatusOptions = new ReleaseStatusOption[1];
+ releaseStatusOptions[0] = new ReleaseStatusOption();
+ releaseStatusOptions[0].newReleaseStatusTypeName = sReleaseStatus;// "Released";
+ releaseStatusOptions[0].operation = "Append";// "Append";
+ 
+ WorkspaceObject[] objectsToRelease = new WorkspaceObject[modObjArr.length];
+ for (int i = 0; i < modObjArr.length; i++)
+ {
+ objectsToRelease[i] = (WorkspaceObject) modObjArr[i];
+ }
+ 
+ 
+ ReleaseStatusInput ip = new ReleaseStatusInput();
+ ip.operations = releaseStatusOptions;
+ ip.objects = objectsToRelease;
+ 
+ ReleaseStatusInput[] releaseStatusInput = new ReleaseStatusInput[1];
+ releaseStatusInput[0] = ip;
+ SetReleaseStatusResponse releaseResponse;
+ releaseResponse = workflowService.setReleaseStatus(releaseStatusInput);
+}
+
+///
+
+How to check out objects in Teamcenter  ?
+
+ private static void checkout(ModelObject[] modObjArr)
+    {
+       //com.teamcenter.services.strong.core.ReservationService
+        ReservationService resServ = ReservationService.getService(connection);
+        ServiceData data = resServ.checkout(modObjArr, "", "");
+       //Checkin method is also available on ReservationService
+    }
+How to Set Properties on Object ?
+
+private static void setProperties(ModelObject[] modObjArr,HashMap<String, VecStruct> mapAttributes)
+    {
+      System.out.println("Inside setProperties method");
+      //com.teamcenter.services.strong.core.DataManagementService
+ 
+      DataManagementService dmService = DataManagementService.getService(connection);
+      ServiceData data =dmService.setProperties(modObjArr, mapAttributes);
+    }
+How to refresh objects ?
+
+private static void refreshObjects(ModelObject[] modelObjectArr)
+{
+   com.teamcenter.services.strong.core.DataManagementService dmService = com.teamcenter.services.strong.core.DataManagementService.getService(connection);
+   ServiceData data = dmService.refreshObjects(modelObjectArr);
+}
+
+///
+
+How to get the revision list if we have item object ?
+
+//localObject1 is Item object
+String[] arrAttributes = new String[] { "revision_list"};
+ModelObject arrModelObjects[]= new ModelObject[1];
+arrModelObjects[0]=localObject1;
+serviceData = dataManagementService.getProperties(arrModelObjects, arrAttributes);//Get the revision list attribute loaded for Item object
+if(serviceData.sizeOfPlainObjects()>0)
+localObject1 = 
+(Item) serviceData.getPlainObject(0); //Get the original Item object with revision_list loaded
+else
+localObject1 = (Item)arrModelObjects[0];
+ModelObject[] localObject4 = ((Item)localObject1).get_revision_list(); //Get All the Item revisions
+How to get the item_revision_id for Item revisions found above?
+
+for (int i = 0; i < localObject4.length; ++i) 
+ {
+    ItemRevision localItemRevision2 = (ItemRevision)localObject4[i];
+    arrAttributes = new String[] { "item_revision_id"};  
+    arrModelObjects = new ModelObject[1];
+    arrModelObjects[0]=localItemRevision2;
+    serviceData = 
+    dataManagementService.getProperties(arrModelObjects, arrAttributes);
+    if(serviceData.sizeOfPlainObjects()>0)
+     localItemRevision2 = (ItemRevision) serviceData.getPlainObject(0);
+    else
+     localItemRevision2 = (ItemRevision)arrModelObjects[0];
+     String str7 = localItemRevision2.get_item_revision_id(); //get id for item revision
+}
+How to get the release_status_list for item revision i.e get the Release status objects for Item Revisoin
+
+ String[] arrAttributes = new String[] { "release_status_list"};
+ ModelObject arrModelObjects[]= new ModelObject[1];
+ //Considering we have localItemRevision1 which is Item Revision object
+        arrModelObjects[0]=localItemRevision1;
+       //This API will load release_status_list attribute for Item revision
+ serviceData = dataManagementService.getProperties(arrModelObjects, arrAttributes);
+ 
+       if(serviceData.sizeOfPlainObjects()>0)
+ localItemRevision1 = (ItemRevision) serviceData.getPlainObject(0); //Get the Item revision object with release_status_list attribute loaded
+       else
+ localItemRevision1 = (ItemRevision)arrModelObjects[0];
+ 
+ ReleaseStatus[] localObject4 = localItemRevision1.get_release_status_list(); //Get The ReleaseStatus object for Item Revision
+Explanation : Important API
+ModelObject[] localObject4 = ((Item)localObject1).get_revision_list();
+String str7 =localItemRevision2.get_item_revision_id();
+ReleaseStatus[] localObject4 = localItemRevision1.get_release_status_list();
+
+///
+
+Dealing with Manufacturing process plan
+How do you create relation between manufacturing objects ?
+Important steps are
+1)Open context
+2)Create Relation
+2)Save BOM Window
+3)Close Context
+
+Open Context
+
+com.teamcenter.services.strong.manufacturing.DataManagementService dataManagementService
+ 
+= com.teamcenter.services.strong.manufacturing.DataManagementService.getService( connection );
+ 
+//Get Plant Model object
+ModelObject mdlPlantobbj=getModelObjectsFromUIDs(new String[]{"yUWhDLC_Y95QJC"},connection)[0];
+ 
+OpenContextInput[] openContextInps = new OpenContextInput[1];
+openContextInps[0] = new OpenContextInput();
+openContextInps[0].object = getModelObjectsFromUIDs( new String[]{ "S8chkjqvY95QJC" }, connection )[0];
+openContextInps[0].openAssociatedContexts = true; //This will open all context i.e if user has associated/linked something to Process then that will open in their respective context
+openContextInps[0].openViews = true;
+openContextInps[0].contextSettings = new CreateInput();
+ 
+OpenContextsResponse openContexts = dataManagementService.openContexts( openContextInps );
+OpenContextInfo openContextInfo = openContexts.output[0].contexts[0]; //Process context
+ModelObject topLine = openContextInfo.context; //Process Top line
+ 
+OpenContextInfo openContextInfo1 = openContexts.output[0].contexts[2];//WorkArea context
+ModelObject factorytopline=openContextInfo1.context;
+/*------ Create Relation Left=MEProcessRevision Right=MEWorkArea  -> plant --------*/
+
+//Get Plant Model object
+ModelObject mdlPlantobbj=getModelObjectsFromUIDs(new String[]{"yUWhDLC_Y95QJC"},connection)[0];
+ 
+com.teamcenter.services.strong.manufacturing.DataManagementService dataManagementService
+= com.teamcenter.services.strong.manufacturing.DataManagementService.getService( connection );
+ 
+ 
+ConnectObjectsInputData[] connectinfor = new ConnectObjectsInputData[1];
+connectinfor[0] = new ConnectObjectsInputData();
+connectinfor[0].targetObjects = new ModelObject[]{ leftObject };
+ 
+SourceInfo sourceInfoobj=new SourceInfo() ;
+ 
+ 
+sourceInfoobj.sourceObjects=new ModelObject[]{ mdlPlantobbj};
+sourceInfoobj.additionalInfo.stringProps=
+hmChildObjectAttributes; //Property to be set on MEWorkArea
+sourceInfoobj.relationType= "MEWorkArea";//Used to set the Occurrence Type
+sourceInfoobj.additionalInfo.boolProps.put("occTypeFromPreferenceFlag", false);
+ 
+connectinfor[0].sourceInfo=sourceInfoobj;
+ 
+ConnectObjectResponse connectObjects = dataManagementService.connectObjects(connectinfor);
+ 
+connectObjects.newObjects; // This will give us array of BOMLine objects created
+/*------ Create Relation Left=MEProcessRevision Right=Operation --------*/
+
+ModelObject mdlOperationobbj=
+getModelObjectsFromUIDs(new String[]{"idThVI8tY95QJC"},connection)[0];
+com.teamcenter.services.strong.structuremanagement.StructureService strservice_oper=
+com.teamcenter.services.strong.structuremanagement.StructureService.getService(connection);
+ 
+ 
+ConnectObjectsInputData[] connectinforoperationandprocess=new ConnectObjectsInputData[1];
+connectinforoperationandprocess[0]=new ConnectObjectsInputData();
+connectinforoperationandprocess[0].targetObjects=
+new ModelObject[]{topLineObject};//process topline
+ 
+SourceInfo sourceInfoobjopME=new SourceInfo() ;
+sourceInfoobjopME.sourceObjects=new ModelObject[]{mdlOperationobbj};
+ 
+connectinforoperationandprocess[0].sourceInfo=sourceInfoobjopME;
+ConnectObjectResponse connectObjects = 
+dataManagementService.connectObjects(connectinforoperationandprocess);
+//How to set the Bomline attribute
+//i.e how to set the find number or other attibute on operation BOMLine created recently
+//This is achieved using
+
+com.teamcenter.services.strong.bom.StructureManagementService ds1 = com.teamcenter.services.strong.bom.StructureManagementService.getService( connection );
+ 
+AddOrUpdateChildrenToParentLineInfo[] infos = new AddOrUpdateChildrenToParentLineInfo[1];
+infos[0] = new AddOrUpdateChildrenToParentLineInfo();
+infos[0].parentLine = topLineObject;
+ 
+ItemElementLineInfo[] itemElements = new ItemElementLineInfo[1];
+itemElements[0] = new ItemElementLineInfo();
+itemElements[0].itemElementline 
+= (BOMLine) connectObjects.newObjects[0];//This is operation BOMLine got from execution of connectObjects method
+itemElements[0].itemElementLineProperties.put( "TEMPLATE ACTION", "Reference" );
+itemElements[0].itemElementLineProperties.put( "bl_sequence_no", "90" );
+ 
+infos[0].itemElements = itemElements;
+ 
+AddOrUpdateChildrenToParentLineResponse addOrUpdateChildrenToParentLine = 
+ds1.addOrUpdateChildrenToParentLine( infos );
+/*------ Create Relation Left=Operation Right= Document --------*/
+
+ModelObject mdlDocumentobbj=
+getModelObjectsFromUIDs(new String[]{"SxRhkmxTY95QJC"},connection)[0];
+ 
+ ConnectObjectsInputData[] connectinfor=new ConnectObjectsInputData[1];
+ connectinfor[0]=new ConnectObjectsInputData();
+ connectinfor[0].targetObjects=
+new ModelObject[]{operationline};//operationline is operation BOMLine to which we need to add child document
+ 
+ SourceInfo sourceInfoobj=new SourceInfo() ;
+ sourceInfoobj.sourceObjects=new ModelObject[]{mdlDocumentobbj};
+ sourceInfoobj.relationType="KK_ManufacturingDocumentation"; //Occurrence Type
+ sourceInfoobj.additionalInfo.boolProps.put("occTypeFromPreferenceFlag", false);
+//Above bollProps must be specified to set occurrence type
+ 
+ connectinfor[0].sourceInfo=sourceInfoobj;
+ 
+ dataManagementService.connectObjects(connectinfor);
+ /*------ Create Relation Left=Operation Right=RR_Part - > optegra part --------*/
+
+ModelObject mdloptegraobj=
+getModelObjectsFromUIDs(new String[]{"j9chklAWY95QJC"},connection)[0];
+ 
+ConnectObjectsInputData[] connectinforoper_optegrapart=new ConnectObjectsInputData[1];
+connectinforoper_optegrapart[0]=new ConnectObjectsInputData();
+connectinforoper_optegrapart[0].targetObjects=new ModelObject[]{operationline_OPER_optegra};//operationline_OPER_optegra is operation BOMLine to which we need to add child part
+ 
+SourceInfo sourceInfoobj_oper_optegrapart=new SourceInfo() ;
+sourceInfoobj_oper_optegrapart.sourceObjects=new ModelObject[]{mdloptegraobj};
+sourceInfoobj_oper_optegrapart.relationType=
+"KK_Reference"; //Occurrence Type it can be //MEResource/MECONSUMED
+sourceInfoobj_oper_optegrapart.additionalInfo.boolProps.put("occTypeFromPreferenceFlag", false);//This must be specified to set occurrence type
+connectinforoper_optegrapart[0].sourceInfo=sourceInfoobj_oper_optegrapart;
+ 
+dataManagementService.connectObjects(connectinforoper_optegrapart);
+//SAVE BOM WINDOW
+
+com.teamcenter.services.strong.cad.StructureManagementService cadSMService =
+com.teamcenter.services.strong.cad.StructureManagementService.getService(connection);
+ 
+BOMWindow bomwindow1=(BOMWindow)topLine.get_bl_window();
+cadSMService.saveBOMWindows(new BOMWindow[]{bomwindow1});
+//Close Context
+
+dataManagementService.closeContexts( new ModelObject[]{ topLine } );
+How to Print complete BOM Recursively
+
+private void printBoMLine(ModelObject topLine, Connection connection) throws NotLoadedException
+{
+ 
+  if ( topLine instanceof BOMLine )
+  {
+      BOMLine topLineObject = (BOMLine)  topLine;
+      DataManagementService dataManagementService = 
+      DataManagementService.getService( connection );
+      dataManagementService.getProperties( new ModelObject[] { topLineObject }, new String[]{ "bl_all_child_lines", "bl_formatted_title" } );
+      String sName = topLineObject.get_bl_formatted_title();
+      ModelObject[] allChildLines = topLineObject.get_bl_all_child_lines();
+      for ( int i = 0; i < allChildLines.length; i++ )
+ {
+  BOMLine bomLine = (BOMLine) allChildLines[i];
+  dataManagementService.getProperties( new ModelObject[] { bomLine }, new String[]{ "bl_formatted_title" } );
+  System.out.println( bomLine.get_bl_formatted_title() );
+  printBoMLine( bomLine, connection );
+ }
+   }
+}
+/*---Create Collaboration Context and create Relation to Process,Product,Plant context----*/
+
+CreateIn[] createIn = new CreateIn[1];
+createIn[0] = new CreateIn();
+createIn[0].data.stringProps.put( "object_name", "cc_object_name" );
+createIn[0].data.boName = "MECollaborationContext";
+ 
+//dataManagementService1 is com.teamcenter.services.strong.core.DataManagementService object
+ 
+CreateResponse createObjects = 
+dataManagementService1.createObjects( createIn );// Create Collaboration context object
+ 
+MECollaborationContext modelObject = 
+(MECollaborationContext) createObjects.output[0].objects[0]; //Get the Collaboration context object
+ 
+//Now link Other context object to Collaboration context
+ 
+//When you do open context its output response gives you all context objects
+ 
+CreateConfigInput[] createConfigInp = new CreateConfigInput[1];
+createConfigInp[0] = new CreateConfigInput();
+createConfigInp[0].modifyObject = modelObject;//Collaboration context object
+ 
+//Info about process context
+CreateConfigInput[] internalConfigData = new CreateConfigInput[3];
+internalConfigData[0] = new CreateConfigInput();
+internalConfigData[0].data.type = "MEProcessContext";
+internalConfigData[0].data.stringProps.put( "object_name", "process context name " );
+ 
+//actual object of process context
+internalConfigData[0].basedOn = 
+openContexts.output[0].contexts[0].context;//openContexts is OpenContextsResponse object ,this line gives you Process context which is process top line
+ 
+ 
+//Info about Product context
+internalConfigData[1] = new CreateConfigInput();
+internalConfigData[1].data.type = "MEProductContext";
+internalConfigData[1].data.stringProps.put( "object_name", "prod context name " );
+ 
+//actual object of product context
+internalConfigData[1].basedOn =
+openContexts.output[0].contexts[1].context;//openContexts is OpenContextsResponse object ,this line gives you Product context which is process top line
+ 
+//Info about Product context
+internalConfigData[2] = new CreateConfigInput();
+internalConfigData[2].data.type = "MEPlantContext";
+internalConfigData[2].data.stringProps.put( "object_name", "plant context name" );
+ 
+ 
+//actual object of plant context
+internalConfigData[2].basedOn =
+openContexts.output[0].contexts[2].context;//openContexts is OpenContextsResponse object ,this line gives you Plant context which is process top line
+ 
+createConfigInp[0].internalConfigData = internalConfigData;
+CreateConfigResponse createOrUpdateConfigObjects =
+dataManagementService.createOrUpdateConfigObjects( createConfigInp );// Create Relation between Collaboration context and  Process,Product,plant context
+ 
+/*-------------------------------------------------------------------------------------------------------*/
+ 
+/*--------------------------------Create Form and Attach to Collaboration Context------------------------*/
+ 
+//Create Form
+createIn[0] = new CreateIn();
+createIn[0].data.stringProps.put( "object_name", "sample_Info_name" );
+createIn[0].data.stringProps.put( "object_desc", "Sample_Info desc" );
+createIn[0].data.boName = "FormObjectName";//This is Business Object name for form
+ 
+CreateResponse createObjectsForm = 
+dataManagementService1.createObjects( createIn ); // create form object
+ 
+//End Create form
+ 
+CreateOrUpdateRelationsInfo[] inps = new CreateOrUpdateRelationsInfo[1];
+inps[0] = new CreateOrUpdateRelationsInfo();
+inps[0].primaryObject = modelObject;//collaboration context object
+ 
+SecondaryData[] secondaryData = new SecondaryData[1];
+secondaryData[0] = new SecondaryData();
+secondaryData[0].secondary = 
+createObjectsForm.output[0].objects[0];//Created form object
+ 
+inps[0].secondaryData = secondaryData;
+inps[0].relationType = "IMAN_reference";
+ 
+//dataManagementService1 is com.teamcenter.services.strong.core.DataManagementService object
+ 
+CreateOrUpdateRelationsResponse createOrUpdateRelations = 
+dataManagementService1.createOrUpdateRelations( inps, false ); //Create relation between Collaboration context and form
+ 
+
+///
+
+How to set preference ?
+
+private static void setPreferences2(String sPrefName, String sPrefDesc, String sPrefValue)
+{
+ 
+ SetPreferences2In[] prefSetting = new SetPreferences2In[1];
+ prefSetting[0] = new SetPreferences2In();
+ prefSetting[0].preferenceName = sPrefName;
+ prefSetting[0].values = new String[] { "" + sPrefValue };
+ 
+ com.teamcenter.services.strong.administration.PreferenceManagementService prefMgmtService = com.teamcenter.services.strong.administration.PreferenceManagementService.getService(connection);
+ ServiceData data = prefMgmtService.setPreferences2(prefSetting);
+ 
+ if (data.sizeOfPartialErrors() > 0)
+ {
+  processServiceDataForPartialErrors(data);
+ }
+}
+
+///
+
+Teamcenter opens the data set
+tags: Teamcenter
+
+
+TCComponentDataset dataset = (TCComponentDataset) component;
+OpenDataSetasoperation Op = New OpenDataSetasoperation (Dataset, Dataset.getDefaultTool (), NULL, NULL, JF, FALSE); // jf is the parent window
+op.executeOperation();
+
+///
+
+Teamcenter get preference code is recorded
+
+Teamcenter get preference code examples:
+
+/**
+	  * Get preferences
+	 */
+	public static Map<String, String> getPreferencesDatas(TCSession session, String mPreferenceName) {
+		Map<String, String> xmlItemMap = new HashMap<String, String>();
+		String[] xmlItemAttrs = getPreferenceValuesByStrNames(mPreferenceName, session);
+		if (xmlItemAttrs != null && xmlItemAttrs.length > 0) {
+			for (int i = 0; i < xmlItemAttrs.length; i++) {
+				String xmlItemStr = xmlItemAttrs[i];
+				if (!"".equals(xmlItemStr) && xmlItemStr != null) {
+					String[] xmlAtts = xmlItemStr.split(":");
+					if (xmlAtts.length == 2) {
+						xmlItemMap.put(xmlAtts[0], xmlAtts[1]);
+					}
+				}
+			}
+		}
+		return xmlItemMap;
+	}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+	public static String[] getPreferenceValuesByStrNames(String mPreferenceName, TCSession session) {
+		return session.getPreferenceService().getStringArray(TCPreferenceService.TC_preference_site, mPreferenceName);
+	}
+1
+2
+3
+For example: Create test Preferences
+
+	public String test() {
+		Map<String, String> itemAttributeMap = Tc.getPreferencesDatas(session,"test"); 
+		if (itemAttributeMap == null || itemAttributeMap.size() == 0) {
+			Tc.msgBox("Please check the configuration of test preferences");
+		}
+		String ip = itemAttributeMap.get("ip");
+		return ip;
+	}
+
+///
+
+In the secondary development of Teamcenter, the menu is often expanded,Eclipse provides two extension points for users to add menu items to corresponding locations. These two extension points are org.eclipse.ui.commands (referred to as Commands method) and org.eclipse.ui.actionSets (referred to as Actions method). Commands, why not use Actions can refer to this articleThe difference between Eclipse Action and Command
+
+The menu is divided into main menu, context menu, view menu
+
+Main menu extension:
+
+
+ <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu label="test menu" id="ceshi">
+             <command 
+                  icon="icon/alignmiddle.png"
+                  commandId="com.service.handlers.handleone">
+			 </command>
+         </menu>
+         </menuContribution>
+         
+         <menuContribution locationURI="menu:ceshi">
+			 <menu label="Menu One">
+				 <command 
+			        icon="icon/alignmiddle.png"
+			        commandId="com.service.handlers.handleone">
+				</command>
+				 <command 
+			        icon="icon/alignmiddle.png"
+			        commandId="com.service.handlers.handleone">
+				</command>
+			</menu>
+		</menuContribution>
+		<menuContribution locationURI="menu:ceshi">
+			 <menu label="menu two">
+				 <command 
+			        icon="icon/alignmiddle.png"
+			        commandId="com.service.handlers.handleone">
+				</command>
+				 <command 
+			        icon="icon/alignmiddle.png"
+			        commandId="com.service.handlers.handleone">
+				</command>
+			</menu>
+		</menuContribution>
+   </extension>
+The effect is as follows:
+            
+
+Context menu extension:
+
+
+<extension
+         point="org.eclipse.ui.menus">
+      <menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+                   <menu label="Context menu" id="shang">
+              <command
+         	  icon="icon/alignmiddle.png"
+              commandId="com.service.handlers.handleone">
+         	 </command>
+         	  <command
+         	  icon="icon/alignmiddle.png"
+              commandId="com.service.handlers.handleone">
+         	 </command>
+         	 <command
+         	  icon="icon/alignmiddle.png"
+              commandId="com.service.handlers.handleone">
+         	 </command>
+        </menu>
+         </menuContribution>
+   </extension>
+
+
+The effect is as follows:
+  
+
+The content of the entire plugin.xml file is as follows:
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+          <command 
+            icon="icon/alignmiddle.png"
+      		id="com.service.handlers.handleone" 
+      		       name="Submenu One"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+        <handler
+             class="com.service.handlers.handleone"
+             commandId="com.service.handlers.handleone">
+        </handler>
+   </extension>
+  
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+                   <menu label="Context menu" id="shang">
+              <command
+         	  icon="icon/alignmiddle.png"
+              commandId="com.service.handlers.handleone">
+         	 </command>
+         	  <command
+         	  icon="icon/alignmiddle.png"
+              commandId="com.service.handlers.handleone">
+         	 </command>
+         	 <command
+         	  icon="icon/alignmiddle.png"
+              commandId="com.service.handlers.handleone">
+         	 </command>
+        </menu>
+         </menuContribution>
+   </extension>
+  
+    <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+                   <menu label="test menu" id="ceshi">
+             <command 
+                  icon="icon/alignmiddle.png"
+                  commandId="com.service.handlers.handleone">
+			 </command>
+         </menu>
+         </menuContribution>
+         
+         <menuContribution locationURI="menu:ceshi">
+			 <menu label="Menu One">
+				 <command 
+			        icon="icon/alignmiddle.png"
+			        commandId="com.service.handlers.handleone">
+				</command>
+				 <command 
+			        icon="icon/alignmiddle.png"
+			        commandId="com.service.handlers.handleone">
+				</command>
+			</menu>
+		</menuContribution>
+		<menuContribution locationURI="menu:ceshi">
+			 <menu label="menu two">
+				 <command 
+			        icon="icon/alignmiddle.png"
+			        commandId="com.service.handlers.handleone">
+				</command>
+				 <command 
+			        icon="icon/alignmiddle.png"
+			        commandId="com.service.handlers.handleone">
+				</command>
+			</menu>
+		</menuContribution>
+   </extension>
+</plugin>
+
+///
+
+TEAMCENTER SOA call User Service
+tags: Teamcenter
+
+
+import com.teamcenter.clientx.AppXSession;
+import com.teamcenter.services.internal.strong.core.ICTService;
+import com.teamcenter.services.internal.strong.core._2011_06.ICT.Arg;
+import com.teamcenter.services.internal.strong.core._2011_06.ICT.Array;
+import com.teamcenter.services.internal.strong.core._2011_06.ICT.Entry;
+import com.teamcenter.services.internal.strong.core._2011_06.ICT.InvokeICTMethodResponse;
+import com.teamcenter.services.internal.strong.core._2011_06.ICT.Structure;
+ 
+ 
+ 
+public class CallUserService
+{
+    public static String call(String serviceID,String inputJson) throws Exception
+    {        
+        ICTService ictService = ICTService.getService(AppXSession.getConnection());
+        Arg[] args = new Arg[2];
+        args[0] = new Arg();
+        Args [0] .val = serviceID; // The first parameter is the name of the UserService
+        
+        args[1] = new Arg();
+        args[1].structure = new Structure[1];
+        args[1].structure[0] = new Structure();
+        args[1].structure[0].args = new Arg[2];
+        args[1].structure[0].args[0] = new Arg();
+                 Args [1]. Structure [0] .args [0] .val = Boolean.toString (TRUE); // By default
+        
+                 // Delivery of the name, type and other parameters
+        args[1].structure[0].args[1] = new Arg();
+        args[1].structure[0].args[1].array = new Array[1];
+        args[1].structure[0].args[1].array[0] = new Array();
+        args[1].structure[0].args[1].array[0].entries = new Entry[1];
+        args[1].structure[0].args[1].array[0].entries[0] = new Entry();
+        args[1].structure[0].args[1].array[0].entries[0].val = inputJson;
+        InvokeICTMethodResponse invokeICTMethodResponse = ictService.invokeICTMethod("ICCTUserService", "callMethod", args);
+        if (invokeICTMethodResponse.serviceData.sizeOfPartialErrors() > 0) {
+            printErrorMessage(invokeICTMethodResponse);
+        }else{
+        	String outputJson = invokeICTMethodResponse.output[0].structure[0].args[1].val;
+        	return outputJson;
+        }
+        return "";
+    }
+    public static void printErrorMessage(InvokeICTMethodResponse invokeICTMethodResponse)
+    {
+        int partialErrorNum = invokeICTMethodResponse.serviceData.sizeOfPartialErrors();
+        for (int i = 0; i < partialErrorNum; i++)
+        {
+            String[] messages = invokeICTMethodResponse.serviceData.getPartialError(i).getMessages();
+            for (int j = 0; j < messages.length; j++) {
+                System.err.println(messages[j]);
+            }
+        }
+    }
+ 
+ 
+}
+
+///
+
+Teamcenter RAC finds data sets and obtains data set files
+tags: Teamcenter  
+
+
+// Find the data collection by name
+TCComponentDatasetType datasetType = (TCComponentDatasetType) TCUtil.GetSession().getTypeComponent("Dataset");
+TCComponentDataset dataset = datasetType.find(datasetName);
+// Get the file according to the file type and file name
+File file = dataset.getFile("Text", fileName);
+
+///
+
+SOA Service Client : Creating BOM
+tags: Teamcenter SOA Service
+
+
+Creating BILL OF MATERIAL require
+1) Opening BOMWINDOW
+2) Adding Children
+3) Saving BOM Window
+4) Closing BOM Window
+
+Opening BOMWINDOW
+//To open BOMWindow we require object which will be topline after opening BOMWINDOW
+//In Teamcenter we send object to Structure manager so that object is nothing but parentItemRev in below function
+
+ 
+
+public ArrayList openBOMWindow(Connection connection,ItemRevision parentItemRev)
+{
+ 
+    ArrayList bomWindowandParentLine = new ArrayList(2);
+    CreateBOMWindowsInfo[] createBOMWindowsInfo = new CreateBOMWindowsInfo[1];
+    createBOMWindowsInfo[0] = new CreateBOMWindowsInfo();
+    createBOMWindowsInfo[0].itemRev = (ItemRevision) parentItemRev;
+    com.teamcenter.services.strong.cad.StructureManagementService cadSMService = 
+    com.teamcenter.services.strong.cad.StructureManagementService
+   .getService(connection);
+ 
+    CreateBOMWindowsResponse createBOMWindowsResponse = 
+    cadSMService.createBOMWindows(createBOMWindowsInfo);
+ 
+ 
+    if (createBOMWindowsResponse.serviceData.sizeOfPartialErrors() > 0) 
+    {
+ for (int i = 0; i < createBOMWindowsResponse.serviceData
+   .sizeOfPartialErrors(); i++) {
+ 
+       System.out.println("Partial Error in Open BOMWindow = "+createBOMWindowsResponse.serviceData
+ .getPartialError(i).getMessages()[0]);
+ }
+     }
+     bomWindowandParentLine
+     .add(createBOMWindowsResponse.output[0].bomWindow);//BOMWindow
+      bomWindowandParentLine.add(createBOMWindowsResponse.output[0].bomLine);//TOPLine in BOMWINDOW
+      return bomWindowandParentLine;
+ }
+ADD Children
+
+//Assuming we have parent object and child objects
+ 
+public void addAllChildrenInBOM(Connection tcConnection, ItemRevision parentObject, ItemRevision[] childObjects, ArrayList<LinkedHashMap<String, String>> alUpdateAttrs) throws Exception
+ {
+     ArrayList createBOMWindowsResponse = 
+     openBOMWindow(tcConnection,parentObject);//Open BOMWindow
+     BOMWindow[] bomWindows = new BOMWindow[]{(BOMWindow) createBOMWindowsResponse.get(0)};//Get the BOMWINDOW
+     BOMLine parentBOMLine = 
+    (BOMLine) createBOMWindowsResponse.get(1);//GET the Topline
+     com.teamcenter.services.strong.core.DataManagementService dmService = 
+     com.teamcenter.services.strong.core.DataManagementService.getService(tcConnection);
+ 
+      //Set the Child bomline to be added and their properties
+      ItemLineInfo[] itmLineInfoArr = 
+      new ItemLineInfo[childObjects.length];
+      for (int i = 0; i < childObjects.length; i++)
+      {
+       itmLineInfoArr[i] = new ItemLineInfo();
+       itmLineInfoArr[i].itemRev = childObjects[i];//Add child object one by one
+       if(alUpdateAttrs != null && alUpdateAttrs.size() > 0)
+        {
+             itmLineInfoArr[i].itemLineProperties 
+             = alUpdateAttrs.get(i);/This is map of properties and their values
+        }
+       }
+     AddOrUpdateChildrenToParentLineInfo[] addChToParInfoArr = 
+     new AddOrUpdateChildrenToParentLineInfo[1];
+     addChToParInfoArr[0] = new AddOrUpdateChildrenToParentLineInfo();
+     addChToParInfoArr[0].items = itmLineInfoArr;
+     addChToParInfoArr[0].parentLine = parentBOMLine;
+     com.teamcenter.services.strong.bom.StructureManagementService bomSMService =
+     com.teamcenter.services.strong.bom.StructureManagementService.getService(tcConnection);
+     AddOrUpdateChildrenToParentLineResponse addUpdChToParResp = 
+     bomSMService.addOrUpdateChildrenToParentLine(addChToParInfoArr);//Add children
+     if (addUpdChToParResp.serviceData.sizeOfPartialErrors() > 0)
+     {
+       throw new Exception("Creating BOMLines : 003" ,"Creating BOMLines - "+addUpdChToParResp.serviceData.getPartialError(0).getMessages()[0]);
+     }
+     utils.saveBOMWindow(tcConnection, bomWindows[0]);
+     utils.closeBOMWindow(tcConnection, bomWindows[0]);
+     System.out.println("********************************** BOM Lines created successfully ********************************** ");
+ }
+SAVE BOMWINDOW  //To save BOMWINDOW we need BOMWINDOW object
+
+public void saveBOMWindow(Connection connection, BOMWindow bomWindow)
+   {
+      com.teamcenter.services.strong.cad.StructureManagementService cadSMService = 
+      com.teamcenter.services.strong.cad.StructureManagementService.getService(connection);
+      SaveBOMWindowsResponse saveResponse = 
+      cadSMService.saveBOMWindows(new BOMWindow[]{bomWindow});
+ 
+      if (saveResponse.serviceData.sizeOfPartialErrors() > 0)  
+      {
+       for (int i = 0; i < saveResponse.serviceData
+      .sizeOfPartialErrors(); i++) 
+      {
+       System.out.println("Save BOMWindow Partial Error -- "+saveResponse.serviceData
+      .getPartialError(i).getMessages()[0]);
+       }
+ 
+      }
+   }
+Close BOMWINDOW
+//To close BOMWINDOW we need BOMWINDOW object
+
+public void closeBOMWindow(Connection connection, BOMWindow bomWindow)
+ {
+  com.teamcenter.services.strong.cad.StructureManagementService cadSMService 
+  = com.teamcenter.services.strong.cad.StructureManagementService
+  .getService(connection);
+   CloseBOMWindowsResponse response = null;
+  if (cadSMService != null && bomWindow != null)
+  {
+    response = 
+    cadSMService.closeBOMWindows(new BOMWindow[] { bomWindow });
+  }
+  if (response.serviceData.sizeOfPartialErrors() > 0) 
+  {
+    for (int i = 0; i < response.serviceData
+   .sizeOfPartialErrors(); i++) 
+   { 
+    System.out.println("Close BOMWindow Partial Error -- "+response.serviceData
+   .getPartialError(i).getMessages()[0]);
+   }
+  }
+} 
+Explanation : Important API
+Open bomwindow ->CreateBOMWindowsResponse createBOMWindowsResponse =     cadSMService.createBOMWindows(createBOMWindowsInfo);
+Add children -> com.teamcenter.services.strong.bom.StructureManagementService   bomSMService = com.teamcenter.services.strong.bom.StructureManagementService.getService(tcConnection);
+        AddOrUpdateChildrenToParentLineResponse addUpdChToParResp = bomSMService.addOrUpdateChildrenToParentLine(addChToParInfoArr);//Add children
+Save BomWindow -> SaveBOMWindowsResponse saveResponse = cadSMService.saveBOMWindows(new BOMWindow[]{bomWindow});
+Close Bomwindow -> response = cadSMService.closeBOMWindows(new BOMWindow[] { bomWindow });
+
+///
+
+SOA Service Client : Global Alternate
+tags: Teamcenter SOA Service
+
+
+How to add/remove Global Alternate using SOA Service?
+
+//Consider modObj1 ->part to which global alternate is to be added
+//Consider modObj2 -> Alternate part
+//Alternate part can  be multiple
+How to Add Global Alternate
+
+private static void addRelatedGlobalAlternates(ModelObject modObj1, ModelObject modObj2)
+{
+ 
+ Item primaryPart = (Item) modObj1;
+ Item[] alternatePartArr = new Item[1];
+ alternatePartArr[0] = (Item) modObj2;
+ 
+     // Call the Service to add alternate
+ 
+ GlobalAlternateListInput globalAlternateListInput = new GlobalAlternateListInput();
+ 
+ globalAlternateListInput.gAltItems = alternatePartArr;
+ globalAlternateListInput.item = primaryPart;
+ 
+        GlobalAlternateListInput[] globalAlternateListInputArr = new GlobalAlternateListInput[1];
+ globalAlternateListInputArr[0] = globalAlternateListInput;
+ 
+ // GlobalAlternateService is from package com.teamcenter.services.internal.strong.structuremanagement
+ GlobalAlternateService globalAlternateService = GlobalAlternateService.getService(connection);
+ GlobalAlternateResponse globalAlternateresponse = globalAlternateService.addRelatedGlobalAlternates(globalAlternateListInputArr);
+}
+How to Remove Global Alternate
+
+private static void removeRelatedGlobalAlternates(ModelObject modObj1, ModelObject modObj2)
+ 
+    {
+ 
+        Item primaryPart = (Item) modObj1;
+        Item[] alternatePartArr = new Item[1];
+        alternatePartArr[0] = (Item) modObj2;
+ 
+       // Call the Service to delete alternate
+        GlobalAlternateListInput globalAlternateListInput = new GlobalAlternateListInput();
+        globalAlternateListInput.gAltItems = alternatePartArr;
+        globalAlternateListInput.item = primaryPart;
+ 
+        GlobalAlternateListInput[] globalAlternateListInputArr = new GlobalAlternateListInput[1];
+        globalAlternateListInputArr[0] = globalAlternateListInput;
+ 
+        GlobalAlternateService globalAlternateService = GlobalAlternateService.getService(connection);
+        GlobalAlternateResponse globalAlternateresponse = globalAlternateService.removeRelatedGlobalAlternates(globalAlternateListInputArr);
+    }
+
+///
+
+SOA Service Client : Download Dataset from Teamcenter
+tags: Teamcenter SOA Service
+
+
+How about downloading file present in Dataset ?
+
+Consider we have UID for dataset which is to be downloaded i.e its named reference is to be downloaded
+
+Get the Model object from UID
+
+ModelObject[] modelObjects = getModelObjectsFromUIDs( arrayOfUIDs,tcConnection );
+ 
+private static ModelObject[] getModelObjectsFromUIDs(String[] arrayOfUIDs, Connection connection)
+{
+    ModelObject[] arrModelObjects = null;
+    if (arrayOfUIDs.length > 0)
+    {
+        ArrayList<ModelObject> modelObjects = 
+        new ArrayList<ModelObject>(arrayOfUIDs.length);
+        DataManagementService dataManagementService = 
+       DataManagementService.getService(connection);
+        ServiceData loadObjects = 
+        dataManagementService.loadObjects(arrayOfUIDs); //Load objects for provided UIDs
+ 
+       for (int i = 0; i < loadObjects.sizeOfPlainObjects(); i++)
+        {
+            modelObjects.add(loadObjects.getPlainObject(i));
+        }
+        if (modelObjects != null && modelObjects.size() > 0)
+        {
+            arrModelObjects = modelObjects.toArray(new ModelObject[0]);
+        }
+      }
+    return arrModelObjects;
+}
+Now Load the ref_list property on dataset which actually contain the files names
+
+dataManagementService.getProperties( modelObjects, new String[]{ "ref_list" } );
+Dataset  dataset =null;
+ModelObject[] files = null;
+if ( modelObject instanceof Dataset )
+{
+   dataset = ( Dataset )  modelObject;
+   files = dataset.get_ref_list();//Gives named referenced objects
+}
+ 
+Check if named reference is actually the required file
+ 
+ArrayList<ModelObject> al = new ArrayList<ModelObject>();
+ 
+for (int i = 0; i < files.length; i++)
+{
+   if ( files[i] instanceof ImanFile )
+   al.add( files[i] );
+ 
+}
+ 
+ModelObject[] newFiles = al.toArray( new ModelObject[al.size()] ); 
+ 
+//Load the original name for files
+dataManagementService.getProperties( newFiles, new String[]{"original_file_name"} );
+ 
+Get/Download the Files
+//FileManagementUtility is in package com.teamcenter.soa.client
+ FileManagementUtility fileManagementUtility = null;
+ 
+//Get the Fms_BootStrap_Urls Preference
+SessionService localSessionService = SessionService.getService(getTcConnection());
+Session.ScopedPreferenceNames[] arrayOfScopedPreferenceNames = 
+new Session.ScopedPreferenceNames[1];
+ 
+arrayOfScopedPreferenceNames[0] = new Session.ScopedPreferenceNames();
+arrayOfScopedPreferenceNames[0].names = new String[] { "Fms_BootStrap_Urls" };
+arrayOfScopedPreferenceNames[0].scope = paramString2;
+Session.MultiPreferencesResponse localMultiPreferencesResponse =
+localSessionService.getPreferences(arrayOfScopedPreferenceNames);
+ 
+String bootStrapURL=localMultiPreferencesResponse.preferences[0].values[0];
+try
+{
+//strDirPath is folder path /location where file will be downloaded
+fileManagementUtility = new FileManagementUtility( localConnection, null,
+null, new String[]{ bootStrapURL }, strDirPath);
+GetFileResponse responseFiles = 
+fileManagementUtility.getFiles( modelObjects );//Download the files but with Tc internal name
+File[] filesFromModelObjects = responseFiles.getFiles();
+}
+ 
+Rename the file to Original name based on ref list model objects ->newFiles and downloaded files -> filesFromModelObjects
+for(File fSrc : filesFromModelObjects)
+{
+    ImanFile imFle = (ImanFile) newFiles[i];
+    String originalFileName = imFle.get_original_file_name();
+    File fTmpDest = new File(strDirPath + File.separator + originalFileName);
+    fSrc.renameTo(fTmpDest);
+}
+
+///
+
+SOA Service Client : Delete Children from BOM
+tags: Teamcenter SOA Service
+
+
+How to delete all the lines/children for give itemrevision ?
+
+public void deleteAllBOMLines(Connection connection,ItemRevision parentItemRev) throws Exception
+{
+    ArrayList bomWindowAndLine = 
+    openBOMWindow(connection, parentItemRev);//open BOM WINDOW
+    BOMWindow bomWindow = (BOMWindow) bomWindowAndLine.get(0);//BOMWINDOW
+    BOMLine parentBOMLine = 
+   (BOMLine) bomWindowAndLine.get(1);//TOPLine ->you get topline after opening BOMwindow with object
+    com.teamcenter.services.strong.core.DataManagementService dmService = 
+    com.teamcenter.services.strong.core.DataManagementService.getService(connection);
+ 
+    dmService.getProperties(new ModelObject[] { parentBOMLine },
+    new String[] { "bl_bomview_rev", "bl_child_lines",
+    "bl_bomview" });//Load the properties on Item revision
+    ModelObject childBOMLines[];
+    childBOMLines = parentBOMLine.get_bl_child_lines();//Get children objects
+    //System.out.println("No of BOMLines found == "+childBOMLines.length);
+    if(childBOMLines.length <= 0)
+ return ;
+    BOMLine bomlines[] = new BOMLine[childBOMLines.length];
+    for (int i = 0; i < childBOMLines.length; i++){
+     //Collect all children as BOMMLine Object
+     bomlines[i] = (BOMLine) childBOMLines[i];
+ 
+    }
+   if (childBOMLines != null && childBOMLines.length > 0){
+  com.teamcenter.services.strong.bom.StructureManagementService bomStrucMgmtService = 
+  com.teamcenter.services.strong.bom.StructureManagementService
+ .getService(connection);
+  RemoveChildrenFromParentLineResponse response = bomStrucMgmtService
+ .removeChildrenFromParentLine(bomlines);//Remove all children
+  boolean isErrorOccured = false;
+   String sErrors = "";
+  if (response.serviceData.sizeOfPartialErrors() > 0) 
+ {
+ isErrorOccured = true;
+ for(int i=0 ; i < response.serviceData.sizeOfPartialErrors();i++)
+       {
+ ErrorStack errorStack = response.serviceData.getPartialError(i);
+        String arrMessages[] = errorStack.getMessages();
+        for(int j=0 ; j<arrMessages.length ; j++)
+        {
+  sErrors +=arrMessages[j]+"\n";
+ }     
+ }
+ //System.out.println("Partial Error Occured while DeleteAllBOMLines : "+sErrors);
+}
+if(isErrorOccured && (response.serviceData.sizeOfDeletedObjects() < bomlines.length)){
+ throw new eQMIException("Deleting the BOM-Lines: 002","Deleting the BOM-Lines - "+sErrors);
+}
+saveBOMWindow(connection, bomWindow);//Save BOM WINDOW
+closeBOMWindow(connection, bomWindow);//Close BOM WINDOW
+System.out.println("************************************** BOM-Lines deleted**************************************");
+}
+ 
+}
+Explanation : Important API
+childBOMLines = parentBOMLine.get_bl_child_lines();
+RemoveChildrenFromParentLineResponse  response = bomStrucMgmtService.removeChildrenFromParentLine(bomlines);
+
+///
+
+SOA Serive Client : WorkFlow service in Teamcenter
+tags: Teamcenter SOA Service
+
+
+How about submiting the objects to workflow ?
+
+//connection -> TC connection objects
+//WorkflowService is from package com.teamcenter.services.strong.workflow
+WorkflowService wfService = WorkflowService.getService(connection);
+ 
+if(wfService==null)
+{
+ throw new Exception("The workflow service not found in Teamcenter.");
+}
+ 
+String[] arrObjectUID=new String{"qwerttt","dfreeXVyu"}
+int[] arrTypes = new int[arrObjectUID.length];
+Arrays.fill(arrTypes, 1);//Target attachment type to be initialized for all UIDs
+ 
+ 
+ContextData contextData = new ContextData();
+contextData.attachmentCount = arrObjectUID.length;//
+contextData.attachments = arrObjectUID;//List of UID of objects to submit to workflow
+contextData.attachmentTypes = arrTypes; //Types of attachment  EPM_target_attachment (target attachment) and EPM_reference_attachment (reference attachment).
+contextData.processTemplate = processTemplate;//"ReleaseObjectsWorkflow";
+ 
+//processname -> Name by which initiated workflow appear in the user mail box .
+//processDescription -> Description for the initiated workflow
+InstanceInfo instanceResponse = wfService.createInstance(true, null, processName, null,processDescription, contextData);
+ 
+if(instanceResponse.serviceData.sizeOfPartialErrors() == 0)
+ System.out.println("Process created Successfully");
+ 
+else
+{
+    System.out.println("Error :"+instanceResponse.serviceData.getPartialError(0).getMessages());
+    System.out.println("Error :"+instanceResponse.serviceData.getPartialError(0).getErrorValues());
+    throw new Exception("Submit To Workflow: 001","Submit To Workflow - "+instanceResponse.serviceData.getPartialError(0).getMessages()[0]);
+ 
+}
+Explanation : Important API
+InstanceInfo instanceResponse =wfService.createInstance(true, null, processName, null,processDescription, contextData);
+
+///
+
+SOA Serive Client : WorkFlow service in Teamcenter
+tags: Teamcenter SOA Service
+
+
+How about submiting the objects to workflow ?
+
+//connection -> TC connection objects
+//WorkflowService is from package com.teamcenter.services.strong.workflow
+WorkflowService wfService = WorkflowService.getService(connection);
+ 
+if(wfService==null)
+{
+ throw new Exception("The workflow service not found in Teamcenter.");
+}
+ 
+String[] arrObjectUID=new String{"qwerttt","dfreeXVyu"}
+int[] arrTypes = new int[arrObjectUID.length];
+Arrays.fill(arrTypes, 1);//Target attachment type to be initialized for all UIDs
+ 
+ 
+ContextData contextData = new ContextData();
+contextData.attachmentCount = arrObjectUID.length;//
+contextData.attachments = arrObjectUID;//List of UID of objects to submit to workflow
+contextData.attachmentTypes = arrTypes; //Types of attachment  EPM_target_attachment (target attachment) and EPM_reference_attachment (reference attachment).
+contextData.processTemplate = processTemplate;//"ReleaseObjectsWorkflow";
+ 
+//processname -> Name by which initiated workflow appear in the user mail box .
+//processDescription -> Description for the initiated workflow
+InstanceInfo instanceResponse = wfService.createInstance(true, null, processName, null,processDescription, contextData);
+ 
+if(instanceResponse.serviceData.sizeOfPartialErrors() == 0)
+ System.out.println("Process created Successfully");
+ 
+else
+{
+    System.out.println("Error :"+instanceResponse.serviceData.getPartialError(0).getMessages());
+    System.out.println("Error :"+instanceResponse.serviceData.getPartialError(0).getErrorValues());
+    throw new Exception("Submit To Workflow: 001","Submit To Workflow - "+instanceResponse.serviceData.getPartialError(0).getMessages()[0]);
+ 
+}
+Explanation : Important API
+InstanceInfo instanceResponse =wfService.createInstance(true, null, processName, null,processDescription, contextData);
+
+///
+
+SOA Service Client : Upload File in Teamcenter
+tags: Teamcenter SOA Service
+
+
+How to Upload File into Teamcenter ?
+
+private static void importXML(String sFullFilePath, String sSiteId, String sDestSiteId) throws Exception
+    {
+        String sFileName = sFullFilePath.substring(sFullFilePath.lastIndexOf("/") + 1);
+ 
+        File file = new File(sFullFilePath);
+ 
+        /* now we can get file ticket and use that file for import */
+ 
+ //com.teamcenter.services.strong.core.FileManagementService
+ 
+        FileManagementService fileMgntService = FileManagementService.getService(connection);
+ 
+        FileManagement.TransientFileInfo[] fileinfo = new FileManagement.TransientFileInfo[1];
+ 
+        fileinfo[0] = new FileManagement.TransientFileInfo();
+ 
+        fileinfo[0].deleteFlag = false;
+ 
+        fileinfo[0].fileName = sFileName;
+ 
+        fileinfo[0].isBinary = false;
+ 
+        GetTransientFileTicketsResponse resp = fileMgntService.getTransientFileTicketsForUpload(fileinfo);
+ 
+        String sPLMXMLTicket = resp.transientFileTicketInfos[0].ticket;
+ 
+        /* now we will upload the file using ticket */
+ 
+        String sDirectory = file.getParent();
+        String bootStrapURL = getTeamcenterPreference(connection, "Fms_BootStrap_Urls", "site");
+        FileManagementUtility utility = new FileManagementUtility(connection, null, null,
+ 
+        new String[] { bootStrapURL }, sDirectory);
+ 
+        utility.putFileViaTicket(sPLMXMLTicket, file);
+ 
+ //com.teamcenter.services.internal.strong.globalmultisite.ImportExportService
+ 
+        ImportExportService serv = ImportExportService.getService(connection);
+ 
+        TransferFormula formula = new TransferFormula();
+ 
+        String arrTick[] = new String[1];
+ 
+        arrTick[0] = sPLMXMLTicket;
+ 
+        ImportObjectsResponse importObjectsResponse = serv.importObjects(Integer.parseInt(sSiteId), "AB",
+ 
+                arrTick, formula, false);
+ 
+        /* check for errors and if found throw exception */
+ 
+        if (importObjectsResponse.servicedata.sizeOfPartialErrors() > 0)
+        {
+           ErrorStack errStack = importObjectsResponse.servicedata.getPartialError(0);
+            String sErr = "";
+ 
+            for (String sPartialError : errStack.getMessages())
+            {
+               sErr = sErr + sPartialError;
+            }
+            System.out.println(sErr);
+        }
+    }
+ 
+///
+
+SOA Service Client : Expand GRM Relation
+tags: Teamcenter SOA Service
+
+
+How to Expand GRM Relation for Primary object ?
+
+private static void expandGRMRelationsForPrimary(ModelObject[] modelObject, String sRelationName)
+    {
+        com.teamcenter.services.strong.core.DataManagementService dms = com.teamcenter.services.strong.core.DataManagementService.getService(connection);
+ 
+        ExpandGRMRelationsPref expandGRMRelationsPref = new ExpandGRMRelationsPref();
+        expandGRMRelationsPref.expItemRev = false;
+        expandGRMRelationsPref.info = new RelationAndTypesFilter[1];
+        expandGRMRelationsPref.info[0] = new RelationAndTypesFilter();
+        expandGRMRelationsPref.info[0].relationName  = "IMAN_requirement";
+ 
+        ExpandGRMRelationsResponse expandGRMRelations = null;
+ 
+        expandGRMRelations = dms.expandGRMRelationsForPrimary(modelObject, expandGRMRelationsPref);
+ 
+    }
+ 
+
+///
+
+import com.teamcenter.rac.kernel.TCComponentProcess;
+
+import com.teamcenter.rac.kernel.TCComponentProcessType;
+
+import com.teamcenter.rac.kernel.TCComponentTaskTemplate;
+
+import com.teamcenter.rac.kernel.TCComponentTaskTemplateType;
+
+import com.teamcenter.services.rac.workflow.WorkflowService;
+
+import com.teamcenter.services.rac.workflow._2008_06.Workflow.AttachmentInfo;
+
+private static TCComponentProcess newProcess;
+
+private static Vector<TCComponentItemRevision> occuranceQty;
+
+private static boolean createWorkflow(){
+
+boolean status = false;
+
+newProcess = null;
+
+AbstractAIFApplication app = AIFDesktop.getActiveDesktop().getCurrentApplication();
+
+TCSession session = (TCSession)app.getSession();
+
+try {
+
+TCComponentProcessType processType = (TCComponentProcessType)session.getTypeComponent("Job");
+
+TCComponentTaskTemplateType taskTemplateType = (TCComponentTaskTemplateType)session.getTypeComponent("EPMTaskTemplate");
+
+TCComponent[] itemRevs = (TCComponentItemRevision[]) occuranceQty.toArray(new TCComponentItemRevision[occuranceQty.size()]);
+
+TCComponentTaskTemplate[] tasksTemplate = taskTemplateType.extentReadyTemplates(true);
+
+TCComponentTaskTemplate taskTemplate = null;
+
+for(TCComponentTaskTemplate template : tasksTemplate){
+
+if(template.getStringProperty("object_name").equalsIgnoreCase("TASK TEMPLATE NAME")){
+
+taskTemplate = template;
+
+break;
+
+}
+
+}
+
+if(taskTemplate != null){
+
+int[] paramArrayOfInt = new int [itemRevs.length];
+
+Arrays.fill(paramArrayOfInt, 1);
+
+newProcess = (TCComponentProcess)processType.create("PROCESS NAME", "PROCESS DESC", taskTemplate, itemRevs, paramArrayOfInt);
+
+//добавление объектов в цели
+
+WorkflowService serviceWF = WorkflowService.getService(session);
+
+int count = occuranceQty.size();
+
+int countBomView = 0;
+
+for(TableItem row : table_0.getItems()){
+
+if(row.getText(5).equalsIgnoreCase("<Assy_item_type>")){
+
+countBomView++;
+
+}
+
+}
+
+TCComponent[] items = new TCComponent[count];
+
+TCComponent[] itemMasters = new TCComponent[count];
+
+TCComponent[] itemBomViews = new TCComponent[countBomView];
+
+int[] attachmentType = new int[count];
+
+int[] attachmentTypeBomViews = new int[countBomView];
+
+Arrays.fill(attachmentType, 1);
+
+Arrays.fill(attachmentTypeBomViews, 1);
+
+//не все объекты имеют BOMView (состав)
+
+int j = 0;
+
+for(int i = 0; i < count; i++){
+
+items = occuranceQty.get(i).getItem();
+
+itemMasters = occuranceQty.get(i).getItem().getRelatedComponent("IMAN_master_form");
+
+TCComponent bomView = null;
+
+bomView = occuranceQty.get(i).getItem().getRelatedComponent("bom_view_tags");
+
+if(bomView != null){
+
+itemBomViews[j] = bomView; j++;
+
+}
+
+}
+
+AttachmentInfo attachInfo = new AttachmentInfo();
+
+attachInfo.attachmentType = attachmentType;
+
+attachInfo.attachment = items;
+
+serviceWF.addAttachments(newProcess.getRootTask(), attachInfo); attachInfo.attachment = itemMasters;
+
+serviceWF.addAttachments(newProcess.getRootTask(), attachInfo); attachInfo.attachment = itemBomViews;
+
+attachInfo.attachmentType = attachmentTypeBomViews; serviceWF.addAttachments(newProcess.getRootTask(), attachInfo);
+
+}
+
+} catch (TCException e1) {
+
+e1.printStackTrace();
+
+}
+
+status = (newProcess == null) ? false : true;
+
+return status;
+
+}
+
+///
+
+может вот этот кусок кода чем то поможет:
+
+Object localObject;
+
+   
+
+	  int i;
+
+	  IMANComponentTaskTemplate[] arrayOfIMANComponentTaskTemplate = null;
+
+	  localObject = (IMANComponentTaskTemplateType)this.session.getTypeComponent("EPMTaskTemplate");
+
+	  if (localObject != null)
+
+		arrayOfIMANComponentTaskTemplate = ((IMANComponentTaskTemplateType)localObject).extentTaskTemplates(2, 0);
+
+	  if (arrayOfIMANComponentTaskTemplate != null)
+
+		if ((i = arrayOfIMANComponentTaskTemplate.length) >= 1)
+
+		  break label39;
+
+	  return;
+
+	  label39: 
+
+	  String[] arrayOfString = new String[i];
+
+	  for (int j = 0; j < i; ++j)
+
+	  {
+
+		IMANComponentTaskTemplate localIMANComponentTaskTemplate2 = (IMANComponentTaskTemplate)arrayOfIMANComponentTaskTemplate[j];
+
+		IMANComponentTaskTemplate localIMANComponentTaskTemplate1 = localIMANComponentTaskTemplate2.getRoot();
+
+		arrayOfString[j] = localIMANComponentTaskTemplate1.toString();
+
+	  }
+декомпилятор это хорошо)
+как вариант:
+
+IMANComponentItemRevision target_item_rev = (IMANComponentItemRevision)target_comp;
+
+IMANComponentTaskTemplateType task_type = (IMANComponentTaskTemplateType)session.getTypeComponent("EPMTaskTemplate");
+
+IMANComponentTaskTemplate task = task_type.find("task_template",0);
+
+
+
+int attachmentTypes[] = {1};
+
+IMANComponent process_attachements[] = {target_item_rev};
+
+IMANComponentProcessType process_type = (IMANComponentProcessType)session.getTypeComponent("Job");
+
+IMANComponentProcess process = (IMANComponentProcess)process_type.create(target_item_rev.toString(),"",task,process_attachements,attachmentTypes);
+
+///
+
+
+Wise_Owl
+Активные участники
+ 9
+101 публикация
+САПР:TC
+Опубликовано: 10 сентября 2011
+может вот этот кусок кода чем то поможет:
+
+Object localObject;
+
+   
+
+	  int i;
+
+	  IMANComponentTaskTemplate[] arrayOfIMANComponentTaskTemplate = null;
+
+	  localObject = (IMANComponentTaskTemplateType)this.session.getTypeComponent("EPMTaskTemplate");
+
+	  if (localObject != null)
+
+		arrayOfIMANComponentTaskTemplate = ((IMANComponentTaskTemplateType)localObject).extentTaskTemplates(2, 0);
+
+	  if (arrayOfIMANComponentTaskTemplate != null)
+
+		if ((i = arrayOfIMANComponentTaskTemplate.length) >= 1)
+
+		  break label39;
+
+	  return;
+
+	  label39: 
+
+	  String[] arrayOfString = new String[i];
+
+	  for (int j = 0; j < i; ++j)
+
+	  {
+
+		IMANComponentTaskTemplate localIMANComponentTaskTemplate2 = (IMANComponentTaskTemplate)arrayOfIMANComponentTaskTemplate[j];
+
+		IMANComponentTaskTemplate localIMANComponentTaskTemplate1 = localIMANComponentTaskTemplate2.getRoot();
+
+		arrayOfString[j] = localIMANComponentTaskTemplate1.toString();
+
+	  }
+
+///
+
+https://blog.csdn.net/m0_38017434/article/details/134666856?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-12-134666856-blog-135333514.235^v43^control&spm=1001.2101.3001.4242.7&utm_relevant_index=13
+
+///
+

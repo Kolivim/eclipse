@@ -1,0 +1,639 @@
+            DocumentRevision targetAttachmentDocumentRevision = targetAttachments[0] as DocumentRevision;
+ 
+            ModelObject[] objects7 = { targetAttachmentDocumentRevision };
+            string[] attributes7 =
+            {
+                "contents", "object_string", "object_name", "process_stage_list",
+                "object_properties",
+                "current_name",  "current_desc", "release_statuses",
+                "item_revision", "MEProcess", "DocumentTitle", "DocumentSubject",
+                "ps_children", "item_revision", "Fnd0RelatesToDocuments"
+            };
+            dmService.GetProperties(objects7, attributes7);
+
+///////////////////////
+
+
+m.gruber (Partner)
+
+a year ago
+Dou you still need this information?
+
+ 
+
+Understanding the "HelloTeamcenter" example project is the first step.
+
+ 
+
+Then there are some functions in "DataManagementService" like "GetItemFromAttribute" where you can pass the AttributeInfo by using "itemId=ITEMID_TO_SEARCH".
+
+//////////////////////
+
+
+m.gruber (Partner)
+
+a year ago
+Dou you still need this information?
+
+ 
+
+Understanding the "HelloTeamcenter" example project is the first step.
+
+ 
+
+Then there are some functions in "DataManagementService" like "GetItemFromAttribute" where you can pass the AttributeInfo by using "itemId=ITEMID_TO_SEARCH".
+
+//////////////////////
+
+TCComponentBOMWindowType bowWinType = (TCComponentBOMWindowType )getSession().getTypeComponent("BOMWindow"); 
+bomWin = bowWinType.create(null); // create bom window configured with the default revision rule 
+TCComponentBOMLine bl= bomWin.setWindowTopLine(_tcItem, itemRev, null, null);
+// get children if any
+if (bl.hasChildren()){
+   AIFComponentContext[] childContext = bl.getChildren();
+   for(int i = 0; i < childContext.length; i++){
+      TCComponentBOMLine child = (TCComponentBOMLine)childContext[i].getComponent();
+      TCComponentItem item = child.getItem();
+   }
+}
+
+////////////////////////
+
+TCComponent[] boms = item_revision.getRelatedComponents("structure_revisions");// get bvrs
+TCComponent[] occs = boms[0].getRelatedComponents("bvr_occurrences"); // get occurrences
+for (int i = 0; i < occs.length; i++){
+    TCComponent o = occs[i];
+    TCComponentItem item = (TCComponentItem)o.getRelatedComponent("child_item");   // get item represented by the bom line
+}
+
+////////////////////
+
+
+            Bom._2008_06.StructureManagement.BaselineInput[] input = new[] { new Bom._2008_06.StructureManagement.BaselineInput() 
+ 
+            {
+ 
+                //ClientID = Session.GenerateUniqueId(),
+ 
+                ClientID = "foo",
+ 
+                BaselineJobName = "Baseline_OPW35272_001.0002",
+ 
+                BaselineJobDescription = "CreateBaseline",
+ 
+                ItemRev = revision,
+ 
+                Dryrun = false,
+ 
+                Precise = true, 
+ 
+                ReleaseProcess = "X"
+ 
+            }};
+ 
+            Bom.StructureManagementService service = Bom.StructureManagementService.getService(Session.getConnection());
+ 
+            Bom._2008_06.StructureManagement.BaselineResponse response = service.CreateBaseline(input);
+
+******************
+
+Bom._2008_06.StructureManagement.BaselineInput[] input = new[] { new Bom._2008_06.StructureManagement.BaselineInput() 
+            {                
+                BaselineJobName = "CreateBaseline",                
+                ItemRev = itemRev,
+                Dryrun = false,
+                Precise = true, 
+                ViewType = "view",
+                RevRule = new Teamcenter.Soa.Client.Model.Strong.RevisionRule(itemRev.SoaType, itemRev.Uid),
+                ReleaseProcess = releaseProcess
+            }};
+
+////////////
+
+Hello,
+
+
+Finally found a solution !
+
+
+In the CreateConnection() Procedure :
+
+
+
+  SsoCredentials defaultsso = new SsoCredentials("https://yourssoservicelogin", "NameOfSSOService");
+            
+
+
+
+and in the LoginToServer() Procedure :
+
+
+
+ sessionSvc.LoginSSO("user","password", "", "","",sessionDiscriminator);
+                return sessionSvc.GetTCSessionInfo().User;
+
+///////////////
+
+update: found a working solution
+
+ 
+
+1) get existing table rows (DataManagementService getProperties, getPropertyObject, getModelObjectArrayValue -> toModelObjectString)
+
+2) create new row (DataManagementService createObjects, getCreatedObject -> toModelObjectString)
+
+3) DataManagementService setProperties (build VecStruct with the strings from above)////////////////////////
+
+
+///////////////////////
+
+"body": {
+        "createInputs": [
+            {
+                "clientId": "CreateObject",
+                "createData": {
+                    "boName": "ProblemReport",
+                    "compoundCreateInput": {
+                        "revision": [
+                            {
+                                "boName": "ProblemReportRevision",
+                                "propertyNameValues": {
+                                    "CMEnvironmentDescription": [
+                                        "123"
+                                    ],
+                                    "CMRamification": [
+                                        "123"
+                                    ],
+                                    "CMSequenceOfEvents": [
+                                        "123"
+                                    ],
+                                    "item_revision_id": [
+                                        "A"
+                                    ],
+                                    "object_desc": [
+                                        "The demo item"
+                                    ],
+                                    "object_name": [
+                                        "DemoItem"
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "propertyNameValues": {
+                        "object_desc": [
+                            "The demo item"
+                        ]
+                    }
+                },
+                "dataToBeRelated": {
+                },
+                "pasteProp": "",
+                "targetObject": "",
+                "workflowData": {
+                }
+            }
+        ]
+    },
+    "header": {
+ 
+         ...
+ 
+    }
+}
+
+******
+
+{
+    ".QName": "http://teamcenter.com/Schemas/Core/2008-06/DataManagement.CreateResponse",
+    "output": [
+    ],
+    "ServiceData": {
+        "modelObjects": {
+        },
+        "partialErrors": [
+            {
+                "clientId": "CreateObject",
+                "errorValues": [
+                    {
+                        "code": 38015,
+                        "level": 3,
+                        "message": "Unable to find a property with name ProblemReportRevisionCreI/CMEnvironmentDescription."
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+***
+
+ 
+
+You are trying to pass Property CMRamification while create PR but CMRamification property is not in CreateInput of PR (OOTB). This could be reason for error you are getting.
+
+you may have to update CMRamification after creation of PR (Edit and Save PR).
+
+Let me know if this helps !
+
+////
+
+
+My code, tried but the result is null [Мой код, пробовал, но результат нулевой]
+
+​ [​]
+
+com.teamcenter​.service.loose.core.DataManagementService; [com.teamcenter​.service.loose.core.DataManagementService;]
+
+com.teamcenter.soa.client.model.ModelObject; [com.teamcenter.soa.client.model.ModelObject;]
+
+​ [​]
+
+DataManagementService DMS = DataManagementService.getService(connection); [Служба управления данными DMS = Служба управления данными.getService(соединение);]
+
+DMS.getProperties(child, ​"bl_parent"); [DMS.getProperties(child, 'bl_parent');]
+
+ModelObject​ parent = child.getPropertyObject("bl_parent"). getModelObjectValue(); [Родитель ModelObject = child.getPropertyObject('bl_parent'). получитьМодельОбъектЗначения();]
+
+​
+
+​Result is null, why?
+
+///
+
+"Teamcenter.Soa.StructureManagement._2014_10.Structure.cloneStructure"
+
+///
+
+   try
+
+       {
+
+        
+
+        BusinessObjectQueryInput[] businessObjectQueryInput = new BusinessObjectQueryInput[1];
+
+        businessObjectQueryInput[0] = new BusinessObjectQueryInput();
+
+        businessObjectQueryInput[0].typeName = "Item";
+
+        businessObjectQueryInput[0].maxNumToReturn = 5;
+
+        
+
+        
+
+        
+
+        /*
+
+        //Search for all Items, returning a maximum of 25 objects
+
+           QueryInput savedQueryInput[] = new QueryInput[1];
+
+           savedQueryInput[0] = new QueryInput();
+
+           savedQueryInput[0].query = query;
+
+           savedQueryInput[0].entries = new String[1];
+
+           savedQueryInput[0].values = new String[1];
+
+           savedQueryInput[0].entries[0] = "Item Name" ;
+
+           savedQueryInput[0].values[0] = "test";
+
+           savedQueryInput[0].maxNumToReturn = 25; */
+
+           
+
+           
+
+           System.out.println(" At 1 ");
+
+           SavedQueriesResponse resp = queryService.executeBusinessObjectQueries(businessObjectQueryInput);
+
+           // SavedQueriesResponse savedQueryResult = queryService.executeBusinessObjectQueries(businessObjectQueryInput);
+
+           System.out.println(" At 2 ");
+
+           
+
+           QueryResults found = resp.arrayOfResults[0];
+
+           int length = found.objectUIDS.length;
+
+           
+
+           System.out.println("found users is -> " + length);
+
+       }
+
+       catch (Exception e)
+
+       {
+
+           System.out.println("ExecuteSavedQuery service request failed.");
+
+           System.out.println(e.getMessage());
+
+       }           
+
+   
+
+       session.logout();
+
+   }
+
+}
+
+////
+
+Link-Associate-3The SOA function com.teamcenter.services.loose.manufacturing._2012_02.DataManagement.addAssociatedContexts
+
+does not seem to work.
+
+/////
+
+com.teamcenter.services.loose.core._2007_09.DataManagement.loadObjects(java.lang.String[] uids)
+
+////
+
+Remove a BOMline with SOA [Удаление строки спецификации с помощью SOA]
+I am trying to determine how to remove a BOMline with SOA. [Я пытаюсь определить, как удалить строку спецификации с помощью SOA.] The soa calls from the Rac for this operation use a lot of internal methods. [Вызовы SOA из Rac для этой операции используют множество внутренних методов.]
+
+ 
+
+I found the Teamcenter.Services.Strong.Structuremanagement.StructureService.CutItems Method but the documentation says this will delete the item revisions as well. [Я нашел метод Teamcenter.Services.Strong.Structuremanagement.StructureService.CutItems, но в документации сказано, что это также удалит версии элемента.]
+
+ 
+
+I just want to remove them from a BOM not delete outright. [Я просто хочу удалить их из спецификации, а не удалять сразу.] In that same StructureService class there is an Add method. [В том же классе StructureService есть метод Add.] Seems odd there is not a Remove method. [Кажется странным, что нет метода Remove.]
+
+ 
+
+Thanks in advance, [Заранее спасибо,]
+
+Alexander [Александр]
+
+Teamcenter Administrators Forum
+Share
+2 answers
+432 views
+
+wangjf (Partner)
+
+2 years ago
+/**
+
+* 移除BOM子结构
+
+* 
+
+* @param parentBOMLine 父节点
+
+* @param childLines  子节点
+
+* @return boolean true:~成功；false:~失败
+
+*/
+
+public boolean removeChildBOMLine(BOMWindow bomWindow, BOMLine parentBOMLine, BOMLine[] childLines) {
+
+com.teamcenter.services.strong.bom.StructureManagementService bomService = com.teamcenter.services.strong.bom.StructureManagementService
+
+.getService(AppXSession.getConnection());
+
+RemoveChildrenFromParentLineResponse response = bomService.removeChildrenFromParentLine(childLines);
+
+ServiceData serviceData = response.serviceData;
+
+if (!serviceDataError(serviceData)) {
+
+StructureManagementService m_smService = com.teamcenter.services.strong.cad.StructureManagementService.getService(AppXSession.getConnection());
+
+/* 保存 */
+
+m_smService.saveBOMWindows(new BOMWindow[] { bomWindow });
+
+/* 关闭BOM窗口，释放资源 */
+
+m_smService.closeBOMWindows(new BOMWindow[] { bomWindow });
+
+return true;
+
+} else {
+
+return false;
+
+}
+
+}
+
+Expand Post
+
+Mahendra
+
+2 years ago
+please try this SOA API in com.teamcenter.services.strong.bom package
+
+StructureManagementService.removeChildrenFromParentLine
+
+///
+
+ /*!
+         * \brief Remove a release status for an object
+         * \param[in]  iObjectUID UID of the object
+         * \param[in]  iStatusName Name of the status
+         */
+        public void Remove_Release_Status(string iObjectUID, string iStatusName)
+        {
+            WorkflowService workflowService = WorkflowService.getService(gConnection);
+            ReleaseStatusOption[] releaseStatusOptions = new ReleaseStatusOption[1];
+            releaseStatusOptions[0] = new ReleaseStatusOption()
+            {
+                NewReleaseStatusTypeName = iStatusName,
+                Operation = "Delete"
+            };
+ 
+            WorkspaceObject[] objectsToRelease = new WorkspaceObject[1];
+            objectsToRelease[0] = GetObjectFromUID(iObjectUID) as WorkspaceObject;
+ 
+            ReleaseStatusInput[] releaseStatusInput = new ReleaseStatusInput[1];
+            releaseStatusInput[0] = new ReleaseStatusInput() { Operations = releaseStatusOptions, Objects = objectsToRelease };
+ 
+            SetReleaseStatusResponse response = workflowService.SetReleaseStatus(releaseStatusInput);
+            if (response.ServiceData.sizeOfPartialErrors() > 0)
+            {
+                ErrorStack errorStack = response.ServiceData.GetPartialError(0);
+                throw new Exception(string.Join("\n", errorStack.Messages));
+            }
+        }
+
+///
+
+  /*!
+         * \brief Get an object from its UID
+         * \param[in]  iUID  UID Of the object
+         * \return The object
+         */
+        private static ModelObject GetObjectFromUID(string iUID)
+        {
+            Core.DataManagementService DMService = Core.DataManagementService.getService(gConnection);
+            ServiceData loadObjects = DMService.LoadObjects(new string[] { iUID });
+ 
+            ModelObject itemModelObject = loadObjects.GetPlainObject(0);
+ 
+            return itemModelObject;
+        }
+
+///
+
+I assume you've already added "Teamcenter Services WSDL/SOAP Support" in INSWEB when building tc.war. Adds SOA Architecture. WS-I compliant WSDL files for all operations.
+
+ 
+
+I remember there being a JAR file that needed to be extracted to get the SOAP reference but am unable to find it now? Open the respective TcSoaservicename.jar file with your favorite Zip utility and review ‘com/Teamcenter/services/strong’ for available services.
+
+Note: C++ and C# documentation also has SOA components listed.
+
+ 
+
+Search your Tc11.4 (patch) software for soa_client.zip.
+
+ 
+
+Ref:
+
+https://docs.sw.siemens.com/en-US/doc/282219420/PL20190708094148652.plm00076/before_you_begin_services
+
+https://docs.sw.siemens.com/en-US/doc/282219420/PL20190708094148652.services_reference
+
+https://docs.sw.siemens.com/en-US/doc/282219420/PL20190708094148652.ITKFunction
+
+https://docs.sw.siemens.com/en-US/doc/282219420/PL20190708094148652.itk/id724482
+
+https://docs.sw.siemens.com/en-US/doc/282219420/PL20190708094148652.TCServerInterfaces
+
+///
+
+HowTo Show and Add customized "Occurrence Type" in Teamcenter MPP
+Many of us searching for a good example of how to add customized occurrence types.
+
+Please feel free to add more examples or add further discussions on this thread.
+
+ 
+
+I'd like to share this with this Forum coming from our documentation for administration manufacturing documentation.
+
+---------------------------------------------------------------------
+
+ 
+
+Example of how to copy and assign custom occurrence types to processes and operations
+
+ 
+
+This example shows how to add copy, paste, and assign custom occurrence types created in the Business Modeler Integrated Development Environment () to processes and operations in Manufacturing Process Planner.
+
+ 
+
+1. In the BMIDE, create new custom occurrence types for your project.
+
+Project Name Display Name Description
+
+DLDEV DL_MEPublication ME Publication Used for internal BOP product document.
+
+DLDEV DL_MEReference ME Reference Used for external BOP product and supplier documents.
+
+ 
+
+2. After deploying the template, add a new preference (for example, DL_DocumentOccTypes), containing the new custom occurrence type values DL_MEPublication and DL_MEReference.
+
+ 
+
+3. Update the preference MEDisplayOccurrenceType with the new preference values.
+
+MEProcess:Document:DL_DocumentOccTypes
+
+MEOP:Document:DL_DocumentOccTypes
+
+ 
+
+4. Update the preference MEAssignCustomizedOccurrenceType with new values.
+
+MEProcess.Document:DL_MEPublication
+
+MEProcess.Document:DL_MEReference
+
+MEOP.Document:DL_MEPublication
+
+MEOP.Document:DL_MEReference
+
+ 
+
+5. Update the preference MERelationTypePartsOtherAssigned with the new custom occurrence type values.
+
+DL_MEPublication
+
+DL_MEReference
+
+ 
+
+In Manufacturing Process Planner, when you add a new document to a process or operation, then copy it, right-click another process or operation and then select Paste As→MEReference, the item is added with the appropriate custom occurrence type, MEPublication or MEReference.
+
+---------------------------------------------------------------------
+
+///
+
+If you really need to order the stations, you could collect the data during the simulation run, get the data, order it, then set it again as custom data. [Если вам действительно нужно заказать станции, вы можете собрать данные во время моделирования, получить данные, упорядочить их, а затем снова установить в качестве пользовательских данных.]
+
+But be careful: you cannot combine automatically collected data and custom data. [Но будьте осторожны: вы не можете совмещать автоматически собранные данные и пользовательские данные.] You shouldn't try to continue the simulation after you override the collected data with custom data. [Не следует пытаться продолжить моделирование после переопределения собранных данных пользовательскими данными.]
+
+If at the end of your simulation run, you want to order the stations e.g. by name, you could use this code, with a DataTable 'MyTable': [Если в конце моделирования вы хотите упорядочить станции, например. по имени вы можете использовать этот код с DataTable «MyTable»:]
+
+GanttChart.getData(MyTable) [GanttChart.getData(MyTable)]
+
+MyTable.sort("Resource", "up") [MyTable.sort('Ресурс', 'вверх')]
+
+GanttChart.setData(MyTable) [GanttChart.setData(MyTable)]
+
+///
+
+static public EPMTaskTemplate [] AllWorkflowTemplates()
+        {
+            if (workflowTemplates == null)
+            {
+                workflowTemplates = new Dictionary<string,EPMTaskTemplate>();
+            
+                Workflow.WorkflowService service = Workflow.WorkflowService.getService(Session.getConnection());
+                Workflow._2008_06.Workflow.Templates response = service.GetWorkflowTemplates(new WorkspaceObject[] { null }, "SOA_EPM_All");
+                Utilities.LoadProperties(response.WorkflowTemplates, "object_string");
+                foreach (EPMTaskTemplate t in response.WorkflowTemplates)
+                    workflowTemplates[t.Object_string] = t;
+            }
+            return workflowTemplates.Values.ToArray();
+ 
+        }
+
+///
+
+ 
+
+I'm not a Teamcenter user but I found some info about "pack" and "unpack" BOM line in Structure Manager.
+
+ 
+
+https://community.sw.siemens.com/s/question/0D54O000061xTRzSAM/tce-multi-level-structure-manager-bom-need-to-pack-the-child-components
+
+ 
+
+HTH,
+
+ 
+
+ 
+
+Michel
+
+///
